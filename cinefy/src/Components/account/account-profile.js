@@ -7,18 +7,21 @@ import {
   CardContent,
   Divider,
   Typography
-} from '@mui/material';
+} from '@mui/material'; 
+import { useSelector } from 'react-redux';
 
-const user = {
-  avatar: '/assets/avatars/avatar-anika-visser.png',
-  city: 'Los Angeles',
-  country: 'USA',
-  jobTitle: 'Senior Developer',
-  name: 'Anika Visser',
-  timezone: 'GTM-7'
-};
-
-const AccountProfile = () => (
+const AccountProfile = () =>{
+  const data = useSelector((store) => store.data.user);
+  console.log(data);
+  const user = {
+    avatar: data?.imageUrl ?? '/assets/avatars/avatar-anika-visser.png',
+    city: 'Los Angeles',
+    country: 'USA',
+    jobTitle: 'Senior Developer',
+    name: data?.name ?? 'User',
+    timezone: 'GTM-7' 
+  }; 
+ return (
   <Card>
     <CardContent>
       <Box
@@ -66,5 +69,5 @@ const AccountProfile = () => (
       </Button>
     </CardActions>
   </Card>
-);
+)}
 export default AccountProfile 

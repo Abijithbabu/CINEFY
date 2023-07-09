@@ -1,9 +1,12 @@
+import { useSelector } from 'react-redux';
 import AccountProfile from '../Components/account/account-profile'
 import { AccountProfileDetails } from '../Components/account/account-profile-details';
 import { Layout as DashboardLayout } from '../Layouts/dashboard/layout';
 import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 
 const Account = () => {
+  const { data } = useSelector((store) => store);
+  console.log(data);
 
   return (
     <DashboardLayout>
@@ -14,11 +17,12 @@ const Account = () => {
             py: 8
           }}
         >
-          <Container maxWidth="lg">
+          <Container maxWidth="lg"> 
             <Stack spacing={3}>
               <div>
                 <Typography variant="h4">
-                  Account
+                
+
                 </Typography>
               </div>
               <div>

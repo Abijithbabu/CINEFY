@@ -1,22 +1,20 @@
 import { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-// import { useRouter } from 'next/navigation';
 import PropTypes from 'prop-types';
 import { Box, Divider, MenuItem, MenuList, Popover, Typography } from '@mui/material';
-import { useAuth } from '../../hooks/use-auth';
+import { signOut } from '../../redux/action';
+import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const AccountPopover = (props) => {
   const { anchorEl, onClose, open } = props;
-  // const navigate = useNavigate();
-  const auth = useAuth();
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const data = useSelector((store) => store.data.user);
   const handleSignOut = useCallback(
     () => {
-      onClose?.();
-      auth.signOut(); 
-      // navigate('/auth/login');
+      signOut(dispatch) ;
     }, 
-    [onClose, auth]
+    [onClose]
   );
 
   return (
@@ -43,7 +41,7 @@ export const AccountPopover = (props) => {
           color="text.secondary"
           variant="body2"
         >
-          Anika Visser
+          {data?.name ?? 'user'}
         </Typography>
       </Box>
       <Divider />
@@ -57,9 +55,12 @@ export const AccountPopover = (props) => {
           }
         }}
       >
-        <MenuItem onClick={handleSignOut}>
+       {data?(<MenuItem onClick={handleSignOut}>
           Sign out
-        </MenuItem>
+        </MenuItem>):
+        <MenuItem onClick={()=>navigate('/login')}>
+        Sign in
+      </MenuItem>} 
       </MenuList>
     </Popover>
   );

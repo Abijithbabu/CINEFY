@@ -1,4 +1,3 @@
-import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ArrowTopRightOnSquareIcon from '@heroicons/react/24/solid/ArrowTopRightOnSquareIcon';
 import ChevronUpDownIcon from '@heroicons/react/24/solid/ChevronUpDownIcon';
@@ -10,10 +9,9 @@ import {
   Stack,
   SvgIcon,
   Typography,
-  useMediaQuery
 } from '@mui/material';
-import { Logo } from '../../Components/dashboard/components/logo';
-import { Scrollbar } from '../../Components/dashboard/components/scrollbar'; 
+// import { Logo } from '../../Components/dashboard/components/logo';
+// import { Scrollbar } from '../../Components/dashboard/components/scrollbar'; 
 import { items } from './config'; 
 import { SideNavItem } from './side-nav-item'; 
 
@@ -24,17 +22,7 @@ export const SideNav = (props) => {
   // const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
   const lgUp = true
   const content = (
-    <Scrollbar
-      sx={{
-        height: '50%',
-        '& .simplebar-content': {
-          height: '100%'
-        },
-        '& .simplebar-scrollbar:before': {
-          background: 'neutral.400'
-        }
-      }}
-    >
+
       <Box
         sx={{
           display: 'flex',
@@ -114,7 +102,7 @@ export const SideNav = (props) => {
             }}
           >
             {items.map((item) => {
-              const active = item.path ? (item.path === item.path) : false;
+              const active = item.path ? (item.path === '/') : false; 
 
               return (
                 <SideNavItem
@@ -182,7 +170,6 @@ export const SideNav = (props) => {
           </Button>
         </Box>
       </Box>
-    </Scrollbar>
   );
 
   if (lgUp) {
