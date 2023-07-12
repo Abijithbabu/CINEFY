@@ -18,7 +18,7 @@ const Page = () => {
   const formik = useFormik({
     initialValues: {
       email: 'demo@cinefy.io',
-      password: 'passwird123',
+      password: 'password123',
       submit: null
     },
     validationSchema: Yup.object({
@@ -152,9 +152,7 @@ const Page = () => {
                     value={formik.values.password}
                   />
                 </Stack>
-                <FormHelperText sx={{ mt: 1 }}>
-                  Optionally you can skip.
-                </FormHelperText>
+           
                 {formik.errors.submit && (
                   <Typography
                     color="error"
@@ -164,6 +162,21 @@ const Page = () => {
                     {formik.errors.submit}
                   </Typography>
                 )}
+                <Typography
+                sx={{ mt: 3 }}
+                color="text.secondary"
+                variant="body2"
+              >
+                Forgot your Password ?
+                &nbsp;
+                <Link
+                  to="/resetPassword"
+                  style={{ textDecoration: 'none', color: '#1976D2' }}
+                  className="link"
+                >
+                  Reset Password
+                </Link>
+              </Typography>
                 <Button
                   fullWidth
                   size="large"

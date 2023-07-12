@@ -1,5 +1,6 @@
 const User = require('../model/User')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
 const OTP = require('../middleware/otpValidation')
 require("dotenv").config();
 let otp
@@ -61,26 +62,26 @@ const login = async (req, res) => {
     expiresIn: 8600
   })
   console.log("token send", token)
-  res.cookie("token", token, {
+
+  console.log(res.get('Set-Cookie'));
+
+  return res.status(200).cookie("token", token, {
     path: '/',
     expires: new Date(Date.now() + 1000 * 60 * 60), // 1 hour expiration
     httpOnly: true,
     sameSite: 'lax',
-  });
-  console.log(res.get('Set-Cookie'));
-
-  return res.status(200).json({
+  }).json({
     message: "Successfully Logged in",
     user: existingUser, token
   })
 }
 
 const getUser = async (req, res) => {
-  const userId = req.id
+  console.log(req.query.email);
   let user;
 
   try {
-    user = await User.findById(userId, '-password')
+    user = await User.findOne({email:req.query.email})
     console.log(user)
   } catch (error) {
     return new Error(error)
@@ -91,6 +92,26 @@ const getUser = async (req, res) => {
 
   return res.status(200).json({ user })
 }
+
+const resetPassword = async (req, res) => {
+  const {_id , password} = req.body
+  console.log(req.body);
+  let user;
+  const salt = await bcrypt.genSalt(10);
+  const newPassword = await bcrypt.hash(password, salt);
+  try {
+    user = await User.updateOne({_id},{$set:{password:newPassword}})
+    console.log(user)
+  } catch (error) {
+    return new Error(error)
+  }
+  if (!user) {
+    return res.status(404).json({ message: "User not found" })
+  }
+
+  return res.status(200).json({ user })
+}
+
 const updateProfile = async (req, res) => {
   try {
     if (!req.file) {
@@ -143,6 +164,7 @@ module.exports = {
   signup,
   login,
   getUser,
+  resetPassword,
   updateProfile,
   logout
 }
