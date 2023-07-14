@@ -54,7 +54,14 @@ const Content = styled(Typography)({
 
 const Banner = () => {
   return (
-   <Box style={{ margin: '30px 170px 0 ' }}>
+    <Box
+    component="main"
+    sx={{
+      flexGrow: 1,
+      py: 8
+    }}
+  >
+    <Container maxWidth="xl">
     <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)',gap:"1" }}  >
       <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }} display="flex" flexDirection="column" alignItems="center" justifyContent="center" width={662}>
         <Box sx={{ display: 'grid', gridTemplateRows: 'repeat(3, 1fr)' }} display="flex " alignItems="center" justifyContent="center">
@@ -85,7 +92,8 @@ const Banner = () => {
         <Subheading sx={{marginTop:'100px'}}>Have any questions? Contact us!</Subheading>
       </Box>
     </Box>
-    </Box> 
+    </Container>
+    </Box>
   );
 };
 

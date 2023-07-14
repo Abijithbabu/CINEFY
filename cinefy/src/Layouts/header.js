@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux'
 const Header = () => {
     const accountPopover = usePopover()
     const navigate = useNavigate()
-    const [method , setMethod] = useState('home')
+    const [method , setMethod] = useState(window.location.pathname)
     const [visibleMenu, setVisibleMenu] = useState(false)
     const { breakpoints } = useTheme()
     const matchMobileView = useMediaQuery(breakpoints.down('md'))
@@ -23,8 +23,9 @@ const Header = () => {
     const handleMethodChange = useCallback(
         (event, value) => {
           setMethod(value);
+          navigate(value)
         },
-        [] 
+        []  
       )
     return (
         <Box sx={{ backgroundColor: 'background.paper' }}>
@@ -73,19 +74,19 @@ const Header = () => {
             >
               <Tab
                 label="Home"
-                value="home"
+                value="/"
               />
               <Tab
                 label="Find Jobs"
-                value="jobs"
+                value="/findJobs"
               />
               <Tab
                 label="About"
-                value="about"
+                value="/about"
               />
               <Tab
                 label="Contact us"
-                value="contact"
+                value="/contact"
               />
             </Tabs>
                         </Box>
