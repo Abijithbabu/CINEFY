@@ -7,9 +7,10 @@ import { useTheme } from '@mui/material/styles'
 import { Menu, Close } from '@mui/icons-material'
 import { Typography, Button, Avatar, Tab, Tabs } from '@mui/material'
 import { useNavigate } from 'react-router'
-import { usePopover } from '../hooks/use-popover';
-import { AccountPopover } from './dashboard/account-popover'
+import { usePopover } from '../../hooks/use-popover';
+import { AccountPopover } from '../dashboard/account-popover'
 import { useSelector } from 'react-redux'
+import Navigation from './navigation'
 
 const Header = () => {
     const accountPopover = usePopover()
@@ -20,13 +21,7 @@ const Header = () => {
     const matchMobileView = useMediaQuery(breakpoints.down('md'))
     const variant = 'primary'
     const data = useSelector((store) => store.data.user);
-    const handleMethodChange = useCallback(
-        (event, value) => {
-          setMethod(value);
-          navigate(value)
-        },
-        []  
-      )
+
     return (
         <Box sx={{ backgroundColor: 'background.paper' }}>
             <Container sx={{ py: { xs: 2, md: 3 } }}>
@@ -65,31 +60,9 @@ const Header = () => {
                             }),
                         }}
                     >
-                        <Box /> {/* Magic space */}
-                        <Box >
-                        <Tabs
-              onChange={handleMethodChange}
-              sx={{ mb: 3 }}
-              value={method}
-            >
-              <Tab
-                label="Home"
-                value="/"
-              />
-              <Tab
-                label="Find Jobs"
-                value="/findJobs"
-              />
-              <Tab
-                label="About"
-                value="/about"
-              />
-              <Tab
-                label="Contact us"
-                value="/contact"
-              />
-            </Tabs>
-                        </Box>
+                       <Box /> {/* Magic space */}
+            <Navigation />
+            {/* <AuthNavigation /> */}
                         {data ? (<> 
                         {data.type=="admin"&&(
                         

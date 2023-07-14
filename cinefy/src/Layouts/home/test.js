@@ -65,7 +65,7 @@ const Banner = () => {
     <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)',gap:"1" }}  >
       <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }} display="flex" flexDirection="column" alignItems="center" justifyContent="center" width={662}>
         <Box sx={{ display: 'grid', gridTemplateRows: 'repeat(3, 1fr)' }} display="flex " alignItems="center" justifyContent="center">
-          <ImageSlot $delay={1.2} sx={{borderRadius: '100px 0 0 0'}} $width="166px" $height="166px" $background="url(',.artisto.jpg'), lightgray 50% / cover no-repeat" />
+          <ImageSlot $delay={1.2} sx={{borderRadius: '100px 0 0 0'}} $width="166px" $height="166px" $background="url('artisto.jpg'), lightgray 50% / cover no-repeat" />
           <ImageSlot $delay={0.4} sx={{borderRadius: '0px 0 0 50px'}} $width="114px"$height="114px" $background="url(<path-to-image>), lightgray -105.669px 0px / 191.083% 100% no-repeat"/>
           <ImageSlot $delay={0.6} sx={{borderRadius: '0 0 0 90px'}} $width="142px" $height="142px" $background="url(<path-to-image>), lightgray 50% / cover no-repeat" />
         </Box>
@@ -83,7 +83,8 @@ const Banner = () => {
         <Heading>Artisto Club</Heading>
         
         <Content>
-        Ever dream of being a star, then you are in the right place. Artistoclub is an exclusive platform where you as an artist, whether it is an actor, director, writer, singer, editor, choreographer, etc. can find loads of genuine opportunities in multimedia and can apply for it securely. The platform supports you in all the ways to achieve your dream and passion        </Content>
+        Ever dream of being a star, then you are in the right place. Artistoclub is an exclusive platform where you as an artist, whether it is an actor, director, writer, singer, editor, choreographer, etc. can find loads of genuine opportunities in multimedia and can apply for it securely. The platform supports you in all the ways to achieve your dream and passion
+    </Content>
         <Line/>
         <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',gap: '10px',marginTop:'15px' }}>
           <Button variant="contained">Contained</Button>
