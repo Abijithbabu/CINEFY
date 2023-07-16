@@ -13,12 +13,12 @@ const Navigation = () => {
           path: '/findJobs', // '/popular-course',
         },
         {
-          label: 'About',
-          path: '/about', // '/testimonial',
+          label: 'Blogs',
+          path: '/blogs', // '/mentors',
         },
         {
-          label: 'Contact',
-          path: '/contact', // '/mentors',
+          label: 'About',
+          path: '/about', // '/testimonial',
         },
       ]
   return (
