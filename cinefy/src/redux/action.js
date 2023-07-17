@@ -2,7 +2,7 @@ import axios from "axios";
 import { Store } from 'react-notifications-component';
 
 const baseURL = "http://localhost:5000";
-const Axios = axios.create({
+export const Axios = axios.create({
   baseURL: baseURL,
 });
 const notification = {
@@ -143,5 +143,45 @@ export const signOut = async(dispatch)=>{
       })
       console.log(err?.response?.data?.message || err.message);
       return false
+  } 
+} 
+ 
+export const createPost = async(data)=>{
+  try {
+    const res = await Axios.post(`/api/createPost`, data)
+    if(res.data){
+      Store.addNotification({
+        ...notification, 
+        message :res.data.message,
+        title:'Success',
+        type:'success'
+      })
+      return res.data.message
+    }
+    return false
+  } catch(err){ 
+    Store.addNotification({
+      ...notification, 
+      message :err?.response?.data?.message || err.message
+    })
+    console.log(err?.response?.data?.message || err.message);
+    return false
+  } 
+} 
+
+export const getPosts = async()=>{
+  try {
+    const res = await Axios.get(`/api/getPosts`)
+    if(res.data){
+      return res.data
+    }
+    return []
+  } catch(err){ 
+    Store.addNotification({
+      ...notification, 
+      message :err?.response?.data?.message || err.message
+    })
+    console.log(err?.response?.data?.message || err.message);
+    return false
   } 
 } 

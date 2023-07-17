@@ -25,10 +25,12 @@ export default function DraggableDialog() {
 
   const handleClickOpen = () => {
     setOpen(true);
-  };
+  }; 
 
   const handleClose = () => {
-    setOpen(false);
+    if(prompt("Warning ! changes you've made will be lost and cannot be restored ")){
+      setOpen(false);
+    }
   };
 
   return (
@@ -45,17 +47,11 @@ export default function DraggableDialog() {
         <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
           Create Post
         </DialogTitle>
-        <DialogContent>
+        <DialogContent >
           <DialogContentText>
             <Stepper/>
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            Cancel
-          </Button> 
-          <Button onClick={handleClose}>Subscribe</Button>
-        </DialogActions>
       </Dialog>
     </div>
   );

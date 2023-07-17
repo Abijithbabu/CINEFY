@@ -1,5 +1,5 @@
 const express = require('express')
-const { signup, login, getUser, logout, resetPassword, updateProfile , sendOtp } = require('../controllers/user-controller')
+const { signup, login, getUser, logout, resetPassword, updateProfile , sendOtp, createPost, getPost } = require('../controllers/user-controller')
 const { verifyToken } = require('../middleware/authMiddleware')
 const router = express.Router()
 const {upload} = require('../middleware/multer')
@@ -11,4 +11,6 @@ router.post('/logout',verifyToken,logout)
 router.patch('/resetPassword', resetPassword)
 router.patch('/update',verifyToken,upload.single('image'),updateProfile)
 
+router.post('/createPost',createPost) 
+router.get('/getPosts',getPost)
 module.exports = router  

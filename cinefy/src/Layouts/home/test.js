@@ -9,7 +9,7 @@ const Tainer = styled(Box)({
 })
 //banner main div's
 const RightContainer = styled(Box)({
-  margin: '50px 40px 0',
+  padding: '50px 40px 0',
   gap:'1',
   width: "400px",
   alignItems:'right',
