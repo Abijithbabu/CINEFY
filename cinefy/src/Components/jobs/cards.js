@@ -6,19 +6,23 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
+import ShareIcon from "@mui/icons-material/Share";
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
+import IconArrowForward from "@mui/icons-material/ArrowForward";
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { getPosts } from '../../redux/action';
+import { IconButton } from '@mui/material';
 
 function Copyright() {
-  return (
+  return ( 
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
@@ -34,26 +38,30 @@ function Copyright() {
 const defaultTheme = createTheme();
 
 export default function Album() { 
-  const [data,setData] = React.useState([])
+  const [data,setData] = React.useState([''])
   React.useEffect(() => {
-    const fetchData = async()=> { 
-      await getPosts().then(res=>setData(res)) 
-    }
-    fetchData()
+try {
+  const fetchData = async()=> { 
+    await getPosts().then(res=>res && setData(res)) 
+  }
+  fetchData()
+} catch (error) { 
+  console.log(error.message);
+}
 
   }, [])
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <AppBar position="relative">
+      {/* <AppBar position="relative"> */}
         <Toolbar>
           <CameraIcon sx={{ mr: 2 }} />
           <Typography variant="h6" color="inherit" noWrap>
             Album layout
           </Typography>
         </Toolbar>
-      </AppBar>
+      {/* </AppBar> */}
       <main>
         {/* Hero unit */}
         <Box
@@ -103,7 +111,7 @@ export default function Album() {
                       // 16:9
                       pt: '56.25%',
                     }}
-                    image={card.image} 
+                  image={`http://localhost:5000/${card.image}`} 
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
@@ -113,10 +121,21 @@ export default function Album() {
                       {card.shortdescription}
                     </Typography>
                   </CardContent>
-                  <CardActions>
-                    <Button size="small">View</Button>
-                    <Button size="small">Edit</Button>
-                  </CardActions>
+                  <CardActions
+              sx={{ display: "flex", justifyContent: "space-between" }}
+            >
+              <div>
+                <IconButton aria-label="add to favorites">
+                  <BookmarksIcon />
+                </IconButton>
+                <IconButton aria-label="share">
+                  <ShareIcon />
+                </IconButton>
+              </div>
+              <IconButton aria-label="arrow forward">
+                <IconArrowForward sx={{ fontSize: 22 }} />
+              </IconButton>
+            </CardActions>
                 </Card>
               </Grid>
             ))}

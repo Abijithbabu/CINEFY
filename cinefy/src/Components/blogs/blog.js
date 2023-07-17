@@ -108,7 +108,7 @@ export default function Blog() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <Container maxWidth="lg">
+      <Container sx={{mt:15}} maxWidth="lg">
         {/* <Header title="Blog" sections={sections} /> */}
         {/* <main> */}
           <MainFeaturedPost post={mainFeaturedPost} />

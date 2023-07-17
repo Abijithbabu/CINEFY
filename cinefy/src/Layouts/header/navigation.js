@@ -2,15 +2,15 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import { Link } from 'react-router-dom'
 
-const Navigation = () => {
+const Navigation = ({data}) => {
     const navigations = [
         {
           label: 'Home',
           path: '/', // '/',
         },
         {
-          label: 'Find Jobs',
-          path: '/findJobs', // '/popular-course',
+          label: data?.type === 'recruiter' ?'Posts': 'Find Jobs',
+          path: data?.type === 'recruiter' ?'': '/findJobs',
         },
         {
           label: 'Blogs',

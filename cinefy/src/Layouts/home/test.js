@@ -14,7 +14,7 @@ const RightContainer = styled(Box)({
   width: "400px",
   alignItems:'right',
   float: 'right',
-  background: 'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7937853107344632) 33%, rgba(255,255,255,1) 70%)',
+  background: 'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7937853107344632) 33%, #f7f7f7)',
 })
 const LeftContainer = styled(Box)({
   width :'464',
@@ -85,7 +85,7 @@ const BtnContainer = styled(Box)({
 
 const Banner = () => {
   return (
-    <Container >
+    <Container sx={{mt:14}} > 
       <Tainer>  
         <RightContainer position='relative' zIndex={0}>
           <Heading>Artisto Club</Heading>

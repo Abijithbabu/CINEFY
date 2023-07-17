@@ -23,10 +23,19 @@ const Header = () => {
   const data = useSelector((store) => store.data.user);
 
   return (
-    <Box sx={{ backgroundColor: "#19184f" }}>
+    <Box sx={{
+      backdropFilter: "blur(5px)",
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      padding:0,
+      zIndex: 1000,
+    }}>
       <Container sx={{ py: { xs: 2, md: 3 } }}>
-        <Box
+        <Box position={'relative'}
           sx={{
+
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -37,10 +46,10 @@ const Header = () => {
               component="img"
               src="navBarLogo.png"
               alt="Image description"
-              width={290}
-              height={70}
+              width={260}
+              height={60}
             />
-            
+
             {/* <Typography
               variant="h4"
               component="h1"
@@ -80,7 +89,7 @@ const Header = () => {
             }}
           >
             <Box /> {/* Magic space */}
-            <Navigation />
+            <Navigation data={data} />
             {/* <AuthNavigation /> */}
             {data ? (
               <>
@@ -91,8 +100,8 @@ const Header = () => {
                   >
                     GO TO ADMIN CONSOLE
                   </Button>
-                ):(
-                  <CreateJob/>
+                ) : (
+                  data?.type === "recruiter" && <CreateJob />
                 )}
                 <Avatar
                   onClick={accountPopover.handleOpen}

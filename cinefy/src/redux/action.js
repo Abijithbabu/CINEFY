@@ -175,7 +175,6 @@ export const getPosts = async()=>{
     if(res.data){
       return res.data
     }
-    return []
   } catch(err){ 
     Store.addNotification({
       ...notification, 

@@ -166,8 +166,13 @@ const createPost = async (req, res) => {
   console.log(details);
  
   try {
+    if (!req.file) {
+      return res.json({ error: 'Image is required' });
+    }
+    const filepath = req.file.path.replace(/\\/g, '/').slice(7);
     const post = new CastingCall({
-       ...details
+       ...details,
+       image:filepath
     })
     await post.save()
     if (!post) {

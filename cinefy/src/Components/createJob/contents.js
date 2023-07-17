@@ -44,22 +44,32 @@ const defaultTheme = createTheme({
 export default function Checkout() {
   const InitState = {
     roles: ["Actress", "Actor", "Junior Artist"],
+    title:'',
+    shortdescription:''
   };
   const [activeStep, setActiveStep] = React.useState(0);
   const [data, setData] = React.useState(InitState);
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
+    setActiveStep(activeStep + 1); 
   };
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
-  function getStepContent(step) {
-    console.log(step);
-    if (step === 3) {
-      console.log(data);
-      createPost(data);
+
+  const handleSubmit = () => {
+    const formData = new FormData();
+    for (const key in data) {
+      if (data.hasOwnProperty(key) && key !== "image") {
+        formData.append(key, data[key]);
+      }
     }
+    formData.append("image", data.image, data?.image?.name);
+    createPost(formData);
+    handleNext()
+  };
+
+  function getStepContent(step) {
     switch (step) {
       case 0:
         return <Step1 data={data} dispatch={setData} />;
@@ -80,7 +90,7 @@ export default function Checkout() {
           </React.Fragment>
         );
       default:
-        throw new Error("Unknown step");
+        throw new Error("Unknown step"); 
     }
   }
   return (
@@ -110,21 +120,32 @@ export default function Checkout() {
           <Box sx={{ mt: 4 }}>
             <React.Fragment>
               {getStepContent(activeStep)}
-              <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                {activeStep !== 0 && (
-                  <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                    Back
-                  </Button>
-                )}
-
-                <Button
-                  variant="contained"
-                  onClick={handleNext}
-                  sx={{ mt: 3, ml: 1 }}
-                >
-                  {activeStep === steps.length - 1 ? "Publish" : "Next"}
-                </Button>
-              </Box>
+              {activeStep !== 3 && (
+                <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                  {activeStep !== 0 && (
+                    <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+                      Back
+                    </Button>
+                  )}
+                  {activeStep === steps.length - 1 ? (
+                    <Button
+                      variant="contained"
+                      onClick={handleSubmit}
+                      sx={{ mt: 3, ml: 1 }}
+                    >
+                      Publish
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      onClick={handleNext}
+                      sx={{ mt: 3, ml: 1 }}
+                    >
+                      Next
+                    </Button>
+                  )}
+                </Box>
+              )}
             </React.Fragment>
           </Box>
         </Paper>

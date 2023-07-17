@@ -11,6 +11,6 @@ router.post('/logout',verifyToken,logout)
 router.patch('/resetPassword', resetPassword)
 router.patch('/update',verifyToken,upload.single('image'),updateProfile)
 
-router.post('/createPost',createPost) 
+router.post('/createPost',upload.single('image'),createPost) 
 router.get('/getPosts',getPost)
 module.exports = router  

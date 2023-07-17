@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 
-export default function AddressForm({data}) {
+export default function AddressForm({ data }) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -25,21 +25,22 @@ export default function AddressForm({data}) {
           <Card
             sx={{ height: "100%", display: "flex", flexDirection: "column" }}
           >
-            <CardMedia
-              component="div"
-              sx={{
-                16: 9,
-                pt: "56.25%",
-              }}
-              image={data.image}
-            />
+            {data.image && (
+              <CardMedia
+                component="div"
+                sx={{
+                  16: 9,
+                  pt: "56.25%",
+                }}
+                image={URL.createObjectURL(data.image)}
+              />
+            )}
             <CardContent sx={{ flexGrow: 1 }}>
               <Typography gutterBottom variant="h5" component="h2">
-                Heading
+                {data?.title}
               </Typography>
               <Typography>
-                This is a media card. You can use this section to describe the
-                content.
+                {data?.shortdescription}
               </Typography>
             </CardContent>
             <CardActions
@@ -62,7 +63,9 @@ export default function AddressForm({data}) {
 
         <Grid item xs={12}>
           <FormControlLabel
-            control={<Checkbox checked color="primary" name="terms" value="yes" />}
+            control={
+              <Checkbox checked color="primary" name="terms" value="yes" />
+            }
             label="I have read and accepted all the Terms and Conditions "
           />
         </Grid>

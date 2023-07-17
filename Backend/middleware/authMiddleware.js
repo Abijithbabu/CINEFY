@@ -23,7 +23,8 @@ console.log('token get',token)
     next();
   });
 };
-
+ 
 module.exports = {
   verifyToken,
 };
+ 

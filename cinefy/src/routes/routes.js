@@ -6,7 +6,7 @@ import Home from '../pages/home'
 import ResetPassword from '../pages/resetPassword';
 import Jobs from '../pages/jobs'
 import Blogs from '../pages/blogs'
-
+import Profile from '../pages/profile';
 function routes() {
   return (
     <Routes>
@@ -17,9 +17,10 @@ function routes() {
     <Route path='/findJobs' element={<Jobs/>} />
     <Route path='/blogs' element={<Blogs/>} />
     <Route path='/account' element={<Account/>} />
+    <Route path='/profile' element={<Profile/>} />
   </Routes>
   )
-}
+} 
  
 export default routes
   

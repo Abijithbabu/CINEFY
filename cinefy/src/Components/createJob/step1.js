@@ -5,25 +5,24 @@ import TextField from "@mui/material/TextField";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { Alert, Box } from "@mui/material";
 
-export default function AddressForm({data,dispatch}) {
-
+export default function AddressForm({ data, dispatch }) {
   const fileInputRef = React.useRef(null);
   const handleFileSelect = () => {
     fileInputRef.current.click();
   };
 
   const handleFileChange = (event) => {
-    const file = URL.createObjectURL(event.target.files[0])
-    dispatch({...data,image:file})
+    const file = event.target.files[0];
+    dispatch({ ...data, image: file });
   };
 
-  const handleChange = (e)=>{
-    dispatch({...data,[e.target.name]:e.target.value})
-  }
+  const handleChange = (e) => {
+    dispatch({ ...data, [e.target.name]: e.target.value });
+  };
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Basic Details 
+        Basic Details
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
@@ -85,29 +84,34 @@ export default function AddressForm({data,dispatch}) {
             }}
             onClick={handleFileSelect}
           >
-{data?.image?<img style={{width:240,height:135,padding:22}} src={data.image} />:(   
-    <React.Fragment>
-  <AddAPhotoIcon />
-  <Typography sx={{ mt: 1, fontSize: 13 }}>
-    Upload Thumbnail
-  </Typography>
-
-  </React.Fragment>
-       )}
-         <input
-    ref={fileInputRef}
-    type="file"
-    style={{ display: "none" }}
-    onChange={handleFileChange}
-  />
+            {data?.image ? (
+              <img
+                style={{ width: 240, height: 135, padding: 22 }}
+                src={URL.createObjectURL(data.image)}
+              />
+            ) : (
+              <React.Fragment>
+                <AddAPhotoIcon />
+                <Typography sx={{ mt: 1, fontSize: 13 }}>
+                  Upload Thumbnail
+                </Typography>
+              </React.Fragment>
+            )}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+            />
           </Box>
         </Grid>
         <Alert color="primary" severity="info" sx={{ mt: 3, fontSize: 13 }}>
-            <ul style={{ margin: "0", padding: "0" }}>
-              <li> Make your thumbnail 1280 by 720 pixels (16:9 ratio)</li>
-              <li>Ensure that your thumbnail is less than 2MB</li>
-              <li>Use a JPG, PNG, or JPEG file format</li>
-            </ul>
+          <ul style={{ margin: "0", padding: "0" }}>
+            <li> Make your thumbnail 1280 by 720 pixels (16:9 ratio)</li>
+            <li>Ensure that your thumbnail is less than 2MB</li>
+            <li>Use a JPG, PNG, or JPEG file format</li>
+          </ul>
         </Alert>
         <Grid item xs={12}></Grid>
       </Grid>
