@@ -1,16 +1,16 @@
 import React from 'react'
+import Profile from '../Components/profile/firstpage'
 import Header from '../Layouts/header/header'
 import Footer from '../Layouts/footer/footer'
-import Album from '../Components/jobs/cards'
 
-function jobs() {
+const profile = () => {
   return (
     <>
-      <Header/>
-      <Album/>
+    <Header/>
+      <Profile/>
       <Footer/>
     </>
   )
 }
 
-export default jobs
+export default profile 

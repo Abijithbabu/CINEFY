@@ -1,4 +1,5 @@
 const User = require('../model/User')
+const CastingCall = require('../model/CastingCall')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const OTP = require('../middleware/otpValidation')
@@ -159,6 +160,44 @@ const logout = async (req, res) => {
   });
 }
 
+
+const createPost = async (req, res) => {
+  const {...details} = req.body
+  console.log(details);
+ 
+  try {
+    if (!req.file) {
+      return res.json({ error: 'Image is required' });
+    }
+    const filepath = req.file.path.replace(/\\/g, '/').slice(7);
+    const post = new CastingCall({
+       ...details,
+       image:filepath
+    })
+    await post.save()
+    if (!post) {
+      return res.status(404).json({ message: "Something Went Wrong !" })
+    }
+  
+    return res.status(200).json({ message: "Casting Call Saved Successfully !" })
+  } catch (error) {
+    return new Error(error)
+  }
+}
+
+const getPost = async (req, res) => {
+  try {
+    const post = await CastingCall.find()
+    if (!post) {
+      return res.status(404).json({ message: "Something Went Wrong !" })
+    }
+  
+    return res.status(200).json(post)
+  } catch (error) {
+    return new Error(error)
+  }
+}
+
 module.exports = {
   sendOtp,
   signup,
@@ -166,5 +205,7 @@ module.exports = {
   getUser,
   resetPassword,
   updateProfile,
-  logout
+  logout,
+  createPost,
+  getPost
 }

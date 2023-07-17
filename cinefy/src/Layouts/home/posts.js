@@ -1,145 +1,179 @@
-import ArrowUpOnSquareIcon from '@heroicons/react/24/solid/ArrowUpOnSquareIcon';
-import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIcon';
-import PlusIcon from '@heroicons/react/24/solid/PlusIcon';
-import {
-  Box,
-  Button,
-  Container,
-  Pagination,
-  Stack,
-  SvgIcon,
-  Typography,
-  Unstable_Grid2 as Grid
-} from '@mui/material';
-import { CompanyCard } from '../../../src/Components/companies/company-card';
-import { CompaniesSearch } from '../../../src/Components/companies/companies-search';
-
-const companies = [
+import React from 'react';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Slider from 'react-slick';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import { useTheme, styled } from '@mui/material/styles';
+import { IconButton, useMediaQuery } from '@mui/material';
+import IconArrowBack from '@mui/icons-material/ArrowBack';
+import IconArrowForward from '@mui/icons-material/ArrowForward';
+import FeaturedCard from '../../Components/home/featuredCard';
+const data = [
   {
-    id: '2569ce0d517a7f06d3ea1f24',
-    createdAt: '27/03/2019',
-    description: 'Dropbox is a file hosting service that offers cloud storage, file synchronization, a personal cloud.',
-    logo: '/logos/logo-dropbox.png',
-    title: 'Dropbox',
-    downloads: '594'
+    id: 1,
+    cover: 'https://source.unsplash.com/random?wallpapers',
+    title: 'Android Development from Zeo to Hero',
+    rating: 5,
+    ratingCount: 8,
+    price: 25,
+    category: 'Beginner',
   },
   {
-    id: 'ed2b900870ceba72d203ec15',
-    createdAt: '31/03/2019',
-    description: 'Medium is an online publishing platform developed by Evan Williams, and launched in August 2012.',
-    logo: '/logos/logo-medium.png',
-    title: 'Medium Corporation',
-    downloads: '625'
+    id: 2,
+    cover: 'https://source.unsplash.com/random?wallpapers',
+    title: 'UI/UX Complete Guide',
+    rating: 5,
+    ratingCount: 15,
+    price: 20,
+    category: 'Intermediate',
   },
   {
-    id: 'a033e38768c82fca90df3db7',
-    createdAt: '03/04/2019',
-    description: 'Slack is a cloud-based set of team collaboration tools and services, founded by Stewart Butterfield.',
-    logo: '/logos/logo-slack.png',
-    title: 'Slack',
-    downloads: '857'
+    id: 3,
+    cover: 'https://source.unsplash.com/random?wallpapers',
+    title: 'Mastering Data Modeling Fundamentals',
+    rating: 4,
+    ratingCount: 7,
+    price: 30,
+    category: 'Beginner',
   },
   {
-    id: '1efecb2bf6a51def9869ab0f',
-    createdAt: '04/04/2019',
-    description: 'Lyft is an on-demand transportation company based in San Francisco, California.',
-    logo: '/logos/logo-lyft.png',
-    title: 'Lyft',
-    downloads: '406'
+    id: 4,
+    cover: 'https://source.unsplash.com/random?wallpapers',
+    title: 'The Complete Guide Docker and Kubernetes',
+    rating: 4,
+    ratingCount: 12,
+    price: 30,
+    category: 'Intermediate',
   },
   {
-    id: '1ed68149f65fbc6089b5fd07',
-    createdAt: '04/04/2019',
-    description: 'GitHub is a web-based hosting service for version control of code using Git.',
-    logo: '/logos/logo-github.png',
-    title: 'GitHub',
-    downloads: '835'
+    id: 5,
+    cover: 'https://source.unsplash.com/random?wallpapers',
+    title: 'Modern React with MUI & Redux',
+    rating: 4,
+    ratingCount: 32,
+    price: 35,
+    category: 'Intermediate',
   },
   {
-    id: '5dab321376eff6177407e887',
-    createdAt: '04/04/2019',
-    description: 'Squarespace provides software as a service for website building and hosting. Headquartered in NYC.',
-    logo: '/logos/logo-squarespace.png',
-    title: 'Squarespace',
-    downloads: '835'
+    id: 6,
+    cover: 'https://source.unsplash.com/random?wallpapers',
+    title: 'Ethical Hacking Bootcamp Zero to Mastery',
+    rating: 5,
+    ratingCount: 14,
+    price: 35,
+    category: 'Beginner',
   },
-  
-];
- 
-const Page = () => (
-  <>
-
-    <Box
-      component="main"
+  {
+    id: 7,
+    cover: 'https://source.unsplash.com/random?wallpapers',
+    title: 'Adobe Lightroom For Beginners: Complete Photo Editing',
+    rating: 4,
+    ratingCount: 6,
+    price: 25,
+    category: 'Beginner',
+  },
+]
+const SliderArrow = (props) => {
+  const { onClick, type, className } = props;
+  return (
+    <IconButton
       sx={{
-        flexGrow: 1,
-        py: 8
+        backgroundColor: 'background.paper',
+        color: 'primary.main',
+        '&:hover': { backgroundColor: 'primary.main', color: 'primary.contrastText' },
+        bottom: { xs: '-70px !important', md: '-28px !important' },
+        left: 'unset !important',
+        right: type === 'prev' ? '60px !important' : '0 !important',
+        zIndex: 10,
+        boxShadow: 1,
+      }}
+      disableRipple
+      color="inherit"
+      onClick={onClick}
+      className={className}
+    >
+      {type === 'next' ? <IconArrowForward sx={{ fontSize: 22 }} /> : <IconArrowBack sx={{ fontSize: 22 }} />}
+    </IconButton>
+  );
+};
+
+const StyledDots = styled('ul')(({ theme }) => ({
+  '&.slick-dots': {
+    position: 'absolute',
+    left: 0,
+    bottom: -20,
+    paddingLeft: theme.spacing(1),
+    textAlign: 'left',
+    '& li': {
+      marginRight: theme.spacing(2),
+      '&.slick-active>div': {
+        backgroundColor: theme.palette.primary.main,
+      },
+    },
+  },
+}));
+
+const HomePopularCourse = () => {
+  const { breakpoints } = useTheme();
+  const matchMobileView = useMediaQuery(breakpoints.down('md'));
+
+  const sliderConfig = {
+    infinite: true,
+    autoplay: true,
+    speed: 300,
+    slidesToShow: matchMobileView ? 1 : 3,
+    slidesToScroll: 1,
+    prevArrow: React.createElement(SliderArrow, { type: 'prev' }),
+    nextArrow: React.createElement(SliderArrow, { type: 'next' }),
+    dots: true,
+    appendDots: (dots) => React.createElement(StyledDots, null, dots),
+    customPaging: () => (
+      <Box sx={{ height: 8, width: 30, backgroundColor: 'divider', display: 'inline-block', borderRadius: 4 }} />
+    ),
+  };
+
+  return (
+    <Box
+      id="popular-course"
+      sx={{
+        pt: {
+          xs: 6,
+          md: 8,
+        },
+        pb: 14,
+        backgroundColor: 'background.default',
       }}
     >
-      <Container maxWidth="xl">
-        <Stack spacing={3}>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            spacing={4}
-          >
-            <Stack spacing={1}>
-              <Typography variant="h4">
-                Casting Calls
+      <Container maxWidth="lg">
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={3}>
+            <Box
+              sx={{
+                height: '100%',
+                width: { xs: '100%', md: '90%' },
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: { xs: 'center', md: 'flex-start' },
+              }}
+            >
+              <Typography variant="h1" sx={{ mt: { xs: 0, md: -5 }, fontSize: { xs: 30, md: 48 } }}>
+                Most Popular Courses
               </Typography>
-              <Stack
-                alignItems="center"
-                direction="row"
-                spacing={1}
-              >
-
-              </Stack>
-            </Stack>
-            <div>
-              <Button
-                startIcon={(
-                  <SvgIcon fontSize="small">
-                    <PlusIcon />
-                  </SvgIcon>
-                )}
-                variant="contained"
-              >
-                Add
-              </Button>
-            </div>
-          </Stack>
-          <CompaniesSearch />
-          <Grid
-            container
-            spacing={3}
-          >
-            {companies.map((company) => (
-              <Grid
-                xs={12}
-                md={6}
-                lg={4}
-                key={company.id}
-              >
-                <CompanyCard company={company} />
-              </Grid>
-            ))}
+            </Box>
           </Grid>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center'
-            }}
-          >
-            <Pagination
-              count={3}
-              size="small"
-            />
-          </Box>
-        </Stack>
+
+          <Grid item xs={12} md={9}>
+            <Slider {...sliderConfig}>
+              {data.map((item) => (
+                <FeaturedCard key={String(item.id)} item={item} />
+              ))}
+            </Slider>
+          </Grid>
+        </Grid>
       </Container>
     </Box>
-  </>
-);
+  );
+};
 
-
-export default Page;
+export default HomePopularCourse;
