@@ -1,5 +1,5 @@
 const express = require('express')
-const { signup, login, getUser, logout, resetPassword, updateProfile , sendOtp, createPost, getPost } = require('../controllers/user-controller')
+const { signup, login, getUser, logout, resetPassword, updateProfile , sendOtp, createPost, getPost, getPostDetails } = require('../controllers/user-controller')
 const { verifyToken } = require('../middleware/authMiddleware')
 const router = express.Router()
 const {upload} = require('../middleware/multer')
@@ -13,4 +13,5 @@ router.patch('/update',verifyToken,upload.single('image'),updateProfile)
 
 router.post('/createPost',upload.single('image'),createPost) 
 router.get('/getPosts',getPost)
+router.get('/getPostDetails',getPostDetails)
 module.exports = router  

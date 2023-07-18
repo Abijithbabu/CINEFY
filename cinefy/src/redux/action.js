@@ -5,7 +5,7 @@ const baseURL = "http://localhost:5000";
 export const Axios = axios.create({
   baseURL: baseURL,
 });
-const notification = {
+export const notification = {
   title: "Error !",
   message: "Configurable",
   autoClose : 3000,
@@ -172,6 +172,22 @@ export const createPost = async(data)=>{
 export const getPosts = async()=>{
   try {
     const res = await Axios.get(`/api/getPosts`)
+    if(res.data){
+      return res.data
+    }
+  } catch(err){ 
+    Store.addNotification({
+      ...notification, 
+      message :err?.response?.data?.message || err.message
+    })
+    console.log(err?.response?.data?.message || err.message);
+    return false
+  } 
+} 
+
+export const getPostDetails = async(id)=>{
+  try {
+    const res = await Axios.get(`/api/getPostDetails?id=${id}`)
     if(res.data){
       return res.data
     }

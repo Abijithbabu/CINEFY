@@ -198,6 +198,19 @@ const getPost = async (req, res) => {
   }
 }
 
+const getPostDetails = async (req, res) => {
+  try {
+    const post = await CastingCall.findOne({_id:req.query.id})
+    if (!post) {
+      return res.status(404).json({ message: "Something Went Wrong !" })
+    }
+  
+    return res.status(200).json(post)
+  } catch (error) {
+    return new Error(error)
+  }
+}
+
 module.exports = {
   sendOtp,
   signup,
@@ -207,5 +220,6 @@ module.exports = {
   updateProfile,
   logout,
   createPost,
-  getPost
+  getPost,
+  getPostDetails
 }

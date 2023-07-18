@@ -20,6 +20,7 @@ import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { getPosts } from '../../redux/action';
 import { IconButton } from '@mui/material';
+import { useNavigate } from 'react-router';
 
 function Copyright() {
   return ( 
@@ -38,6 +39,7 @@ function Copyright() {
 const defaultTheme = createTheme();
 
 export default function Album() { 
+  const navigate = useNavigate()
   const [data,setData] = React.useState([''])
   React.useEffect(() => {
 try {
@@ -133,7 +135,7 @@ try {
                 </IconButton>
               </div>
               <IconButton aria-label="arrow forward">
-                <IconArrowForward sx={{ fontSize: 22 }} />
+                <IconArrowForward sx={{ fontSize: 22 }} onClick={()=>navigate(`/detailPage?id=${card._id}`)}/>
               </IconButton>
             </CardActions>
                 </Card>
