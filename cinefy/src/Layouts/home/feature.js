@@ -64,7 +64,7 @@ const HomeFeature = () => {
         <Grid container spacing={3}>
           <Grid item xs={12} md={5}>
             <Box sx={{ position: 'relative' }}>
-              <img src='https://github.com/hiriski/coursespace-landing-page/blob/main/public/images/home-feature.png' width={650} height={678} alt="Feature img" />
+              <img src='http://localhost:5000/dp/action-comedy-movies-on-netflix-this-weekend.jpg' width={650} height={678} alt="Feature img" />
               <Box
                 sx={{
                   position: 'absolute',
@@ -150,7 +150,6 @@ const HomeFeature = () => {
                       size={85}
                     />
                     <CircularProgress
-                      disableShrink
                       thickness={2}
                       variant="determinate"
                       value={75}

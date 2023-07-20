@@ -29,8 +29,8 @@ const Navigation = ({data}) => {
           key={destination}
         //   activeClass="current"
           to={destination}
-          spy={true}
-          smooth={true}
+          spy='true'
+          smooth='true'
           duration={350}
           sx={{
             position: 'relative',
@@ -68,7 +68,6 @@ const Navigation = ({data}) => {
               '& img': { width: 44, height: 'auto' },
             }}
           >
-            {/* eslint-disable-next-line */}
           </Box>
           {label}
         </Box>
