@@ -48,7 +48,7 @@ export default function AddressForm({data,dispatch}) {
             id="movieName"
             name="movie"
             label="Movie Name"
-            value={data.movie}
+            value={data.movie || ''}
             onChange={handleChange}
             fullWidth
             autoComplete="given-name"
@@ -61,7 +61,7 @@ export default function AddressForm({data,dispatch}) {
             id="Director"
             name="director"
             label="Director"
-            value={data.director}
+            value={data.director || ''}
             onChange={handleChange}
             fullWidth
             autoComplete="family-name"
@@ -102,7 +102,7 @@ export default function AddressForm({data,dispatch}) {
         row
         // aria-labelledby="demo-row-radio-buttons-group-label"
         name="gender"
-        value={data.gender}
+        value={data.gender || ''}
         onChange={handleChange}
       >
         <FormControlLabel value="female" control={<Radio />} label="Female" />
@@ -115,7 +115,7 @@ export default function AddressForm({data,dispatch}) {
             id="age"
             name="age"
             label="Age group"
-            value={data.age}
+            value={data.age || ''}
             onChange={handleChange}
             fullWidth
             variant="standard"
@@ -127,7 +127,7 @@ export default function AddressForm({data,dispatch}) {
             id="location"
             name="location"
             label="State/Province/Region"
-            value={data.location}
+            value={data.location || ''}
             onChange={handleChange}
             fullWidth
             variant="standard"
@@ -140,7 +140,7 @@ export default function AddressForm({data,dispatch}) {
         <DatePicker 
         defaultValue={dayjs()}
         name = 'date'
-        value={data.date}
+        value={data.date || ''}
         onChange={(date)=>dispatch({...data,date})}
         disablePast
         slotProps={{
@@ -157,7 +157,7 @@ export default function AddressForm({data,dispatch}) {
             id="description"
             name="description"
             label="Brief Description *"
-            value={data.description}
+            value={data.description || ''}
             onChange={handleChange}
             fullWidth
             autoComplete="Description"

@@ -80,7 +80,7 @@ export default function Checkout() {
       case 3:
         return (
           <React.Fragment>
-            <Typography variant="h5" gutterBottom>
+            <Typography variant="title" gutterBottom>
               Almost done !
             </Typography>
             <Typography variant="subtitle1">

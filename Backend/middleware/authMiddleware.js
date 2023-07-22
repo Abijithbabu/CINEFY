@@ -1,14 +1,13 @@
 const jwt = require('jsonwebtoken');
 
 const verifyToken = (req, res, next) => {
-  console.log(req.cookies.token);
-  const token = req.cookies.token || req.headers['authorization']?.replace('Bearer ' , '') ;
 
+  const token = req.cookies.token 
   if (!token) {
     console.log('no tkn');
     return res.status(404).json({ message: 'No token found' });
   }
-console.log('token get',token)
+console.log('token get')
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
       console.log(err.name)

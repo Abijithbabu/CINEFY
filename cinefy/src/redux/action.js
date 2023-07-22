@@ -4,6 +4,7 @@ import { Store } from 'react-notifications-component';
 const baseURL = "http://localhost:5000";
 export const Axios = axios.create({
   baseURL: baseURL,
+  withCredentials: true,
 });
 export const notification = {
   title: "Error !",
@@ -130,7 +131,7 @@ export const signOut = async(dispatch)=>{
       type: 'user_logout',
       payload : ''
     })
-    const res = await Axios.post(`/api/logout`,{ withCredentials : true });
+    const res = await Axios.post(`/api/logout`);
       console.log(res+'goooooooooooo');
       return true
     } catch(err){ 

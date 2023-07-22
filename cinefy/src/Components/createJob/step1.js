@@ -31,7 +31,7 @@ export default function AddressForm({ data, dispatch }) {
             id="title"
             name="title"
             label="Casting call Title"
-            value={data.title}
+            value={data.title || ''}
             onChange={handleChange}
             fullWidth
             autoComplete="Title"
@@ -44,7 +44,7 @@ export default function AddressForm({ data, dispatch }) {
             id="Subtitle"
             name="subtitle"
             label="Subtitle"
-            value={data.subtitle}
+            value={data.subtitle || ''}
             onChange={handleChange}
             fullWidth
             autoComplete="Subtitle"
@@ -56,7 +56,7 @@ export default function AddressForm({ data, dispatch }) {
             id="description"
             name="shortdescription"
             label="Short Description *"
-            value={data.shortdescription}
+            value={data.shortdescription || ''}
             onChange={handleChange}
             fullWidth
             autoComplete="Description"
