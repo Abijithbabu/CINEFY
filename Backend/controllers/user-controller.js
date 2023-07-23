@@ -64,17 +64,18 @@ const login = async (req, res) => {
   })
   console.log("token send", token)
 
-  console.log(res.get('Set-Cookie'));
-
-  return res.status(200).cookie("token", token, {
+  
+  res.status(200).cookie("token", token, {
     path: '/',
     expires: new Date(Date.now() + 1000 * 60 * 60), // 1 hour expiration
     httpOnly: true,
-    sameSite: 'lax',
+    SameSite:'None',
+    secure: true, 
   }).json({
     message: "Successfully Logged in",
     user: existingUser, token
   })
+  console.log(res.get('Set-Cookie'));
 }
 
 const getUser = async (req, res) => {
@@ -154,6 +155,7 @@ const logout = async (req, res) => {
       }
       return res.status(400).json({ message: 'Invalid Token' });
     }
+    console.log('jk');
     res.clearCookie(`${user.id}`)
     req.cookies[`${user.id}`] = ""
     return res.status(200).json({ message: "Succefully Logged out" })
@@ -198,6 +200,19 @@ const getPost = async (req, res) => {
   }
 }
 
+const getPostDetails = async (req, res) => {
+  try {
+    const post = await CastingCall.findOne({_id:req.query.id})
+    if (!post) {
+      return res.status(404).json({ message: "Something Went Wrong !" })
+    }
+  
+    return res.status(200).json(post)
+  } catch (error) {
+    return new Error(error)
+  }
+}
+
 module.exports = {
   sendOtp,
   signup,
@@ -207,5 +222,6 @@ module.exports = {
   updateProfile,
   logout,
   createPost,
-  getPost
+  getPost,
+  getPostDetails
 }

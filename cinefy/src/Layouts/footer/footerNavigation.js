@@ -54,18 +54,18 @@ const companyMenu = [
 
 const NavigationItem = ({ label, path }) => {
   return (
-    <Link to={path} >
-      <MuiLink
-        underline="hover"
-        sx={{
-          display: 'block',
-          mb: 1,
-          color: 'primary.contrastText',
-        }}
-      >
-        {label}
-      </MuiLink>
-    </Link>
+    <MuiLink
+      component={Link}
+      to={path}
+      underline="hover"
+      sx={{
+        display: 'block',
+        mb: 1,
+        color: 'primary.contrastText',
+      }}
+    >
+      {label}
+    </MuiLink>
   )
 }
 

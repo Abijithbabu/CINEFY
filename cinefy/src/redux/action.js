@@ -4,8 +4,9 @@ import { Store } from 'react-notifications-component';
 const baseURL = "http://localhost:5000";
 export const Axios = axios.create({
   baseURL: baseURL,
+  withCredentials: true,
 });
-const notification = {
+export const notification = {
   title: "Error !",
   message: "Configurable",
   autoClose : 3000,
@@ -130,7 +131,7 @@ export const signOut = async(dispatch)=>{
       type: 'user_logout',
       payload : ''
     })
-    const res = await Axios.post(`/api/logout`,{ withCredentials : true });
+    const res = await Axios.post(`/api/logout`);
       console.log(res+'goooooooooooo');
       return true
     } catch(err){ 
@@ -172,6 +173,22 @@ export const createPost = async(data)=>{
 export const getPosts = async()=>{
   try {
     const res = await Axios.get(`/api/getPosts`)
+    if(res.data){
+      return res.data
+    }
+  } catch(err){ 
+    Store.addNotification({
+      ...notification, 
+      message :err?.response?.data?.message || err.message
+    })
+    console.log(err?.response?.data?.message || err.message);
+    return false
+  } 
+} 
+
+export const getPostDetails = async(id)=>{
+  try {
+    const res = await Axios.get(`/api/getPostDetails?id=${id}`)
     if(res.data){
       return res.data
     }

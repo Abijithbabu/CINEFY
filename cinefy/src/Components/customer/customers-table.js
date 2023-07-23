@@ -14,8 +14,8 @@ import {
   TableRow,
   Typography
 } from '@mui/material';
-import { Scrollbar } from 'src/components/scrollbar';
-import { getInitials } from 'src/utils/get-initials';
+// import { Scrollbar } from 'src/components/scrollbar';
+// import { getInitials } from 'src/utils/get-initials';
 
 export const CustomersTable = (props) => {
   const {
@@ -37,7 +37,7 @@ export const CustomersTable = (props) => {
 
   return (
     <Card>
-      <Scrollbar>
+      {/* <Scrollbar> */}
         <Box sx={{ minWidth: 800 }}>
           <Table>
             <TableHead>
@@ -102,7 +102,7 @@ export const CustomersTable = (props) => {
                         spacing={2}
                       >
                         <Avatar src={customer.avatar}>
-                          {getInitials(customer.name)}
+                          {/* {getInitials(customer.name)} */}
                         </Avatar>
                         <Typography variant="subtitle2">
                           {customer.name}
@@ -127,7 +127,7 @@ export const CustomersTable = (props) => {
             </TableBody>
           </Table>
         </Box>
-      </Scrollbar>
+      {/* </Scrollbar> */}
       <TablePagination
         component="div"
         count={count}
