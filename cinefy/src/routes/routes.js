@@ -8,6 +8,8 @@ import Jobs from '../pages/jobs'
 import Blogs from '../pages/blogs'
 import Profile from '../pages/profile';
 import DetailPage from '../pages/detailPage'
+import UserManage from '../pages/user_manage'
+import Error from '../pages/404'
 function routes() {
   return (
     <Routes>
@@ -18,8 +20,12 @@ function routes() {
     <Route path='/findJobs' element={<Jobs/>} />
     <Route path='/blogs' element={<Blogs/>} />
     <Route path='/account' element={<Account/>} />
+    <Route path='/customers' element={<UserManage/>} />
+
     <Route path='/profile' element={<Profile/>} />
     <Route path='/detailPage' element={<DetailPage/>} />
+    <Route path='/*' element={<Error/>} />
+
   </Routes>
   )
 } 

@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Box, ButtonBase } from '@mui/material';
 
 export const SideNavItem = (props) => {
   const { active = false, disabled, external, icon, path, title } = props;
-
+  const navigate = useNavigate()
   const linkProps = path
     ? external
       ? {
@@ -21,6 +21,7 @@ export const SideNavItem = (props) => {
   return (
     <li>
       <ButtonBase
+      onClick={()=>navigate(path)}
         sx={{
           alignItems: 'center',
           borderRadius: 1,
@@ -29,7 +30,7 @@ export const SideNavItem = (props) => {
           pl: '16px',
           pr: '16px',
           py: '6px',
-          textAlign: 'left',
+          textAlign: 'left', 
           width: '100%',
           ...(active && {
             backgroundColor: 'rgba(255, 255, 255, 0.04)'

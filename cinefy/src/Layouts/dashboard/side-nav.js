@@ -9,18 +9,19 @@ import {
   Stack,
   SvgIcon,
   Typography,
+  useMediaQuery,
 } from '@mui/material';
 // import { Logo } from '../../Components/dashboard/components/logo';
 // import { Scrollbar } from '../../Components/dashboard/components/scrollbar'; 
 import { items } from './config'; 
 import { SideNavItem } from './side-nav-item'; 
+import { useLocation } from 'react-router';
 
 export const SideNav = (props) => {
   const { open, onClose } = props;
-  // const location = useLocation(); 
-  // const pathname = location?.pathname;
-  // const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
-  const lgUp = true
+  const location = useLocation(); 
+  const pathname = location?.pathname;
+  const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
   const content = (
 
       <Box
@@ -102,7 +103,7 @@ export const SideNav = (props) => {
             }}
           >
             {items.map((item) => {
-              const active = item.path ? (item.path === '/') : false; 
+              const active = item.path ? (item.path === pathname) : false; 
 
               return (
                 <SideNavItem
