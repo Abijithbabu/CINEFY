@@ -12,6 +12,7 @@ export const useSelection = (items = []) => {
   }, [items]);
 
   const handleSelectOne = useCallback((item) => {
+    console.log(item);
     setSelected((prevState) => [...prevState, item]);
   }, []);
 
@@ -22,7 +23,7 @@ export const useSelection = (items = []) => {
   const handleDeselectOne = useCallback((item) => {
     setSelected((prevState) => {
       return prevState.filter((_item) => _item !== item);
-    });
+    }); 
   }, []);
 
   return {

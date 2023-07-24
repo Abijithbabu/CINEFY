@@ -17,7 +17,6 @@ export const SideNavItem = (props) => {
         href: path 
       }
     : {};
-  console.log(linkProps);
   return (
     <li>
       <ButtonBase

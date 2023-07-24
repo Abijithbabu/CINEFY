@@ -95,8 +95,9 @@ const Header = () => {
               <>
                 {data.type == "admin" ? (
                   <Button
-                    onClick={() => navigate("/account")}
+                    onClick={() => navigate("/admin/account")}
                     variant="contained"
+                    size="small"
                   >
                     GO TO ADMIN CONSOLE
                   </Button>

@@ -67,7 +67,7 @@ const login = async (req, res) => {
   
   res.status(200).cookie("token", token, {
     path: '/',
-    expires: new Date(Date.now() + 1000 * 60 * 60), // 1 hour expiration
+    expires: new Date(Date.now() + 1000 * 60 * 60), 
     httpOnly: true,
     SameSite:'None',
     secure: true, 
@@ -75,7 +75,50 @@ const login = async (req, res) => {
     message: "Successfully Logged in",
     user: existingUser, token
   })
-  console.log(res.get('Set-Cookie'));
+}
+
+const gLogin = async (req,res)=>{
+  const {name, email, googleId, imageUrl } = req.body
+  console.log(email, googleId)
+  let existingUser;
+  try {
+    existingUser = await User.findOne({ email: email })
+
+    if (existingUser) {
+      const isPassword = (await existingUser.matchPasswords(googleId))
+      if (!isPassword) {
+        return res.status(400).json({ message: "Invalid Email Id or password" })
+      }
+    }
+      else{
+        existingUser = new User({
+          name,
+          email,
+          profilePic:imageUrl,
+          password:googleId,
+          type:'user'
+        })
+        await existingUser.save()
+      }
+      const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET, {
+        expiresIn: 8600
+      })    
+      
+      res.status(200).cookie("token", token, {
+        path: '/',
+        expires: new Date(Date.now() + 1000 * 60 * 60), 
+        httpOnly: true,
+        SameSite:'None',
+        secure: true, 
+      }).json({
+        message: "Successfully Logged in",
+        user: existingUser, token
+      })    
+
+  } catch (error) {
+    console.log(error.message);
+    return new Error(error)
+  }
 }
 
 const getUser = async (req, res) => {
@@ -155,9 +198,7 @@ const logout = async (req, res) => {
       }
       return res.status(400).json({ message: 'Invalid Token' });
     }
-    console.log('jk');
-    res.clearCookie(`${user.id}`)
-    req.cookies[`${user.id}`] = ""
+    res.clearCookie(`token`)
     return res.status(200).json({ message: "Succefully Logged out" })
   });
 }
@@ -217,6 +258,7 @@ module.exports = {
   sendOtp,
   signup,
   login,
+  gLogin,
   getUser,
   resetPassword,
   updateProfile,

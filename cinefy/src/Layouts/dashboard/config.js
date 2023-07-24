@@ -7,11 +7,11 @@ import UserPlusIcon from '@heroicons/react/24/solid/UserPlusIcon';
 import UsersIcon from '@heroicons/react/24/solid/UsersIcon';
 import XCircleIcon from '@heroicons/react/24/solid/XCircleIcon';
 import { SvgIcon } from '@mui/material';
-
+import FeaturedPlayListSharpIcon from '@mui/icons-material/FeaturedPlayListSharp';
 export const items = [
   {
     title: 'Overview',
-    path: '/',
+    path: '/admin',
     icon: (
       <SvgIcon fontSize="small">
         <ChartBarIcon />
@@ -20,7 +20,7 @@ export const items = [
   },
   {
     title: 'Customers',
-    path: '/customers',
+    path: '/admin/customers',
     icon: (
       <SvgIcon fontSize="small">
         <UsersIcon />
@@ -28,17 +28,8 @@ export const items = [
     )
   },
   {
-    title: 'Companies',
-    path: '/companies',
-    icon: (
-      <SvgIcon fontSize="small">
-        <ShoppingBagIcon />
-      </SvgIcon>
-    )
-  },
-  {
-    title: 'Account',
-    path: '/account',
+    title: 'Recruters',
+    path: '/admin/recruiters',
     icon: (
       <SvgIcon fontSize="small">
         <UserIcon />
@@ -46,8 +37,17 @@ export const items = [
     )
   },
   {
+    title: 'Manage Posts',
+    path: '/admin/managePosts',
+    icon: (
+      <SvgIcon fontSize="small">
+        <FeaturedPlayListSharpIcon />
+      </SvgIcon>
+    )
+  },
+  {
     title: 'Settings',
-    path: '/settings',
+    path: '/admin/settings',
     icon: (
       <SvgIcon fontSize="small">
         <CogIcon />
@@ -55,20 +55,11 @@ export const items = [
     )
   },
   {
-    title: 'Login',
-    path: '/auth/login',
+    title: 'Account',
+    path: '/admin/account',
     icon: (
       <SvgIcon fontSize="small">
         <LockClosedIcon />
-      </SvgIcon>
-    )
-  },
-  {
-    title: 'Register',
-    path: '/auth/register',
-    icon: (
-      <SvgIcon fontSize="small">
-        <UserPlusIcon />
       </SvgIcon>
     )
   },

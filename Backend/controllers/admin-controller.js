@@ -68,7 +68,7 @@ const getUser = async(req,res) =>{
 }
 const userDetails = async(req,res) =>{
     try {
-        const user = await User.find({isDelete:false})
+        const user = await User.find({type:req.query.type})
         if (user) {
             return res.status(200).json({user})
             
