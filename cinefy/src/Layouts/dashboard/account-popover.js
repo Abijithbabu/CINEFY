@@ -29,6 +29,8 @@ export const AccountPopover = (props) => {
       PaperProps={{ sx: { width: 200 } }}
     >
       <Box
+      style={{cursor:'pointer'}} 
+      onClick={()=>navigate('/profile')}
         sx={{
           py: 1.5,
           px: 2

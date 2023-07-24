@@ -22,6 +22,7 @@ import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { red } from "@mui/material/colors";
 import { CenterFocusStrong } from "@mui/icons-material";
+import { useSelector } from "react-redux";
 
 const styles = {
   card: {
@@ -35,11 +36,10 @@ const styles = {
     transform: "translate(-50%, -50%)",
     backgroundColor: red[500],
     borderRadius: "50%",
-    width: "70px",
-    height: "70px",
+    width: "90px",
+    height: "90px",
     fontSize: "2rem",
     border: "2px solid white",
-    overflow: "visible",
   },
   cardContent: {
     marginTop: "0px", // Adjust as needed
@@ -54,6 +54,8 @@ const skills = [
 ];
 
 const Profile = () => {
+  const data = useSelector((store) => store.data.user);
+
   return (
     <Container sx={{ mt: 14 }}>
       <Box
@@ -67,7 +69,6 @@ const Profile = () => {
         <Typography></Typography>
       </Box>
       <Grid container spacing={0}>
-        {/* First Box */}
 
         <Grid item xs={12} md={4} marginTop={2}>
           <Box
@@ -76,10 +77,7 @@ const Profile = () => {
             display="flex"
             justifyContent="right"
           >
-            {/* Profile Image */}
-            <Avatar sx={styles.avatar} aria-label="recipe" zIndex={0}>
-              R
-            </Avatar>
+            <Avatar sx={styles.avatar} aria-label="recipe" zIndex={0} src={data.profilePic}/>
             <Box
               Width={100}
               sx={{
@@ -231,7 +229,7 @@ const Profile = () => {
                     <CreateIcon sx={{ paddingLeft: "10px" }} />
                   </IconButton>
                 }
-                title="ANJITH"
+                title={data.name} 
                 subheader="description"
               />
               <CardContent>

@@ -32,8 +32,8 @@ const GOOGLE_CLIENT_ID = "57619033321-n0pnjp17n9up4tj5bil84lvlddtuarcn.apps.goog
       <GoogleLogin
         clientId = { GOOGLE_CLIENT_ID }
         buttonText="Sign in with Google"
-        onSuccess={(res)=>Login(res.profileObj)}
-        onFailure={()=>ResponseGoogle}
+        onSuccess={ResponseGoogle}
+        onFailure={ResponseGoogle}
         cookiePolicy="single_host_origin" 
       /> 
     );  

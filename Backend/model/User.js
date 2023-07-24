@@ -15,8 +15,6 @@ const userSchema = new Schema({
     },
     phone:{
       type:String,
-      // required:true,
-      unique:true
     },
     password:{
         type:String,
@@ -29,6 +27,52 @@ const userSchema = new Schema({
     },
     profilePic:{
       type:String,
+  },
+  profile:{
+    name:{
+      type:String
+    },
+    photo:{
+      type:String
+    },
+    cover:{
+      type:String
+    },
+    bio:{
+      type:String
+    },
+    intro:{
+      type:String
+    },
+    skills:{
+      type:Array
+    },
+    awards:{
+       
+    }
+  },
+  address:{
+      addr_line1:{
+        type:String
+      },
+      addr_line2:{
+        type:String
+      },
+      street: {
+        type: String,
+      },
+      city: {
+        type: String,
+      },
+      state: {
+        type: String,
+      },
+      postalCode: {
+        type: String,
+      },
+      country: {
+        type: String,
+      },
   },
     isDelete:{
       type:Boolean,

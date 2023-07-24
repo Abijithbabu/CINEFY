@@ -17,13 +17,15 @@ export function Reducer(state = initialState, { type, payload }) {
       return {
         ...state,
         data:{
-            user:payload.user,token:payload.token
-        }
+          isAuthenticated: true,user:payload.user,token:payload.token
+        } 
       };
     case 'user_logout':
       return {
         ...state,
-        data:''
+        data:{
+          isAuthenticated: false,
+        }
       };
     default:
       return state;

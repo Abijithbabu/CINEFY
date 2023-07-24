@@ -38,7 +38,7 @@ export const items = [
   },
   {
     title: 'Manage Posts',
-    path: '/admin/managePosts',
+    path: '/admin/manage-posts',
     icon: (
       <SvgIcon fontSize="small">
         <FeaturedPlayListSharpIcon />

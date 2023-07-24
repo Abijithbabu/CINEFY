@@ -95,7 +95,7 @@ const Header = () => {
               <>
                 {data.type == "admin" ? (
                   <Button
-                    onClick={() => navigate("/admin/account")}
+                    onClick={() => navigate('/admin/customers')}
                     variant="contained"
                     size="small"
                   >
@@ -113,7 +113,7 @@ const Header = () => {
                     width: 40,
                   }}
                   src={
-                    data?.imageUrl ?? "/assets/avatars/avatar-anika-visser.png"
+                    data?.profilePic
                   }
                 />
                 <AccountPopover

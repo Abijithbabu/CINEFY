@@ -15,11 +15,13 @@ import {
 import { alpha } from '@mui/material/styles';
 import { usePopover } from '../../hooks/use-popover';
 import { AccountPopover } from './account-popover';
+import { useSelector } from 'react-redux';
 
 const SIDE_NAV_WIDTH = 280;
 const TOP_NAV_HEIGHT = 64;
 
 export const TopNav = (props) => { 
+  const data = useSelector((store) => store.data.user);
   const { onNavOpen } = props;
   const lgUp = true
   // const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
@@ -106,7 +108,7 @@ export const TopNav = (props) => {
                 height: 40,
                 width: 40
               }}
-              src="/assets/avatars/avatar-anika-visser.png"
+              src={data?.profilePic}
             />
           </Stack>
         </Stack>

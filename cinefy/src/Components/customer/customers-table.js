@@ -83,7 +83,7 @@ export const CustomersTable = (props) => {
                   </TableCell>
                   <TableCell>
                     <Stack alignItems="center" direction="row" spacing={2}>
-                      <Avatar src={customer?.avatar}>
+                      <Avatar src={customer?.profilePic}>
                         {/* {getInitials(customer.name)} */}
                       </Avatar>
                       <Typography variant="subtitle2">
@@ -93,8 +93,8 @@ export const CustomersTable = (props) => {
                   </TableCell>
                   <TableCell>{customer.email}</TableCell>
                   <TableCell>{customer.email}</TableCell>
-                  <TableCell>{customer.phone}</TableCell>
-                  <TableCell>{customer.phone} </TableCell>
+                  <TableCell>{customer?.phone ?? "NA"}</TableCell>
+                  <TableCell>{customer?.phone ?? "NA"}</TableCell>
                 </TableRow>
               );
             })}

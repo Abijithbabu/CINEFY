@@ -98,6 +98,7 @@ const gLogin = async (req,res)=>{
           password:googleId,
           type:'user'
         })
+        console.log(existingUser);
         await existingUser.save()
       }
       const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET, {
