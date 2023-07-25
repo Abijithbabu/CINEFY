@@ -105,15 +105,21 @@ export default function Album() {
                   }}
                 >
                   <CardMedia
+                    onClick={()=>navigate(`/DetailPage?id=${card._id}`)}
                     key={`media-${card._id}`}
                     component="div"
                     sx={{
-                      // 16:9
                       pt: "56.25%",
+                      cursor:'pointer'
                     }}
                     image={card.image && `http://localhost:5000/${card.image}`}
                   />
-                  <CardContent sx={{ flexGrow: 1 }}>
+                  <CardContent 
+                    onClick={()=>navigate(`/DetailPage?id=${card._id}`)}
+                    sx={{ 
+                      flexGrow: 1,
+                      cursor:'pointer'
+                    }}>
                     <Typography gutterBottom variant="h5" component="h2">
                       {card.title}
                     </Typography>
