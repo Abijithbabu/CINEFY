@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Autocomplete,
   Avatar,
   Box,
+  Button,
   Card,
   CardContent,
   CardHeader,
@@ -21,8 +22,11 @@ import CreateIcon from "@mui/icons-material/Create";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { red } from "@mui/material/colors";
-import { CenterFocusStrong } from "@mui/icons-material";
+import { CenterFocusStrong, Visibility } from "@mui/icons-material";
 import { useSelector } from "react-redux";
+import Input from "@mui/material/Input";
+import CheckIcon from "@mui/icons-material/Check";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const styles = {
   card: {
@@ -55,7 +59,70 @@ const skills = [
 
 const Profile = () => {
   const data = useSelector((store) => store.data.user);
+  const intialState = {
+    name: "",
+    roles: ["Actor"],
+    photo: data.profilePic,
+    cover: "",
+    bio: `This impressive paella is a perfect party dish and a fun meal
+    to cook together with your guests. Add 1 cup of frozen peas
+    along with the mussels, if you like.`,
+    intro: "",
+    skills: [],
+    certifications: [
+      "Certification 1 - form unnikuttan awards",
+      "Certification 2 - form unnikuttan awards",
+    ],
+    languages: ["English", "French"],
+    workExp: ["Film A - Roll A - Duration", "Film B - Roll B - Duration"],
+    education: ["College Name - Degree", "University Name - Degree"],
+  };
 
+  const [user, setuser] = useState(intialState);
+  const [edit, setedit] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [hideElements, setHideElements] = useState(false);
+
+  const handleOutlineButtonClick = () => {
+    setHideElements(!hideElements);
+  };
+
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+  const UpdateUser = ({value, name}) => {
+    const newName = name.substring(1)
+    const key = parseInt(name[0])
+    console.log(key,newName);
+    return (
+      <input
+        value={user[newName][key]}
+        name={name}
+        onChange={(e) => handleUpdate(e , key)}
+      ></input>
+    );
+  };
+  const handleSave = () => {
+    setIsEditing(false);
+  };
+
+  const handleAdd = (e) => {
+    setuser((prevUser) => ({
+      ...prevUser,
+      [e]: [...prevUser[e], " "],
+    }));
+  };
+  const handleUpdate = (e, key=null) => {
+    const data = user;
+    console.log(key);
+    if (key!==null) {
+      data[e.target.name][key] = e.target.value;
+    } else {
+      data[e.target.name] = e.target.value;
+    }
+    console.log(data);
+    setuser({ ...data }); 
+  };
   return (
     <Container sx={{ mt: 14 }}>
       <Box
@@ -63,13 +130,21 @@ const Profile = () => {
         height={150}
         sx={{
           background: "url('a.jpg'), lightgray 50% / cover no-repeat",
-          borderRadius: "4px"
+          borderRadius: "4px",
         }}
       >
-        <Typography></Typography>
+        <Button
+          variant="outlined"
+          sx={{
+            marginLeft: { xs: 51, sm: 80, md: 108, xl: 129 },
+            marginTop: "105px",
+          }}
+          onClick={handleOutlineButtonClick}
+        >
+          Outlined
+        </Button>
       </Box>
       <Grid container spacing={0}>
-
         <Grid item xs={12} md={4} marginTop={2}>
           <Box
             sx={{ display: "flex", flexDirection: "column" }}
@@ -77,7 +152,12 @@ const Profile = () => {
             display="flex"
             justifyContent="right"
           >
-            <Avatar sx={styles.avatar} aria-label="recipe" zIndex={0} src={data.profilePic}/>
+            <Avatar
+              sx={styles.avatar}
+              aria-label="recipe"
+              zIndex={0}
+              src={user.photo}
+            />
             <Box
               Width={100}
               sx={{
@@ -90,24 +170,42 @@ const Profile = () => {
                   "0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)",
               }}
             >
-              <Typography gutterBottom variant="h6" component="div" align="center" sx={{mt:'35px'}}>
-                  Actor
+              <Typography
+                gutterBottom
+                variant="h6"
+                component="div"
+                align="center"
+                sx={{ mt: "35px" }}
+              >
+                {user.roles[0]}
               </Typography>
-              <Typography variant="body1" align="center" color="text.secondary">
-              Profile Completed: 80% 
-                </Typography>
-                <Typography variant="body2" align="center" color="text.secondary">
-                trivandrum kerala india 
-                </Typography>
+              <Typography
+                variant="body1"
+                align="center"
+                color="text.secondary"
+                sx={{ display: hideElements ? "none" : "block" }}
+              >
+                Profile Completed: 80%
+              </Typography>
+              <Typography variant="body2" align="center" color="text.secondary">
+                trivandrum kerala india
+              </Typography>
             </Box>
             {/* Video Introduction */}
 
             <Card sx={{ marginTop: "10px" }}>
               <CardHeader
                 action={
-                  <IconButton aria-label="settings">
-                    <AttachFileIcon />
-                    <CreateIcon sx={{ paddingLeft: "10px" }} />
+                  <IconButton aria-label="settings" size="small">
+                    <AttachFileIcon
+                      sx={{ display: hideElements ? "none" : "block" }}
+                    />
+                    <CreateIcon
+                      sx={{
+                        paddingLeft: "10px",
+                        display: hideElements ? "none" : "block",
+                      }}
+                    />
                   </IconButton>
                 }
                 title="Video Introduction"
@@ -125,85 +223,148 @@ const Profile = () => {
             {/* Languages */}
 
             <Card sx={{ maxWidth: 999, marginTop: "10px" }}>
+              <CardHeader
+                action={
+                  <IconButton
+                    aria-label="settings"
+                    gap="3"
+                    sx={{
+                      paddingLeft: "10px",
+                      display: hideElements ? "none" : "block",
+                    }}
+                  >
+                    <ControlPointIcon
+                      size="small"
+                      onClick={() => handleAdd("languages")}
+                    />
+                    <CreateIcon sx={{ paddingLeft: "10px" }} size="small" />
+                  </IconButton>
+                }
+                title="Languages"
+              />
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Languages
-                </Typography>
-                <Divider />
-                <Typography
-                  sx={{ margin: "10px" }}
-                  variant="body1"
-                  color="text.secondary"
-                >
-                  English
-                </Typography>
-                <Divider />
-                <Typography
-                  sx={{ margin: "10px" }}
-                  variant="body1"
-                  color="text.secondary"
-                >
-                  French
-                </Typography>
-                <Divider />
-                <Typography
-                  sx={{ margin: "10px" }}
-                  variant="body1"
-                  color="text.secondary"
-                >
-                  Spanish
-                </Typography>
+                {user.languages.map((lang,index) => (
+                  <>
+                    <Divider
+                      sx={{
+                        paddingLeft: "10px",
+                        display: hideElements ? "none" : "block",
+                      }}
+                    />
+                    {edit ? ( 
+                            <Input
+                            value={lang} 
+                            name='languages'
+                            onChange={(e) => handleUpdate(e , index)}
+                          />
+                    ) : (
+                      <Typography
+                        sx={{ margin: "10px", minHeight: "15px" }}
+                        variant="body1"
+                        color="text.secondary"
+                      >
+                        {lang}
+                      </Typography>
+                    )}
+                  </>
+                ))} 
               </CardContent>
             </Card>
-
-            {/* Certifications */}
-
             <Card sx={{ maxWidth: 999, marginTop: "10px" }}>
+              <CardHeader
+                action={
+                  <IconButton
+                    aria-label="settings"
+                    gap="3"
+                    sx={{
+                      paddingLeft: "10px",
+                      display: hideElements ? "none" : "block",
+                    }}
+                  >
+                    <ControlPointIcon
+                      size="small"
+                      onClick={() => handleAdd("certifications")}
+                    />
+                    <CreateIcon sx={{ paddingLeft: "10px" }} size="small" />
+                  </IconButton>
+                }
+                title="Certifications"
+              />
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Certifications
-                </Typography>
-                <Divider />
-                <Typography
-                  sx={{ margin: "10px" }}
-                  variant="body1"
-                  color="text.secondary"
-                >
-                  Certification 1 - form unnikuttan awards
-                </Typography>
-                <Divider />
-                <Typography
-                  sx={{ margin: "10px" }}
-                  variant="body1"
-                  color="text.secondary"
-                >
-                  Certification 2
-                </Typography>
+                {user.certifications.map((cert,index) => (
+                  <>
+                    <Divider
+                      sx={{
+                        paddingLeft: "10px",
+                        display: hideElements ? "none" : "block",
+                      }}
+                    />
+                    {edit ? ( 
+                            <Input 
+                            value={cert}
+                            name='certifications'
+                            onChange={(e) => handleUpdate(e , index)}
+                          />
+                    ) : (
+                      <Typography
+                        sx={{ margin: "10px", minHeight: "15px" }}
+                        variant="body1"
+                        color="text.secondary"
+                      >
+                        {cert}
+                      </Typography>
+                    )}
+                  </>
+                ))}
               </CardContent>
             </Card>
-
-            {/* Education */}
             <Card sx={{ maxWidth: 999, marginTop: "10px" }}>
+              <CardHeader />
+              <CardHeader
+                action={
+                  <IconButton
+                    aria-label="settings"
+                    gap="3"
+                    sx={{
+                      paddingLeft: "10px",
+                      display: hideElements ? "none" : "block",
+                    }}
+                  >
+                    <ControlPointIcon
+                      size="small"
+                      onClick={() => handleAdd("education")}
+                    />
+                    <CreateIcon sx={{ paddingLeft: "10px" }} size="small" onClick={()=>setedit(true)}/>
+                  </IconButton>
+                }
+                title="Education"
+              />
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Education
-                </Typography>
-                <Divider />
-                <Typography
-                  sx={{ margin: "10px" }}
-                  variant="body1"
-                  color="text.secondary"
-                >
-                  College Name - Degree
-                </Typography>
-                <Divider />
-                <Typography
-                  sx={{ margin: "10px" }}
-                  variant="body1"
-                  color="text.secondary"
-                >
-                  University Name - Degree
-                </Typography>
+                {user.education && user.education.map((edu,index) => (
+                  <> 
+                    <Divider
+                      sx={{
+                        paddingLeft: "10px", 
+                        display: hideElements ? "none" : "block",
+                      }}
+                    />
+                    {edit ? ( 
+                            <Input
+                            value={edu}
+                            name='education'
+                            onChange={(e) => handleUpdate(e , index)}
+                          />
+                    ) : (
+                      <Typography
+                        sx={{ margin: "10px", minHeight: "15px" }}
+                        variant="body1"
+                        color="text.secondary"
+                      >
+                        {edu}
+                      </Typography>
+                    )}
+                  </>
+                ))}
               </CardContent>
             </Card>
           </Box>
@@ -224,20 +385,33 @@ const Profile = () => {
             <Card marginTop={5}>
               <CardHeader
                 action={
-                  <IconButton aria-label="settings" gap="3">
-                    <ControlPointIcon />
-                    <CreateIcon sx={{ paddingLeft: "10px" }} />
+                  <IconButton
+                    aria-label="settings"
+                    gap="3"
+                    sx={{
+                      paddingLeft: "10px",
+                      display: hideElements ? "none" : "block",
+                    }}
+                  >
+                    <ControlPointIcon size="small" />
+                    <CreateIcon sx={{ paddingLeft: "10px" }} size="small" />
                   </IconButton>
                 }
-                title={data.name} 
+                title={data.name}
                 subheader="description"
               />
               <CardContent>
+              {edit ? ( 
+                      <Input
+                      value={user.bio}
+                      name='bio'
+                      onChange={(e) => handleUpdate(e)}
+
+                          />
+                        ) : (
                 <Typography variant="body2" color="text.secondary">
-                  This impressive paella is a perfect party dish and a fun meal
-                  to cook together with your guests. Add 1 cup of frozen peas
-                  along with the mussels, if you like.
-                </Typography>
+                  {user.bio}
+                </Typography> )} 
               </CardContent>
             </Card>
             {/* Work History */}
@@ -246,29 +420,64 @@ const Profile = () => {
               <CardHeader
                 action={
                   <IconButton aria-label="settings">
-                    <ControlPointIcon />
-                    <CreateIcon sx={{ paddingLeft: "10px" }} />
+                    {isEditing ? (
+                      <CheckIcon
+                        onClick={handleSave}
+                        size="small"
+                        sx={{ display: hideElements ? "none" : "block" }}
+                      /> // Show the CheckIcon in edit mode
+                    ) : (
+                      <CreateIcon
+                         onClick={()=>setedit(true)}
+                        size="small"
+                        sx={{ display: hideElements ? "none" : "block" }}
+                      /> // Show the CreateIcon in non-edit mode
+                    )}
+                    <ControlPointIcon
+                      size="small"
+                      onClick={() => handleAdd("workExp")}
+                      sx={{
+                        paddingLeft: "10px",
+                        display: hideElements ? "none" : "block",
+                      }}
+                    />
                   </IconButton>
                 }
                 title="Work History"
-                subheader="Adding work expericnce will incerase your chance"
+                subheader="Adding work experience will increase your chance"
               />
               <CardContent>
                 <List>
-                  <ListItem disablePadding>
-                    <ListItemButton>
-                      <ListItemText primary="Film A - Roll A - Duration" />
-                    </ListItemButton>
-                  </ListItem>
-                  <Divider />
-                  <ListItem disablePadding>
-                    <ListItemButton component="a" href="#simple-list">
-                      <ListItemText primary="Spam" />
-                    </ListItemButton>
-                  </ListItem>
+                  {user.workExp.map((item, index) => (
+                    <React.Fragment key={index}>
+                      <ListItem disablePadding>
+                    {edit ? ( 
+                      <Input
+                      value={item}
+                      name='workExp'
+                      onChange={(e) => handleUpdate(e , index)}
+
+                          />
+                        ) : (
+                          <ListItemButton>
+                            {item}
+                            <ListItemText primary="" />
+                          </ListItemButton>
+                        )}
+                      </ListItem>
+                      <Divider
+                        key={`divider-${index}`}
+                        sx={{
+                          paddingLeft: "10px",
+                          display: hideElements ? "none" : "block",
+                        }}
+                      />
+                    </React.Fragment>
+                  ))}
                 </List>
               </CardContent>
             </Card>
+
             {/* Skills */}
 
             <Card sx={{ marginTop: "10px" }}>
