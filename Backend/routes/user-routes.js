@@ -10,7 +10,7 @@ router.post('/sendOtp', sendOtp)
 router.get('/user',getUser)
 router.post('/logout',verifyToken,logout)
 router.patch('/resetPassword', resetPassword)
-router.patch('/update',verifyToken,upload.single('image'),updateProfile)
+router.post('/updateProfile',verifyToken,upload.single('image'),updateProfile)
  
 router.post('/createPost',verifyToken,upload.single('image'),createPost) 
 router.get('/getPosts',getPost)

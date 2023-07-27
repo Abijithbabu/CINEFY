@@ -27,6 +27,7 @@ import { useSelector } from "react-redux";
 import Input from "@mui/material/Input";
 import CheckIcon from "@mui/icons-material/Check";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { updateProfile } from "../../redux/action";
 
 const styles = {
   card: {
@@ -58,7 +59,7 @@ const skills = [
 ];
 
 const Profile = () => {
-  const data = useSelector((store) => store.data.user);
+  const data = useSelector((store) => store.data.user.profile);
   const intialState = {
     name: "",
     roles: ["Actor"],
@@ -76,6 +77,7 @@ const Profile = () => {
     languages: ["English", "French"],
     workExp: ["Film A - Roll A - Duration", "Film B - Roll B - Duration"],
     education: ["College Name - Degree", "University Name - Degree"],
+    ...data
   };
 
   const [user, setuser] = useState(intialState);
@@ -90,38 +92,41 @@ const Profile = () => {
   const handleEdit = () => {
     setIsEditing(true);
   };
-  const UpdateUser = ({value, name}) => {
+  const UpdateUser = ({ value, name }) => {
     const newName = name.substring(1)
     const key = parseInt(name[0])
-    console.log(key,newName);
+    console.log(key, newName);
     return (
       <input
         value={user[newName][key]}
         name={name}
-        onChange={(e) => handleUpdate(e , key)}
+        onChange={(e) => handleUpdate(e, key)}
       ></input>
     );
   };
   const handleSave = () => {
     setIsEditing(false);
   };
-
+  const handleSubmit = async() => {
+   await updateProfile(user).then(res=>setedit(false))
+    
+  };
   const handleAdd = (e) => {
     setuser((prevUser) => ({
       ...prevUser,
       [e]: [...prevUser[e], " "],
     }));
   };
-  const handleUpdate = (e, key=null) => {
+  const handleUpdate = (e, key = null) => {
     const data = user;
     console.log(key);
-    if (key!==null) {
+    if (key !== null) {
       data[e.target.name][key] = e.target.value;
     } else {
       data[e.target.name] = e.target.value;
     }
     console.log(data);
-    setuser({ ...data }); 
+    setuser({ ...data });
   };
   return (
     <Container sx={{ mt: 14 }}>
@@ -133,16 +138,27 @@ const Profile = () => {
           borderRadius: "4px",
         }}
       >
-        <Button
+        {edit ? (
+          <Button
+            variant="outlined"
+            sx={{
+              marginLeft: { xs: 51, sm: 80, md: 108, xl: 129 },
+              marginTop: "105px",
+            }}
+            onClick={handleSubmit}
+          >
+            Save Changes
+          </Button>
+        ) : (<Button
           variant="outlined"
           sx={{
             marginLeft: { xs: 51, sm: 80, md: 108, xl: 129 },
             marginTop: "105px",
           }}
-          onClick={handleOutlineButtonClick}
+          onClick={() => setedit(true)}
         >
-          Outlined
-        </Button>
+          Edit
+        </Button>)}
       </Box>
       <Grid container spacing={0}>
         <Grid item xs={12} md={4} marginTop={2}>
@@ -243,7 +259,7 @@ const Profile = () => {
                 title="Languages"
               />
               <CardContent>
-                {user.languages.map((lang,index) => (
+                {user.languages.map((lang, index) => (
                   <>
                     <Divider
                       sx={{
@@ -251,12 +267,12 @@ const Profile = () => {
                         display: hideElements ? "none" : "block",
                       }}
                     />
-                    {edit ? ( 
-                            <Input
-                            value={lang} 
-                            name='languages'
-                            onChange={(e) => handleUpdate(e , index)}
-                          />
+                    {edit ? (
+                      <Input
+                        value={lang}
+                        name='languages'
+                        onChange={(e) => handleUpdate(e, index)}
+                      />
                     ) : (
                       <Typography
                         sx={{ margin: "10px", minHeight: "15px" }}
@@ -267,7 +283,7 @@ const Profile = () => {
                       </Typography>
                     )}
                   </>
-                ))} 
+                ))}
               </CardContent>
             </Card>
             <Card sx={{ maxWidth: 999, marginTop: "10px" }}>
@@ -291,7 +307,7 @@ const Profile = () => {
                 title="Certifications"
               />
               <CardContent>
-                {user.certifications.map((cert,index) => (
+                {user.certifications.map((cert, index) => (
                   <>
                     <Divider
                       sx={{
@@ -299,12 +315,12 @@ const Profile = () => {
                         display: hideElements ? "none" : "block",
                       }}
                     />
-                    {edit ? ( 
-                            <Input 
-                            value={cert}
-                            name='certifications'
-                            onChange={(e) => handleUpdate(e , index)}
-                          />
+                    {edit ? (
+                      <Input
+                        value={cert}
+                        name='certifications'
+                        onChange={(e) => handleUpdate(e, index)}
+                      />
                     ) : (
                       <Typography
                         sx={{ margin: "10px", minHeight: "15px" }}
@@ -334,26 +350,26 @@ const Profile = () => {
                       size="small"
                       onClick={() => handleAdd("education")}
                     />
-                    <CreateIcon sx={{ paddingLeft: "10px" }} size="small" onClick={()=>setedit(true)}/>
+                    <CreateIcon sx={{ paddingLeft: "10px" }} size="small" onClick={() => setedit(true)} />
                   </IconButton>
                 }
                 title="Education"
               />
               <CardContent>
-                {user.education && user.education.map((edu,index) => (
-                  <> 
+                {user.education && user.education.map((edu, index) => (
+                  <>
                     <Divider
                       sx={{
-                        paddingLeft: "10px", 
+                        paddingLeft: "10px",
                         display: hideElements ? "none" : "block",
                       }}
                     />
-                    {edit ? ( 
-                            <Input
-                            value={edu}
-                            name='education'
-                            onChange={(e) => handleUpdate(e , index)}
-                          />
+                    {edit ? (
+                      <Input
+                        value={edu}
+                        name='education'
+                        onChange={(e) => handleUpdate(e, index)}
+                      />
                     ) : (
                       <Typography
                         sx={{ margin: "10px", minHeight: "15px" }}
@@ -401,17 +417,17 @@ const Profile = () => {
                 subheader="description"
               />
               <CardContent>
-              {edit ? ( 
-                      <Input
-                      value={user.bio}
-                      name='bio'
-                      onChange={(e) => handleUpdate(e)}
+                {edit ? (
+                  <Input
+                    value={user.bio}
+                    name='bio'
+                    onChange={(e) => handleUpdate(e)}
 
-                          />
-                        ) : (
-                <Typography variant="body2" color="text.secondary">
-                  {user.bio}
-                </Typography> )} 
+                  />
+                ) : (
+                  <Typography variant="body2" color="text.secondary">
+                    {user.bio}
+                  </Typography>)}
               </CardContent>
             </Card>
             {/* Work History */}
@@ -428,7 +444,7 @@ const Profile = () => {
                       /> // Show the CheckIcon in edit mode
                     ) : (
                       <CreateIcon
-                         onClick={()=>setedit(true)}
+                        onClick={() => setedit(true)}
                         size="small"
                         sx={{ display: hideElements ? "none" : "block" }}
                       /> // Show the CreateIcon in non-edit mode
@@ -451,11 +467,11 @@ const Profile = () => {
                   {user.workExp.map((item, index) => (
                     <React.Fragment key={index}>
                       <ListItem disablePadding>
-                    {edit ? ( 
-                      <Input
-                      value={item}
-                      name='workExp'
-                      onChange={(e) => handleUpdate(e , index)}
+                        {edit ? (
+                          <Input
+                            value={item}
+                            name='workExp'
+                            onChange={(e) => handleUpdate(e, index)}
 
                           />
                         ) : (

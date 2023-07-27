@@ -32,6 +32,9 @@ const userSchema = new Schema({
     name:{
       type:String
     },
+    roles:{
+      type:Array
+    },
     photo:{
       type:String
     },
@@ -47,8 +50,17 @@ const userSchema = new Schema({
     skills:{
       type:Array
     },
-    awards:{
-       
+    certifications:{
+      type:Array
+    },
+    languages:{
+      type:Array
+    },
+    workExp:{
+      type:Array
+    },
+    education:{
+      type:Array
     }
   },
   address:{

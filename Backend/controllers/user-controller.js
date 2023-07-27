@@ -166,23 +166,22 @@ const resetPassword = async (req, res) => {
 
 const updateProfile = async (req, res) => {
   try {
-    if (!req.file) {
-      return res.json({ error: 'Image is required' });
-    }
-
-    // Generate the correct image URL by replacing backslashes with forward slashes
-    const filepath = req.file.path.replace(/\\/g, '/').slice(7);
-
-    await User.findByIdAndUpdate(req.id, {
+    // if (!req.file) {
+    //   return res.json({ error: 'Image is required' });
+    // }
+    // const filepath = req.file.path.replace(/\\/g, '/').slice(7);
+    const data = req.body 
+    console.log(data);
+    await User.updateOne(data._id, {
       $set: {
-        profilePic: filepath,
+        profile: data,
       },
     });
 
-    const user = await User.findById(req.id);
+    const user = await User.findById(data._id);
     console.log('profile----', user);
 
-    res.json({ success: true, url: user.profilePic });
+    res.json({ success: true, message:'profile updated successfully'});
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: 'Internal server error' });

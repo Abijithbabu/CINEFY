@@ -244,3 +244,21 @@ export const applyJob = async (id,user) => {
     return false;
   }
 };
+
+export const updateProfile = async (data) => {
+  try {
+    const res = await Axios.post(`/updateProfile`,data);
+    if (res.data) {
+      Store.addNotification({
+        ...notification,
+        message: res.data.message,
+        title: "Success",
+        type: "success",
+      });
+      return res.data;
+    }
+  } catch (err) {
+    handleApiError(err);
+    return false;
+  }
+};
