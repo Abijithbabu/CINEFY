@@ -6,19 +6,19 @@ const Navigation = ({data}) => {
     const navigations = [
         {
           label: 'Home',
-          path: '/', // '/',
+          path: '/', 
         },
         {
           label: data?.type === 'recruiter' ?'Posts': 'Find Jobs',
-          path: data?.type === 'recruiter' ?'': '/findJobs',
+          path: data?.type === 'recruiter' ?'/manageContents': '/findJobs',
         },
         {
           label: 'Blogs',
-          path: '/blogs', // '/mentors',
+          path: '/blogs', 
         },
         {
           label: 'About',
-          path: '/about', // '/testimonial',
+          path: '/about', 
         },
       ]
   return (

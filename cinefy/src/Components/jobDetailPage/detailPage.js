@@ -23,12 +23,14 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import AddIcon from "@mui/icons-material/Add";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
-import { getPostDetails } from "../../redux/action";
+import { applyJob, getPostDetails } from "../../redux/action";
+import { useSelector } from "react-redux";
 
 const DetailPage = () => {
   const location = useLocation(); 
   const queryParams = queryString.parse(location.search);
   const [details, setDetails] = useState();
+  const data = useSelector((store) => store.data.user);
   useEffect(() => {
     try {
       const fetchData = async () => {
@@ -42,7 +44,11 @@ const DetailPage = () => {
     }
   }, []);
 
-  function handleClick() {}
+  async function handleClick() {
+    await applyJob(details._id,data._id)
+    await getPostDetails(queryParams.id).then(
+      (res) => res && setDetails(res)
+    );  }
 
   return (
     <Container sx={{ mt: 14 }}>
@@ -185,13 +191,23 @@ const DetailPage = () => {
                 </Table>
               </CardContent>
             </Card>
-            <Button
+
+             {details?.applicants.includes(data._id)?(
+                          <Button
+                          sx={{ mt: 3, mb: 3 }}
+                          variant="blur"
+                        > 
+                        Application Submitted
+                        </Button>
+             ):(
+              <Button
               sx={{ mt: 3, mb: 3 }}
               variant="outlined"
               onClick={handleClick}
-            >
-              APPLY NOW
+            > 
+            APPLY NOW
             </Button>
+ )} 
           </Box>
         </Grid>
       </Grid>

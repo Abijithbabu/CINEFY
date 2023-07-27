@@ -1,8 +1,7 @@
-import PropTypes from "prop-types";
-import { format } from "date-fns";
 import {
   Avatar,
   Box,
+  Button,
   Card,
   Checkbox,
   Stack,
@@ -14,6 +13,8 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { blockUser } from "../../redux/action";
+import { useState } from "react";
 // import { Scrollbar } from 'src/components/scrollbar';
 // import { getInitials } from 'src/utils/get-initials';
 
@@ -31,7 +32,7 @@ export const CustomersTable = (props) => {
     rowsPerPage = 0,
     selected = [],
   } = props;
-
+  const [data, setdata] = useState(items)
   const selectedSome = selected.length > 0 && selected.length < items.length;
   const selectedAll = items.length > 0 && selected.length === items.length;
 
@@ -57,13 +58,12 @@ export const CustomersTable = (props) => {
               </TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Email</TableCell>
-              <TableCell>Location</TableCell>
               <TableCell>Phone</TableCell>
-              <TableCell>Signed Up</TableCell>
+              <TableCell>Block user</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {items.map((customer) => {
+            {data.length && data.map((customer,index) => {
               const isSelected = selected.includes(customer._id);
               // const createdAt = format(customer.createdAt, 'dd/MM/yyyy');
 
@@ -92,9 +92,18 @@ export const CustomersTable = (props) => {
                     </Stack>
                   </TableCell>
                   <TableCell>{customer.email}</TableCell>
-                  <TableCell>{customer.email}</TableCell>
                   <TableCell>{customer?.phone ?? "NA"}</TableCell>
-                  <TableCell>{customer?.phone ?? "NA"}</TableCell>
+                  <TableCell>
+                    <Button onClick={()=>{
+                      blockUser(customer._id)
+                      setdata((prev)=>{
+                        prev[index].isDelete=!customer.isDelete
+                        return [...prev]
+                      })
+                      }}>
+                      {customer.isDelete?'unBlock':'Block'}
+                    </Button>
+                  </TableCell>
                 </TableRow>
               );
             })}

@@ -43,6 +43,9 @@ const castingSchema = new Schema({
     },
     description:{
         type:String
+    },
+    applicants:{
+        type:Array
     }
 
 })

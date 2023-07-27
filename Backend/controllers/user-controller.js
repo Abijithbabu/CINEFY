@@ -59,6 +59,9 @@ const login = async (req, res) => {
   if (!isPassword) {
     return res.status(400).json({ message: "Invalid Email Id or password" })
   }
+  if (existingUser.isDelete) {
+    return res.status(400).json({ message: "oops ! you've been temporarly blocked by the Administrator" })
+  }
   const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET, {
     expiresIn: 8600
   })
@@ -88,6 +91,9 @@ const gLogin = async (req,res)=>{
       const isPassword = (await existingUser.matchPasswords(googleId))
       if (!isPassword) {
         return res.status(400).json({ message: "Invalid Email Id or password" })
+      }
+      if (existingUser.isDelete) {
+        return res.status(400).json({ message: "oops ! you've been temporarly blocked by the Administrator" })
       }
     }
       else{
@@ -255,6 +261,19 @@ const getPostDetails = async (req, res) => {
   }
 }
 
+const applyJob = async (req, res) => {
+  try {
+    const post = await CastingCall.updateOne({_id:req.query.id},{$push:{applicants:req.query.user}})
+    if (!post) {
+      return res.status(404).json({ message: "Something Went Wrong !" })
+    }
+  
+    return res.status(200).json({message:'Applied Successfully'})
+  } catch (error) {
+    return new Error(error)
+  }
+}
+
 module.exports = {
   sendOtp,
   signup,
@@ -266,5 +285,6 @@ module.exports = {
   logout,
   createPost,
   getPost,
-  getPostDetails
+  getPostDetails,
+  applyJob
 }

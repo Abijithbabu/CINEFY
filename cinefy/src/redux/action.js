@@ -214,3 +214,33 @@ export const getUserDetails = async (id) => {
     return false;
   }
 };
+
+export const blockUser = async (id) => {
+  try {
+    const res = await Axios.patch(`/admin/blockUser?id=${id}`);
+    if (res.data) {
+      return res.data;
+    }
+  } catch (err) {
+    handleApiError(err);
+    return false;
+  }
+}
+
+export const applyJob = async (id,user) => {
+  try {
+    const res = await Axios.patch(`/applyJob?id=${id}&user=${user}`);
+    if (res.data) {
+      Store.addNotification({
+        ...notification,
+        message: res.data.message,
+        title: "Success",
+        type: "success",
+      });
+      return res.data;
+    }
+  } catch (err) {
+    handleApiError(err);
+    return false;
+  }
+};

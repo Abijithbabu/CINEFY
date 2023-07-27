@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Layout as DashboardLayout } from "../Layouts/dashboard/layout";
-import { getPosts } from "../redux/action";
+import { Layout as DashboardLayout } from "../../Layouts/dashboard/layout";
+import { getPosts } from "../../redux/action";
 import {
   Box,
   Button,
@@ -11,8 +11,8 @@ import {
   Typography,
 } from "@mui/material";
 import ArrowDownOnSquareIcon from "@heroicons/react/24/solid/ArrowDownOnSquareIcon";
-import {Search} from '../Components/castingCall/search'
-import { JobCards } from '../Components/castingCall/card'
+import {Search} from '../../Components/castingCall/search'
+import { JobCards } from '../../Components/castingCall/card'
 
 const ManagePosts = () => {
   const [data, setData] = useState([]);

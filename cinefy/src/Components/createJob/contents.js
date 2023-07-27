@@ -37,7 +37,7 @@ const steps = [
 
 const defaultTheme = createTheme({
   palette: {
-    mode: "light",
+    mode: "dark",
   },
 });
 

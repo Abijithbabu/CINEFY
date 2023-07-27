@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Layout as DashboardLayout } from "../Layouts/dashboard/layout";
-import Customers from "../Components/customer/customers-page";
-import { getUsers } from "../redux/action";
+import { Layout as DashboardLayout } from "../../Layouts/dashboard/layout";
+import Customers from "../../Components/customer/customers-page";
+import { getUsers } from "../../redux/action";
 import {
   Box,
   Button,
@@ -11,19 +11,19 @@ import {
   Typography,
 } from "@mui/material";
 import ArrowDownOnSquareIcon from "@heroicons/react/24/solid/ArrowDownOnSquareIcon";
-import { CustomersSearch } from "../Components/customer/customers-search";
+import { CustomersSearch } from "../../Components/customer/customers-search";
 
-const CustomerManage = () => {
+const RecruterManage = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
-    getUsers("user").then((res) => setData(res.user));
+    getUsers("recruiter").then((res) => setData(res.user));
   }, []);
 
   return (
     <DashboardLayout>
       <Box
         component="main"
-        sx={{ 
+        sx={{
           flexGrow: 1,
           py: 8,
         }}
@@ -32,7 +32,7 @@ const CustomerManage = () => {
           <Stack spacing={3}>
           <Stack direction="row" justifyContent="space-between" spacing={4}>
               <Stack spacing={1}>
-                <Typography variant="h4">Manage Customers</Typography>
+                <Typography variant="h4">Manage Recruters</Typography>
                 <Stack alignItems="center" direction="row" spacing={1}>
                   <Button
                     color="inherit"
@@ -56,4 +56,4 @@ const CustomerManage = () => {
   );
 };
 
-export default CustomerManage;
+export default RecruterManage;

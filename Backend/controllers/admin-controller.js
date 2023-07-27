@@ -107,22 +107,20 @@ const addUser = async(req,res) =>{
     }
     return res.status(201).json({message:user})
 }
-const EditUser = async(req,res) =>{
-
-    try{
-        const id=req.params.id
-        const {name,email}=req.body
-        await User.findByIdAndUpdate(id,{
-            $set:{
-                name,
-                email
-            }
-        })
-        res.json({success:true})
-            }catch(err){
-        
-            }
-}
+const blockUser = async (req, res) => {
+    console.log(req.query.id);
+    try {
+        const user = await User.findById(req.query.id);
+      const post = await User.updateOne({_id:req.query.id},{$set:{isDelete:!user.isDelete}})
+      if (!post) {
+        return res.status(404).json({ message: "Something Went Wrong !" })
+      }
+    
+      return res.status(200).json(post)
+    } catch (error) {
+      return new Error(error)
+    }
+  }
 const searchUser = async (req, res) => {
     try {
       const search = req.body.search;
@@ -187,7 +185,7 @@ module.exports = {
     getUser,
     userDetails,
     addUser,
-    EditUser,
+    blockUser,
     deleteUser,
     searchUser
 }

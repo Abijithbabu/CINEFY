@@ -8,7 +8,7 @@ const verifyTokenAdmin = (req, res, next) => {
     return res.status(404).json({ message: 'No token found' });
   }
 console.log('token get',token)
-  jwt.verify(token, process.env.JWT_SECRET_ADMIN, (err, user) => {
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
       console.log(err.name)
       if (err.name === 'TokenExpiredError') {
