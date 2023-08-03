@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Layout from '../../Layouts/recruiterLayout'
 import { Box, Button, Container, Grid, Stack, SvgIcon, Typography } from '@mui/material'
 import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIcon'
-import Table from '../../Components/recruiter/manageContent/table'
+import Table from '../../Components/creator/manageContent/table'
 import { getPosts } from '../../redux/action'
 
 const ManageContent = () => {

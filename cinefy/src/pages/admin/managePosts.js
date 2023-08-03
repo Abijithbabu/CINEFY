@@ -11,8 +11,8 @@ import {
   Typography,
 } from "@mui/material";
 import ArrowDownOnSquareIcon from "@heroicons/react/24/solid/ArrowDownOnSquareIcon";
-import {Search} from '../../Components/castingCall/search'
-import { JobCards } from '../../Components/castingCall/card'
+import {Search} from '../../Components/admin/castingCall/search'
+import { JobCards } from '../../Components/admin/castingCall/card'
 
 const ManagePosts = () => {
   const [data, setData] = useState([]);

@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
-import AccountProfile from '../../Components/account/account-profile'
-import { AccountProfileDetails } from '../../Components/account/account-profile-details';
+import AccountProfile from '../../Components/admin/account/account-profile'
+import { AccountProfileDetails } from '../../Components/admin/account/account-profile-details';
 import { Layout as DashboardLayout } from '../../Layouts/dashboard/layout';
 import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 

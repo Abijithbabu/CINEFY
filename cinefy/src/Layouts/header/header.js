@@ -11,7 +11,7 @@ import { usePopover } from "../../hooks/use-popover";
 import { AccountPopover } from "../dashboard/account-popover";
 import { useSelector } from "react-redux";
 import Navigation from "./navigation";
-import CreateJob from '../../Components/createJob/createJob'
+import CreateJob from '../../Components/creator/createJob/createJob'
 const Header = () => {
   const accountPopover = usePopover();
   const navigate = useNavigate();
@@ -24,15 +24,18 @@ const Header = () => {
 
   return (
     <Box sx={{
-      backdropFilter: "blur(5px)",
+      // backdropFilter: "blur(5px)",
+      background:"linear-gradient(71deg, #B2B2B2 0%, #FFE0B2 100%)",
       position: "fixed",
       top: 0,
       left: 0,
       right: 0,
       padding:0,
       zIndex: 1000,
+      height:60
+      
     }}>
-      <Container sx={{ py: { xs: 2, md: 3 } }}>
+      <Container sx={{ py: { xs: 1, md: 1 } }}>
         <Box position={'relative'}
           sx={{
 
@@ -42,26 +45,26 @@ const Header = () => {
           }}
         >
           <Box>
-            <Box
+            {/* <Box
               component="img"
               src="navBarLogo.png"
               alt="Image description"
               width={260}
               height={60}
-            />
+            /> */}
 
-            {/* <Typography
-              variant="h4"
+            <Typography
+              variant="h5"
               component="h1"
               sx={{
-                fontWeight: 700,
+                fontWeight: 500,
                 "& span": {
-                  color: variant === "primary" ? "primary.main" : "unset",
+                  color: '#28007C',
                 },
               }}
             >
-              Artisto<span>Club</span>
-            </Typography> */}
+              <span>CINEFY</span>
+            </Typography>
           </Box>
           <Box sx={{ ml: "auto", display: { xs: "inline-flex", md: "none" } }}>
             <IconButton onClick={() => setVisibleMenu(!visibleMenu)}>
@@ -82,7 +85,7 @@ const Header = () => {
                 backgroundColor: "background.paper",
                 zIndex: "appBar",
                 position: "fixed",
-                height: { xs: "100vh", md: "auto" },
+                height: { xs: "100vh", md: "50vh" },
                 top: visibleMenu ? 0 : "-120vh",
                 left: 0,
               }),
@@ -111,6 +114,8 @@ const Header = () => {
                     cursor: "pointer",
                     height: 40,
                     width: 40,
+                    borderWidth: "15px",
+                    borderColor:"#000",
                   }}
                   src={
                     data?.profilePic

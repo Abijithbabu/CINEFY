@@ -1,6 +1,6 @@
 import React from 'react'
-import Navbar from '../Components/recruiter/layout/navbar'
-import SideNav from '../Components/recruiter/layout/sideNav'
+import Navbar from '../Components/creator/layout/navbar'
+import SideNav from '../Components/creator/layout/sideNav'
 
 const RecruiterLayout = ({ children }) => {
  const [open, setOpen] = React.useState(false);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Layout as DashboardLayout } from "../../Layouts/dashboard/layout";
-import Customers from "../../Components/customer/customers-page";
+import Customers from "../../Components/admin/customer/customers-page";
 import { getUsers } from "../../redux/action";
 import {
   Box,
@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import ArrowDownOnSquareIcon from "@heroicons/react/24/solid/ArrowDownOnSquareIcon";
-import { CustomersSearch } from "../../Components/customer/customers-search";
+import { CustomersSearch } from "../../Components/admin/customer/customers-search";
 
 const RecruterManage = () => {
   const [data, setData] = useState([]);
