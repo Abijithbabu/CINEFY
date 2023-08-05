@@ -34,7 +34,7 @@ const Navigation = ({data}) => {
           duration={350}
           sx={{
             position: 'relative',
-            color: 'rgba(40, 0, 124, 0.78)',
+            color: '#fff',
             cursor: 'pointer',
             textDecorationLine:'none',
             fontWeight: 600,
@@ -45,7 +45,7 @@ const Navigation = ({data}) => {
             mb: { xs: 3, md: 0 },
             fontSize: { xs: '1.2rem', md: '1.03rem' },
             ...(destination === window.location.pathname && {
-              color: 'primary.main',
+              color: '#000',
             }),
 
             '& > div': { display: 'none' },
@@ -53,7 +53,7 @@ const Navigation = ({data}) => {
             '&.current>div': { display: 'block' },
 
             '&:hover': {
-              color: '#28007C',
+              color: '#fff',
               '&>div': {
                 display: 'block',
               },

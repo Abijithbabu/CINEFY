@@ -20,12 +20,12 @@ const Header = () => {
   const { breakpoints } = useTheme();
   const matchMobileView = useMediaQuery(breakpoints.down("md"));
   const variant = "primary";
-  const data = useSelector((store) => store.data.user);
+  const data = useSelector((store) => store?.data?.user);
 
   return (
     <Box sx={{
       // backdropFilter: "blur(5px)",
-      background:"linear-gradient(71deg, #B2B2B2 0%, #FFE0B2 100%)",
+      background:"#1E1C27",
       position: "fixed",
       top: 0,
       left: 0,
@@ -59,7 +59,7 @@ const Header = () => {
               sx={{
                 fontWeight: 500,
                 "& span": {
-                  color: '#28007C',
+                  color: '#fff',
                 },
               }}
             >

@@ -1,43 +1,77 @@
 import styled from "@emotion/styled";
 import React from "react";
+
 import {
   Box,
   Button,
   ButtonGroup,
+  Card,
   Checkbox,
   Divider,
-  IconButton,
+  Hidden,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
-  ListItemText,
   Typography,
 } from "@mui/material";
+import SimpleSlider from "./mobFilter";
 
-// Styled Compontents
+const Fili = [
+  {
+    id: 1,
+    title: "Location ",
+    elements: [
+      "Near me",
+      "Remote",
+      "within 15 km",
+      "with in 30 km",
+      "with in 50 km",
+    ],
+  },
+  {
+    id: 2,
+    title: "Salary",
+    flag: "1",
+    elements: ["less than 30k", "less than 45k", "less than 50k", "above 60k"],
+  },
+  {
+    id: 3,
+    title: "Date of posting",
+    elements: ["Last 24 hours", "Last 3 days", "last 24 days", "expering soon"],
+  },
+  {
+    id: 4,
+    title: "Date of posting",
+    elements: ["Last 24 hours", "Last 3 days", "last 24 days", "expering soon"],
+  },
+  {
+    id: 5,
+    title: "Date of posting",
+    elements: ["Last 24 hours", "Last 3 days", "last 24 days", "expering soon"],
+  },
+];
 
-const FiliterCard = styled(Box)({
-  background: "linear-gradient(226deg, #253541 1.21%, #0F2D2B 100%)",
+const FiliterCard = styled(Card)({
+  display: "flex-row",
+  align: "",
+  background: "#fff",
   height: "",
   marginTop: "10px",
-  transition: "box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
-  borderRadius: "14px",
-  boxShadow: "-30px 50px 50px #001609",
   minWidth: "100px",
-  maxWidth: "300px",
+  maxWidth: "px",
 });
 
 const H1 = styled(Typography)({
-  variant: "body1",
-  color: "#FFE3B7",
+  fontFamily: "Poppins",
+  color: "#000",
   paddingLeft: "25px",
   paddingTop: "10px",
 });
 
-const H2 = styled(Typography )({
-  variant:"h6",
-  color: "#9A8A76",
+const H2 = styled(Typography)({
+  variant: "h6",
+  color: "#000",
   paddingLeft: "15px",
   paddingTop: "5px",
 });
@@ -54,69 +88,55 @@ const Lbtn = styled(ListItemButton)({
   paddingTop: "1px",
 });
 
-
 function Filiter() {
   return (
-    <FiliterCard>     
-      <H1>Location</H1>
-      <List sx={{ width: "100%" }} size="small">
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2 variant="h8">Near me</H2></ListItemIcon></Lbtn></Ul>
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2>Remote</H2></ListItemIcon></Lbtn></Ul>
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2>with in 15 km</H2></ListItemIcon></Lbtn></Ul>
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2>with in 30 km</H2></ListItemIcon></Lbtn></Ul>
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2>with in 50 km</H2></ListItemIcon></Lbtn></Ul>
-      </List>
-      <Divider />
-      <H1>Salary</H1>
-      <ButtonGroup sx={{pt:"10px", pl:"25px"}} size="small" variant="outlined" color="secondary" aria-label="small button group">
-        <Button>Hourly</Button>
-        <Button>Monthly</Button>
-        <Button>Yearly</Button>
-      </ButtonGroup>
-      <List sx={{ width: "100%" }} size="small">
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2>less than 30k</H2></ListItemIcon></Lbtn></Ul>
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2>less than 45k</H2></ListItemIcon></Lbtn></Ul>
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2>less than 60k</H2></ListItemIcon></Lbtn></Ul>
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2>less than 90k</H2></ListItemIcon></Lbtn></Ul>
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2>Above 100k</H2></ListItemIcon></Lbtn></Ul>
-      </List>
-      <Divider />
-      <H1>Date of posting</H1>
-      <List sx={{ width: "100%" }} size="small">
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2 >All time</H2></ListItemIcon></Lbtn></Ul>
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2>Last 24 hours</H2></ListItemIcon></Lbtn></Ul>
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2>Last 3 days</H2></ListItemIcon></Lbtn></Ul>
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2>last 24 days</H2></ListItemIcon></Lbtn></Ul>
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2>more than one month</H2></ListItemIcon></Lbtn></Ul>
-      </List>
-      <Divider />
-      <H1>Work Experience</H1>
-      <List sx={{ width: "100%" }} size="small">
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2 >Near me</H2></ListItemIcon></Lbtn></Ul>
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2>Remote</H2></ListItemIcon></Lbtn></Ul>
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2>with in 15 km</H2></ListItemIcon></Lbtn></Ul>
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2>with in 30 km</H2></ListItemIcon></Lbtn></Ul>
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2>with in 50 km</H2></ListItemIcon></Lbtn></Ul>
-      </List>
-      <Divider />
-      <H1>Type of employment</H1>
-      <List sx={{ width: "100%" }} size="small">
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2 >full-time</H2></ListItemIcon></Lbtn></Ul>
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2>less than 60 shots</H2></ListItemIcon></Lbtn></Ul>
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2>less than a week</H2></ListItemIcon></Lbtn></Ul>
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2>less than a month</H2></ListItemIcon></Lbtn></Ul>
-        <Ul><Lbtn><ListItemIcon><Checkbox size="small" /><H2>with in 50 km</H2></ListItemIcon></Lbtn></Ul>
-      </List>
-      <Divider />
-    </FiliterCard>
+    <>
+      <Hidden mdDown implementation="css">
+        <FiliterCard>
+          {Fili.map((card) => (
+            <Box key={card.id} mt="2">
+              <H1>{card.title}</H1>
+              {card.flag === "1" && (
+                <ButtonGroup
+                  sx={{ pt: "10px", pl: "25px" }}
+                  size="small"
+                  variant="outlined"
+                  color="secondary"
+                  aria-label="small button group"
+                >
+                  <Button>Hourly</Button>
+                  <Button>Monthly</Button>
+                  <Button>Yearly</Button>
+                </ButtonGroup>
+              )}
+              <List sx={{ width: "100%" }} size="small">
+                {card.elements.map((element, index) => (
+                  <Ul key={index}>
+                    <Lbtn>
+                      <ListItemIcon>
+                        <Checkbox size="small" />
+                        <H2 variant="body2">{element}</H2>
+                      </ListItemIcon>
+                    </Lbtn>
+                  </Ul>
+                ))}
+              </List>
+              <Divider />
+            </Box>
+          ))}
+        </FiliterCard>
+      </Hidden>
+      <Hidden mdUp implementation="css">
+        <SimpleSlider Fili={Fili}/>
+      </Hidden>
+    </>
   );
 }
 export default Filiter;
 
 
 
-
-
-
 //#C5AE8D 100%
 //<ListItemText />
+//linear-gradient(226deg, #253541 1.21%, #0F2D2B 100%)
+//linear-gradient(44deg, #171D1F 0%, #111B18 38.03%, rgba(16, 23, 26, 0.97) 64.31%, rgba(20, 28, 26, 0.92) 90.55%)

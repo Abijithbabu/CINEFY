@@ -18,12 +18,13 @@ import RecruiterPrivateRoute from "./recruiterRoutes";
 import ManageContent from "../pages/recruiter/manageContent";
 import ManageApplicants from "../pages/recruiter/manageApplicants";
 import Profile from "../pages/user/public-profile";
-
+import Chat from "../pages/general/chat";
 function routes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/chat" element={<Chat />} />
       <Route path="/register" element={<Register />} />
       <Route path="/resetPassword" element={<ResetPassword />} />
       <Route path="/findJobs" element={<Jobs />} />

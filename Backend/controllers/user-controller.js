@@ -273,6 +273,21 @@ const applyJob = async (req, res) => {
   }
 }
 
+const getAllUsers = async (req, res, next) => {
+  try {
+    console.log(req.params.id );
+    const users = await User.find({ _id: { $ne: req.params.id } }).select([
+      "email",
+      'name',
+      "_id",
+      'profilePic'
+    ]);
+    return res.json(users);
+  } catch (ex) {
+    next(ex);
+  }
+};
+
 module.exports = {
   sendOtp,
   signup,
@@ -285,5 +300,6 @@ module.exports = {
   createPost,
   getPost,
   getPostDetails,
-  applyJob
+  applyJob,
+  getAllUsers
 }

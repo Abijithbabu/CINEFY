@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "./Components/general/home/style.css";
 const GlobalStyle = createGlobalStyle`
   body {
-    font-family:"Cabin",-apple-system, BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    fontFamily: 'Poppins';
     margin: 0;
     padding: 0;
     background-color: #f7f7f7;

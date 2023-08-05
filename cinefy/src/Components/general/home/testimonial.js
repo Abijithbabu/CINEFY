@@ -60,6 +60,18 @@ const data = [
     },
   },
   {
+    id: 4,
+    title: 'Great Quality!',
+    content:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    user: {
+      id: 1,
+      name: 'Diana Jordan',
+      professional: 'SEO Expert',
+      photo: 'https://source.unsplash.com/random?wallpapers',
+    },
+  },
+  {
     id: 5,
     title: 'Detailed learning materials',
     content:
@@ -91,8 +103,9 @@ const SliderArrow = (props) => {
       color="inherit"
       onClick={onClick}
       className={className}
+      display ='none'
     >
-      {type === 'next' ? <IconArrowForward sx={{ fontSize: 22 }} /> : <IconArrowBack sx={{ fontSize: 22 }} />}
+      {/* {type === 'next' ? <IconArrowForward sx={{ fontSize: 22 }} /> : <IconArrowBack sx={{ fontSize: 22 }} />} */}
     </IconButton>
   )
 }
@@ -112,8 +125,8 @@ const HomeTestimonial = () => {
     speed: 300,
     slidesToShow: 1,
     slidesToScroll: 1,
-    prevArrow: <SliderArrow type="prev" />,
-    nextArrow: <SliderArrow type="next" />,
+    prevArrow: <div></div>, 
+    nextArrow: <div></div>,  
   }
 
   return (
