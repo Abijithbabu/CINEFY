@@ -1,36 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import Logo from "../../../assets/logo.svg";
 import { useSelector } from "react-redux";
 import { Avatar, Typography } from "@mui/material";
-import SearchAppBar from "../jobs/SearchBar";
 
 export default function Contacts({ contacts, changeChat }) {
   const data = useSelector((store) => store.data.user);
-  const [currentUserName, setCurrentUserName] = useState(data?.name);
-  const [currentUserImage, setCurrentUserImage] = useState(data?.profilePic);
   const [currentSelected, setCurrentSelected] = useState(undefined);
-  // useEffect(async () => {
-  //   const data = await JSON.parse(
-  //     localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-  //   );
-  //   setCurrentUserName(data?.username);
-  //   setCurrentUserImage(data?.avatarImage);
-  // }, []);
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
     changeChat(contact);
   };
   return (
     <>
-      {currentUserName && (
+      {data?.name && (
         <Container>
           <div className="brand">
             <H2>Chats</H2>
           </div>
-          
-          <div className="contacts"> 
-            {contacts.map((contact, index) => {
+
+          <div className="contacts">
+            {contacts && contacts.map((contact, index) => {
               return (
                 <div
                   key={contact._id}
@@ -40,10 +29,7 @@ export default function Contacts({ contacts, changeChat }) {
                   onClick={() => changeCurrentChat(index, contact)}
                 >
                   <div className="avatar">
-                    <Avatar alt="Remy Sharp"
-                      src={contact?.profilePic}  
-                      
-                    />
+                    <Avatar alt="Remy Sharp" src={contact?.profilePic} />
                   </div>
                   <div className="username">
                     <H2>{contact.name}</H2>
@@ -52,7 +38,6 @@ export default function Contacts({ contacts, changeChat }) {
               );
             })}
           </div>
-          
         </Container>
       )}
     </>
@@ -64,9 +49,9 @@ const H2 = styled(Typography)({
   color: "#000",
   paddingLeft: "15px",
   paddingTop: "5px",
-  align:"right",
-  fontFamily:"inherit",
-  font:"800"
+  align: "right",
+  fontFamily: "inherit",
+  font: "800",
 });
 const Container = styled.div`
   display: grid;
@@ -75,7 +60,7 @@ const Container = styled.div`
   background-color: #fff;
   border-style: solid;
   border-width: 01px;
-  border-color:#ededed;
+  border-color: #ededed;
   .brand {
     display: flex;
     align-items: left;
@@ -105,7 +90,7 @@ const Container = styled.div`
       }
     }
     .contact {
-      background-color: #F7F7F7;
+      background-color: #f7f7f7;
       min-height: 3rem;
       cursor: pointer;
       width: 90%;
@@ -127,7 +112,7 @@ const Container = styled.div`
       }
     }
     .selected {
-      background-color: #DAD9D9;
+      background-color: #dad9d9;
     }
   }
 

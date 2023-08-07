@@ -282,8 +282,8 @@ const getAllUsers = async (req, res, next) => {
       'profilePic'
     ]);
     return res.json(users);
-  } catch (ex) {
-    next(ex);
+  } catch (error) {
+    return res.status(400).json({ message: "Something Went Wrong !" })
   }
 };
 

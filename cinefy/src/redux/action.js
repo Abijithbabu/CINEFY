@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Store } from "react-notifications-component";
+import { allUsersRoute } from "../utils/APIRoutes";
 
 const baseURL = "http://localhost:5000/api";
 export const Axios = axios.create({
@@ -141,7 +142,7 @@ export const signOut = async (dispatch) => {
       payload: "",
     });
     const res = await Axios.post(`/logout`);
-    return true;
+    return res;
   } catch (err) {
     handleApiError(err);
     return false;
@@ -255,6 +256,19 @@ export const updateProfile = async (data) => {
         title: "Success",
         type: "success",
       });
+      return res.data;
+    }
+  } catch (err) {
+    handleApiError(err);
+    return false;
+  }
+};
+
+export const getContacts = async (id) => {
+  try {
+    const res = await Axios.get(`${allUsersRoute}/${id}`)
+    if (res.data) {
+
       return res.data;
     }
   } catch (err) {

@@ -12,8 +12,6 @@ export default function ChatInput({ handleSendMsg }) {
   };
 
   const handleEmojiClick = (event, emojiObject) => {
-    console.log(event);
-    console.log(emojiObject);
     let message = msg;
     message += event.emoji;
     setMsg(message);
@@ -102,7 +100,7 @@ const Container = styled.div`
   }
   .input-container {
     width: 95%;
-    border-radius: 2rem;
+    border-radius: 1rem;
     display: flex;
     align-items: center;
     gap: 2rem;

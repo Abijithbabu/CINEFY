@@ -1,58 +1,34 @@
 import React, { useEffect, useState, useRef } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import styled from "styled-components";
-import { allUsersRoute, host } from "../../../utils/APIRoutes";
+import { host } from "../../../utils/APIRoutes";
 import ChatContainer from "./ChatContainer";
 import Contacts from "./Contacts";
 import Welcome from "./Welcome";
 import { useSelector } from "react-redux";
+import { getContacts } from "../../../redux/action";
 
 export default function Chat() {
 
-  const navigate = useNavigate();
   const currentUser = useSelector((store) => store.data.user);
   const socket = useRef();
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
-  // const [currentUser, setCurrentUser] = useState(undefined);
-  // useEffect(async () => {
-  //   if (!localStorage.getItem('store')) {
-  //     navigate("/login");
-  //   } else {
-  //     setCurrentUser(
-  //       await JSON.parse( 
-  //         localStorage.getItem('store')
-  //       )
-  //     );
-  //       }
-  // }, []);
+
   useEffect(()=>{
     async function getUsers() {
     if (currentUser) {
       socket.current = io(host); 
       socket.current.emit("add-user", currentUser._id);
-      const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
-      setContacts(data.data); 
+      const data = await getContacts(currentUser._id);
+      setContacts(data); 
     }
   }
   getUsers()
   }, [currentUser]); 
 
-  // useEffect(async () => {  
-  //   if (currentUser) {
-  //     if (currentUser.isAvatarImageSet) {
-  //       const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
-  //       setContacts(data.data);
-  //     } else {
-  //       navigate("/setAvatar");
-  //     }
-  //   }
-  // }, [currentUser])
   const handleChatChange = (chat) => {
     setCurrentChat(chat); 
-    console.log(chat);
   };
   return (
     <>
@@ -64,7 +40,7 @@ export default function Chat() {
           ) : (
             <ChatContainer currentChat={currentChat} socket={socket} />
           )}
-        </div>
+        </div> 
       </Container>
     </>
   );

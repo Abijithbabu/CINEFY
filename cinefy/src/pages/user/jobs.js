@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../Layouts/header/header";
 import Footer from "../../Layouts/footer/footer";
 import Album from "../../Components/general/jobs/cards";
@@ -7,38 +7,37 @@ import Filiter from "../../Components/general/jobs/filiter";
 import styled from "@emotion/styled";
 import FreeSolo from "../../Components/general/jobs/SearchBar";
 
-
-
 const Page = styled(Box)({
-  background:
-    "#F8F8F8"
+  background: "#F8F8F8",
 });
 
-const FiliterContainer = styled(Container)({  });
+const FiliterContainer = styled(Container)({});
 
 const LeftSide = styled(Box)({
   display: "flex",
   flexDirection: "column",
   paddingTop: "10px",
   margin: { sx: 0, sm: 0, md: 0, lg: 0, xl: 0 },
-  marginTop: { md: 2, lg: 2, xl: 2, sx:0 },
+  marginTop: { md: 2, lg: 2, xl: 2, sx: 0 },
   marginLeft: { md: 2, lg: 2, xl: 2 },
 });
 
-function jobs() {
+function Jobs() {
+  const [filters, setFilters] = useState({});
   return (
     <>
       <Page>
         <FiliterContainer>
           <Header />
-          <FreeSolo/>
+          <FreeSolo />
           <Grid container spacing={0}>
-            <Grid item xs={12} md={4} marginTop={1} >
-
-              <Filiter />
+            <Grid item xs={12} md={4} marginTop={1}>
+              <Filiter filter={filters} apply={setFilters} />
             </Grid>
             <Grid item xs={12} md={7.5} sm={12}>
-              <LeftSide><Album /></LeftSide>
+              <LeftSide>
+                <Album filter={filters} />
+              </LeftSide>
             </Grid>
           </Grid>
           <Footer />
@@ -48,4 +47,4 @@ function jobs() {
   );
 }
 
-export default jobs;
+export default Jobs;

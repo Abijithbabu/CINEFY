@@ -1,41 +1,29 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Button from "@mui/material/Button";
-import CameraIcon from "@mui/icons-material/PhotoCamera";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconArrowForward from "@mui/icons-material/ArrowForward";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { getPosts } from "../../../redux/action";
 import { IconButton } from "@mui/material";
 import { useNavigate } from "react-router";
 import styled from "@emotion/styled";
+import { timeAgo } from "../../../utils/functions";
 
-
-//
 const MachingCard = styled(Card)({
-  
   minHeight: "30px",
   marginTop: "32px",
   paddingTop: "0.5px",
   paddingBottom: "px",
-  
-  
+
   minWidth: "0px",
   maxWidth: "350px",
-  
 });
 
 const H1 = styled(Typography)({
@@ -43,19 +31,11 @@ const H1 = styled(Typography)({
   color: "#000",
   paddingLeft: "1px",
   paddingTop: "1px",
-  
-  fontSize: '14px',
 
-fontWeight: '600',
-lineHeight: 'normal',
-});
+  fontSize: "14px",
 
-const H2 = styled(Typography)({
-  variant: "body1",
-  color: "#000",
-  paddingLeft: "14px",
-  paddingRight: "14px",
-  paddingTop: "1px",
+  fontWeight: "600",
+  lineHeight: "normal",
 });
 
 const H3 = styled(Typography)({
@@ -64,7 +44,6 @@ const H3 = styled(Typography)({
   paddingLeft: "px",
   paddingRight: "px",
   paddingTop: "1px",
-
 });
 
 const ImageSlot = styled(CardMedia)({
@@ -76,38 +55,22 @@ const ImageSlot = styled(CardMedia)({
   boxShadow: "0px 0px 1px 0px #07191D inset",
 });
 
-
 const CardTime = styled(Typography)({
-  color: '#484848',
-textAlign: 'right',
+  color: "#484848",
+  textAlign: "right",
 
-fontSize: '11px',
-fontStyle: 'normal',
-fontWeight: '400',
-lineHeight: 'normal',
-padding:"3px 6px 0px 0px",
-}) 
-
-//
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="/">
-        Artisto Club
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+  fontSize: "11px",
+  fontStyle: "normal",
+  fontWeight: "400",
+  lineHeight: "normal",
+  padding: "3px 6px 0px 0px",
+});
 
 const defaultTheme = createTheme();
 
 export default function Album() {
   const navigate = useNavigate();
-  const [checked , setChecked ] = React.useState(false)
+  const [checked, setChecked] = React.useState(false);
   const [data, setData] = React.useState([""]);
   React.useEffect(() => {
     try {
@@ -125,8 +88,8 @@ export default function Album() {
       <CssBaseline />
       <main>
         {/* Hero unit */}
-        
-        <Container sx={{ py: { sm:0, sx:0, md:0, lg:8} }}  maxWidth="md">
+
+        <Container sx={{ py: { sm: 0, sx: 0, md: 0, lg: 8 } }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={2}>
             {data.map((card, index) => (
@@ -138,49 +101,57 @@ export default function Album() {
                     flexDirection: "column",
                   }}
                 >
-                  <CardTime>12 min ago</CardTime>
+                  <CardTime>{timeAgo(card.date)}</CardTime>
                   <ImageSlot
-                    onClick={()=>navigate(`/DetailPage?id=${card._id}`)}
+                    onClick={() => navigate(`/DetailPage?id=${card._id}`)}
                     key={`media-${card._id}`}
                     component="div"
                     sx={{
                       pt: "56.25%",
-                      cursor:'pointer'
+                      cursor: "pointer",
                     }}
                     image={card.image && `http://localhost:5000/${card.image}`}
                   />
-                  <CardContent 
-                    onClick={()=>navigate(`/DetailPage?id=${card._id}`)}
-                    sx={{ 
+                  <CardContent
+                    onClick={() => navigate(`/DetailPage?id=${card._id}`)}
+                    sx={{
                       flexGrow: 1,
-                      cursor:'pointer'
-                    }}>
-                    <H1  >
-                      {card.title}
-                    </H1>
-                    <H3  variant="body2" component='poppins'>role : {card.roles}</H3>
-                    <H3 variant="body2" component='poppins'>gender : {card.gender} </H3>
-                    <H3  variant="body2" component='poppins' marginBottom={1}>{card.date}</H3>
+                      cursor: "pointer",
+                    }}
+                  >
+                    <H1>{card.title}</H1>
+                    <H3 variant="body2" component="poppins">
+                      role : {card.roles}
+                    </H3>
+                    <H3 variant="body2" component="poppins">
+                      gender : {card.gender}{" "}
+                    </H3>
+                    <H3 variant="body2" component="poppins" marginBottom={1}>
+                      {card.date}
+                    </H3>
                   </CardContent>
-                    <CardActions
-                      sx={{ display: "flex", justifyContent: "space-between" }}
-                    >
-                      <div>
-                        <IconButton aria-label="add to favorites" onClick={()=>setChecked(!checked)}>
-                        { checked ?
-                          <BookmarkIcon fontSize="small" /> :
-                          <BookmarkBorderIcon fontSize="small" /> 
-                        }  
-                        </IconButton>
-                      </div>
-                    </CardActions>
+                  <CardActions
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <div>
+                      <IconButton
+                        aria-label="add to favorites"
+                        onClick={() => setChecked(!checked)}
+                      >
+                        {checked ? (
+                          <BookmarkIcon fontSize="small" />
+                        ) : (
+                          <BookmarkBorderIcon fontSize="small" />
+                        )}
+                      </IconButton>
+                    </div>
+                  </CardActions>
                 </MachingCard>
-              </Grid>  
-            ))} 
+              </Grid>
+            ))}
           </Grid>
         </Container>
       </main>
-      
     </ThemeProvider>
-  ); 
+  );
 }
