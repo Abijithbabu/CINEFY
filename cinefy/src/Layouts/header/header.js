@@ -11,6 +11,7 @@ import { usePopover } from "../../hooks/use-popover";
 import { AccountPopover } from "../dashboard/account-popover";
 import { useSelector } from "react-redux";
 import Navigation from "./navigation";
+import ChatIcon from '@mui/icons-material/Chat';
 import CreateJob from '../../Components/creator/createJob/createJob'
 const Header = () => {
   const accountPopover = usePopover();
@@ -104,8 +105,9 @@ const Header = () => {
                   >
                     GO TO ADMIN CONSOLE
                   </Button>
-                ) : (
-                  data?.type === "recruiter" && <CreateJob />
+                ) : ( 
+                  <IconButton sx={{color:'#fff'}} onClick={() => navigate('/chat')}><ChatIcon/></IconButton>
+                  // data?.type === "recruiter" && <CreateJob />
                 )}
                 <Avatar
                   onClick={accountPopover.handleOpen}

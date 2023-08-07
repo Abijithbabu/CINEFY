@@ -275,7 +275,6 @@ const applyJob = async (req, res) => {
 
 const getAllUsers = async (req, res, next) => {
   try {
-    console.log(req.params.id );
     const users = await User.find({ _id: { $ne: req.params.id } }).select([
       "email",
       'name',

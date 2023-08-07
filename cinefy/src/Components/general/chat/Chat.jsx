@@ -35,7 +35,6 @@ export default function Chat() {
       socket.current.emit("add-user", currentUser._id);
       const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
       setContacts(data.data); 
-      console.log(contacts);
     }
   }
   getUsers()
@@ -52,7 +51,8 @@ export default function Chat() {
   //   }
   // }, [currentUser])
   const handleChatChange = (chat) => {
-    setCurrentChat(chat);
+    setCurrentChat(chat); 
+    console.log(chat);
   };
   return (
     <>
@@ -78,11 +78,14 @@ const Container = styled.div`
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  background-color: #131324;
+  background-color: #F8F8F8;
+  
+  border-width: 1px;
+    border-color:#ededed;
   .container {
     height: 85vh;
     width: 85vw;
-    background-color: #00000076;
+    background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
     display: grid;
     grid-template-columns: 25% 75%;
     @media screen and (min-width: 720px) and (max-width: 1080px) {

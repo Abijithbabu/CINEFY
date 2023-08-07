@@ -10,7 +10,7 @@ import EditProfile from "../pages/user/edit-profile";
 import DetailPage from "../pages/user/detailPage";
 import UserManage from "../pages/admin/userManage";
 import RecruterManage from "../pages/admin/recruterManage";
-import ManagePosts from '../pages/admin/managePosts'
+import ManagePosts from "../pages/admin/managePosts";
 import Error from "../pages/general/404";
 import AdminPrivateRoute from "./adminRoutes";
 import UserPrivateRoute from "./userRoute";
@@ -24,22 +24,23 @@ function routes() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/chat" element={<Chat />} />
       <Route path="/register" element={<Register />} />
       <Route path="/resetPassword" element={<ResetPassword />} />
       <Route path="/findJobs" element={<Jobs />} />
       <Route path="/blogs" element={<Blogs />} />
       <Route path="/public-profile" element={<Profile />} />
       <Route element={<AdminPrivateRoute />}>
-        <Route path="/admin/account" element={<Account />} /> 
+        <Route path="/admin/account" element={<Account />} />
         <Route path="/admin/customers" element={<UserManage />} />
         <Route path="/admin/recruiters" element={<RecruterManage />} />
         <Route path="/admin/manage-posts" element={<ManagePosts />} />
       </Route>
       <Route element={<UserPrivateRoute />}>
         <Route path="/profile" element={<EditProfile />} />
+        <Route path="/chat" element={<Chat />} />
       </Route>
       <Route element={<RecruiterPrivateRoute />}>
+        <Route path="/chat" element={<Chat />} />
         <Route path="/manageContents" element={<ManageContent />} />
         <Route path="/manageApplicants" element={<ManageApplicants />} />
       </Route>

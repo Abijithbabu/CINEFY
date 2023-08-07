@@ -4,68 +4,65 @@ import ChatInput from "./ChatInput";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { sendMessageRoute, recieveMessageRoute } from "../../../utils/APIRoutes";
+import { useSelector } from "react-redux";
+import { Avatar, Typography } from "@mui/material";
+import { Height } from "@mui/icons-material";
 
 export default function ChatContainer({ currentChat, socket }) {
   const [messages, setMessages] = useState([]);
   const scrollRef = useRef();
   const [arrivalMessage, setArrivalMessage] = useState(null);
-
+  const data = useSelector((store) => store.data.user);
   useEffect(() => {
   async function getData(){
-    const data = await JSON.parse(
-      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-    );
+    // const data = await JSON.parse(
+    //   localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+    // );
     const response = await axios.post(recieveMessageRoute, {
-      from: data._id,
+      from: data?._id,
       to: currentChat._id,
     });
     setMessages(response.data);
+    console.log(response.data);
   }
   getData()
   }, [currentChat]);
 
-  useEffect(() => {
-    const getCurrentChat = async () => {
-      if (currentChat) {
-        await JSON.parse(
-          localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-        )._id;
-      }
-    };
-    getCurrentChat();
-  }, [currentChat]);
-
   const handleSendMsg = async (msg) => {
-    const data = await JSON.parse(
-      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-    );
+
     socket.current.emit("send-msg", {
-      to: currentChat._id,
-      from: data._id,
-      msg,
+      to: currentChat?._id,
+      from: data?._id,
+      message:msg,
+      time:new Date()
     });
     await axios.post(sendMessageRoute, {
-      from: data._id,
-      to: currentChat._id,
+      from: data?._id,
+      to: currentChat?._id,
       message: msg,
     });
 
     const msgs = [...messages];
-    msgs.push({ fromSelf: true, message: msg });
+    msgs.push({ fromSelf: true, message: msg,time:Date.now() });
     setMessages(msgs);
   };
 
   useEffect(() => {
     if (socket.current) {
       socket.current.on("msg-recieve", (msg) => {
-        setArrivalMessage({ fromSelf: false, message: msg });
+        console.log(9);
+        console.log(msg.from,currentChat._id);
+        if(msg.from===currentChat._id){
+          console.log(true);
+          setMessages((prev) => [...prev,{ fromSelf: false, message: msg.message ,time:msg.time}])
+        }
       });
     }
   }, []);
-
-  useEffect(() => {
-    arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
-  }, [arrivalMessage]);
+ 
+  // useEffect(() => {
+  //   arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
+  // }, [arrivalMessage]);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -76,28 +73,31 @@ export default function ChatContainer({ currentChat, socket }) {
       <div className="chat-header">
         <div className="user-details">
           <div className="avatar">
-            <img
-              src={`data:image/svg+xml;base64,${currentChat?.avatarImage}`}
+            <Avatar 
+              src={currentChat?.profilePic}
               alt=""
             />
           </div>
           <div className="username">
-            <h3>{currentChat?.username}</h3>
+            <H3 >{currentChat?.name}</H3>
+            <H3 >{currentChat?._id}</H3>
+
           </div>
         </div>
         {/* <Logout /> */}
       </div>
       <div className="chat-messages">
         {messages.map((message) => {
-          return (
+          return   (
             <div ref={scrollRef} key={uuidv4()}>
               <div
                 className={`message ${
                   message.fromSelf ? "sended" : "recieved"
-                }`}
+                }`} 
               >
                 <div className="content ">
-                  <p>{message.message}</p>
+                  <H2 >{message.message}</H2> 
+                  <h5>{`${new Date(message.time).getHours()}:${new Date(message.time).getMinutes()}`}</h5>
                 </div>
               </div>
             </div>
@@ -108,8 +108,32 @@ export default function ChatContainer({ currentChat, socket }) {
     </Container>
   );
 }
+const H2 = styled(Typography)({
+  // variant: "h6",
+  color: "#000",
+  paddingLeft: "6px",
+  marginBottom: "1px",
+  align:"right",
+  fontFamily:"inherit",
+  fontSize:"800px"
+  
+});
+
+const H3 = styled(Typography)({
+  variant: "h6",
+  color: "#000",
+  paddingLeft: "6px",
+  paddingTop: "px",
+  align:"right",
+  fontFamily:"inherit",
+  // font:"800"
+  
+});
 
 const Container = styled.div`
+border-style: solid;
+  border-width: 1px;
+    border-color:#ededed;
   display: grid;
   grid-template-rows: 10% 80% 10%;
   gap: 0.1rem;
@@ -118,14 +142,17 @@ const Container = styled.div`
     grid-template-rows: 15% 70% 15%;
   }
   .chat-header {
+    background-color: #fff;
     display: flex;
+    
+  height:4rem;
     justify-content: space-between;
     align-items: center;
-    padding: 0 2rem;
+    padding:  0 2rem;
     .user-details {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 0.5rem;
       .avatar {
         img {
           height: 3rem;
@@ -139,10 +166,10 @@ const Container = styled.div`
     }
   }
   .chat-messages {
-    padding: 1rem 2rem;
+    padding: 1rem 1rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.7rem;
     overflow: auto;
     &::-webkit-scrollbar {
       width: 0.2rem;
@@ -154,14 +181,16 @@ const Container = styled.div`
     }
     .message {
       display: flex;
+      
       align-items: center;
       .content {
         max-width: 40%;
         overflow-wrap: break-word;
-        padding: 1rem;
-        font-size: 1.1rem;
-        border-radius: 1rem;
-        color: #d1d1d1;
+        padding: 0.7rem;
+        
+        border-radius: 0rem 1rem 1rem 1rem;
+        color: #000000;
+        min-height: 10px;
         @media screen and (min-width: 720px) and (max-width: 1080px) {
           max-width: 70%;
         }
@@ -170,14 +199,21 @@ const Container = styled.div`
     .sended {
       justify-content: flex-end;
       .content {
-        background-color: #4f04ff21;
+        min-height: 0.8rem;
+        border-radius: 1rem 1rem 0rem 01rem;
+        background-color: #fff;
       }
     }
     .recieved {
       justify-content: flex-start;
+      
       .content {
+        margin-top;px;
+        min-height: 0.6rem;
+        border-radius: 0rem 1rem 1rem 1rem;
         background-color: #9900ff20;
+        
       }
     }
-  }
+  } 
 `;

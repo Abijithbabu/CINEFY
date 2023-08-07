@@ -55,7 +55,7 @@ const Fili = [
 const FiliterCard = styled(Card)({
   display: "flex-row",
   align: "",
-  background: "#fff",
+  
   height: "",
   marginTop: "10px",
   minWidth: "100px",
@@ -63,7 +63,7 @@ const FiliterCard = styled(Card)({
 });
 
 const H1 = styled(Typography)({
-  fontFamily: "Poppins",
+  fontFamily: "",
   color: "#000",
   paddingLeft: "25px",
   paddingTop: "10px",
@@ -92,6 +92,7 @@ function Filiter() {
   return (
     <>
       <Hidden mdDown implementation="css">
+      <Typography>Filiter</Typography>
         <FiliterCard>
           {Fili.map((card) => (
             <Box key={card.id} mt="2">
@@ -112,7 +113,7 @@ function Filiter() {
               <List sx={{ width: "100%" }} size="small">
                 {card.elements.map((element, index) => (
                   <Ul key={index}>
-                    <Lbtn>
+                    <Lbtn size="small" >
                       <ListItemIcon>
                         <Checkbox size="small" />
                         <H2 variant="body2">{element}</H2>

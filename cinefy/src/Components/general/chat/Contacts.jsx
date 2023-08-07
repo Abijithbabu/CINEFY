@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Logo from "../../../assets/logo.svg";
 import { useSelector } from "react-redux";
+import { Avatar, Typography } from "@mui/material";
+import SearchAppBar from "../jobs/SearchBar";
 
 export default function Contacts({ contacts, changeChat }) {
-  console.log(contacts);
   const data = useSelector((store) => store.data.user);
   const [currentUserName, setCurrentUserName] = useState(data?.name);
   const [currentUserImage, setCurrentUserImage] = useState(data?.profilePic);
@@ -25,9 +26,9 @@ export default function Contacts({ contacts, changeChat }) {
       {currentUserName && (
         <Container>
           <div className="brand">
-            <img src={Logo} alt="logo" />
-            <h3>snappy</h3>
+            <H2>Chats</H2>
           </div>
+          
           <div className="contacts"> 
             {contacts.map((contact, index) => {
               return (
@@ -38,46 +39,49 @@ export default function Contacts({ contacts, changeChat }) {
                   }`}
                   onClick={() => changeCurrentChat(index, contact)}
                 >
-                  {console.log(contact)}
                   <div className="avatar">
-                    <img
+                    <Avatar alt="Remy Sharp"
                       src={contact?.profilePic}  
-                      alt=""
+                      
                     />
                   </div>
                   <div className="username">
-                    <h3>{contact.name}</h3>
+                    <H2>{contact.name}</H2>
                   </div>
                 </div>
               );
             })}
           </div>
-          <div className="current-user">
-            <div className="avatar">
-              <img
-                src={`data:image/svg+xml;base64,${currentUserImage}`}
-                alt="avatar"
-              />
-            </div>
-            <div className="username">
-              <h2>{currentUserName}</h2>
-            </div>
-          </div>
+          
         </Container>
       )}
     </>
   );
 }
+
+const H2 = styled(Typography)({
+  variant: "h6",
+  color: "#000",
+  paddingLeft: "15px",
+  paddingTop: "5px",
+  align:"right",
+  fontFamily:"inherit",
+  font:"800"
+});
 const Container = styled.div`
   display: grid;
   grid-template-rows: 10% 75% 15%;
   overflow: hidden;
-  background-color: #080420;
+  background-color: #fff;
+  border-style: solid;
+  border-width: 01px;
+  border-color:#ededed;
   .brand {
     display: flex;
-    align-items: center;
+    align-items: left;
     gap: 1rem;
-    justify-content: center;
+    justify-content: left;
+    padding: Top;
     img {
       height: 2rem;
     }
@@ -91,18 +95,18 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     overflow: auto;
-    gap: 0.8rem;
+    gap: 0.1rem;
     &::-webkit-scrollbar {
       width: 0.2rem;
       &-thumb {
-        background-color: #ffffff39;
+        background-color: #ededed;
         width: 0.1rem;
         border-radius: 1rem;
       }
     }
     .contact {
-      background-color: #ffffff34;
-      min-height: 5rem;
+      background-color: #F7F7F7;
+      min-height: 3rem;
       cursor: pointer;
       width: 90%;
       border-radius: 0.2rem;
@@ -118,12 +122,12 @@ const Container = styled.div`
       }
       .username {
         h3 {
-          color: white;
+          color: black;
         }
       }
     }
     .selected {
-      background-color: #9a86f3;
+      background-color: #DAD9D9;
     }
   }
 

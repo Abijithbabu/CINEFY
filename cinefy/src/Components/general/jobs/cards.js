@@ -26,13 +26,13 @@ import styled from "@emotion/styled";
 
 //
 const MachingCard = styled(Card)({
-  background: "#fff`  ",
+  
   minHeight: "30px",
   marginTop: "32px",
   paddingTop: "0.5px",
-  paddingBottom: "5px",
-  borderRadius: "5px",
-  boxShadow: " 0px 4px 4px rgba(0, 0, 0, 0.25",
+  paddingBottom: "px",
+  
+  
   minWidth: "0px",
   maxWidth: "350px",
   
@@ -126,7 +126,7 @@ export default function Album() {
       <main>
         {/* Hero unit */}
         
-        <Container sx={{ py: 8 }} maxWidth="md">
+        <Container sx={{ py: { sm:0, sx:0, md:0, lg:8} }}  maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={2}>
             {data.map((card, index) => (

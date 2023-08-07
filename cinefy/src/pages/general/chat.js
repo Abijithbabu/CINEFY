@@ -8,7 +8,7 @@ const blogs = () => {
     <>
       <Header />
       <Chat />
-      <Footer />
+      {/* <Footer /> */}
     </>
   ); 
 };
