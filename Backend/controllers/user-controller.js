@@ -7,7 +7,7 @@ require("dotenv").config();
 let otp
 const sendOtp = async(req,res)=>{
    otp = OTP.sendMessage(parseInt(req.body.phone),res)
-   return res.json({message : otp})
+   return res.status(200).json({message : otp})
 }
 
 const signup = async (req, res, next) => {
@@ -57,7 +57,7 @@ const login = async (req, res) => {
   }
   const isPassword = (await existingUser.matchPasswords(password))
   if (!isPassword) {
-    return res.status(400).json({ message: "Invalid Email Id or password" })
+    return res.status(400).json({ message: "Incorrect password ! please recheck your password" })
   }
   if (existingUser.isDelete) {
     return res.status(400).json({ message: "oops ! you've been temporarly blocked by the Administrator" })

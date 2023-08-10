@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import ChatInput from "./ChatInput";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import {
   sendMessageRoute,
@@ -35,15 +35,15 @@ export default function ChatContainer({ currentChat, socket }) {
       message: msg,
       time: new Date(),
     });
+
+    const msgs = [...messages];
+    msgs.push({ fromSelf: true, message: msg, time: Date.now() });
+    setMessages(msgs);
     await axios.post(sendMessageRoute, {
       from: data?._id,
       to: currentChat?._id,
       message: msg,
     });
-
-    const msgs = [...messages];
-    msgs.push({ fromSelf: true, message: msg, time: Date.now() });
-    setMessages(msgs);
   };
 
   useEffect(() => {
@@ -85,11 +85,10 @@ export default function ChatContainer({ currentChat, socket }) {
       <div className="chat-messages">
         {messages.map((message) => {
           return (
-            <div ref={scrollRef} key={uuidv4()}>
+            <div ref={scrollRef} >
               <div
-                className={`message ${
-                  message.fromSelf ? "sended" : "recieved"
-                }`}
+                className={`message ${message.fromSelf ? "sended" : "recieved"
+                  }`}
               >
                 <div className="content ">
                   <H2>{message.message}</H2>
