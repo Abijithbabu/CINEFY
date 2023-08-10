@@ -16,6 +16,7 @@ import AdminPrivateRoute from "./adminRoutes";
 import UserPrivateRoute from "./userRoute";
 import RecruiterPrivateRoute from "./recruiterRoutes";
 import ManageContent from "../pages/recruiter/manageContent";
+import ManageApplications from "../pages/recruiter/manageApplications";
 import ManageApplicants from "../pages/recruiter/manageApplicants";
 import Profile from "../pages/user/public-profile";
 import Chat from "../pages/general/chat";
@@ -42,6 +43,7 @@ function routes() {
       <Route element={<RecruiterPrivateRoute />}>
         <Route path="/chat" element={<Chat />} />
         <Route path="/manageContents" element={<ManageContent />} />
+        <Route path="/manageApplications" element={<ManageApplications />} />
         <Route path="/manageApplicants" element={<ManageApplicants />} />
       </Route>
       <Route path="/detailPage" element={<DetailPage />} />

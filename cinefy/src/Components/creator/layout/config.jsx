@@ -3,6 +3,7 @@ import CogIcon from '@heroicons/react/24/solid/CogIcon';
 import LockClosedIcon from '@heroicons/react/24/solid/LockClosedIcon';
 import UsersIcon from '@heroicons/react/24/solid/UsersIcon';
 import XCircleIcon from '@heroicons/react/24/solid/XCircleIcon';
+import CoPresentRoundedIcon from '@mui/icons-material/CoPresentRounded';
 import { SvgIcon } from '@mui/material';
 import FeaturedPlayListSharpIcon from '@mui/icons-material/FeaturedPlayListSharp';
 export const items = [
@@ -12,6 +13,15 @@ export const items = [
     icon: (
       <SvgIcon fontSize="small">
         <ChartBarIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Applications',
+    path: '/manageApplications',
+    icon: (
+      <SvgIcon fontSize="small">
+        <CoPresentRoundedIcon />
       </SvgIcon>
     )
   },
@@ -51,13 +61,5 @@ export const items = [
       </SvgIcon>
     )
   },
-  {
-    title: 'Error',
-    path: '/404',
-    icon: (
-      <SvgIcon fontSize="small">
-        <XCircleIcon />
-      </SvgIcon>
-    )
-  }
+
 ];
