@@ -63,7 +63,7 @@ const login = async (req, res) => {
     return res.status(400).json({ message: "oops ! you've been temporarly blocked by the Administrator" })
   }
   const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET, {
-    expiresIn: 8600
+    expiresIn: 860000
   })
   console.log("token send", token)
 

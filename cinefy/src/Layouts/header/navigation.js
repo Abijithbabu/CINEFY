@@ -34,7 +34,7 @@ const Navigation = ({data}) => {
           duration={350}
           sx={{
             position: 'relative',
-            color: '#fff',
+            color: '#000',
             cursor: 'pointer',
             textDecorationLine:'none',
             fontWeight: 600,

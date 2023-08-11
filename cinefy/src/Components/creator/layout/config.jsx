@@ -9,7 +9,7 @@ import FeaturedPlayListSharpIcon from '@mui/icons-material/FeaturedPlayListSharp
 export const items = [
   {
     title: 'Overview',
-    path: '/admin',
+    path: '/creatorDashboard', 
     icon: (
       <SvgIcon fontSize="small">
         <ChartBarIcon />

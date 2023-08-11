@@ -11,12 +11,33 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { getPosts } from "../../../redux/action";
-import { IconButton } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import { useNavigate } from "react-router";
 import styled from "@emotion/styled";
 import { timeAgo } from "../../../utils/functions";
+import { motion } from "framer-motion";
 
-const MachingCard = styled(Card)({
+const container = {
+  hidden: { opacity: 1, scale: 0 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delayChildren: 0.5,
+      staggerChildren: 0.3,
+    },
+  },
+};
+
+const item = {
+  hidden: { y: 30, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};
+
+const MachingCard = styled(Box)({
   minHeight: "30px",
   marginTop: "32px",
   paddingTop: "0.5px",
@@ -88,69 +109,90 @@ export default function Album() {
       <CssBaseline />
       <main>
         {/* Hero unit */}
-
+        <motion.div
+              className="container"
+              variants={container}
+              initial="hidden"
+              animate="visible"
+            >
         <Container sx={{ py: { sm: 0, sx: 0, md: 0, lg: 8 } }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={2}>
-            {data.map((card, index) => (
-              <Grid item key={index} xs={12} sm={6} md={6} lg={4}>
-                <MachingCard
-                  sx={{
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <CardTime>{timeAgo(card.date)}</CardTime>
-                  <ImageSlot
-                    onClick={() => navigate(`/DetailPage?id=${card._id}`)}
-                    key={`media-${card._id}`}
-                    component="div"
-                    sx={{
-                      pt: "56.25%",
-                      cursor: "pointer",
-                    }}
-                    image={card.image && `http://localhost:5000/${card.image}`}
-                  />
-                  <CardContent
-                    onClick={() => navigate(`/DetailPage?id=${card._id}`)}
-                    sx={{
-                      flexGrow: 1,
-                      cursor: "pointer",
-                    }}
-                  >
-                    <H1>{card.title}</H1>
-                    <H3 variant="body2" component="poppins">
-                      role : {card.roles}
-                    </H3>
-                    <H3 variant="body2" component="poppins">
-                      gender : {card.gender}{" "}
-                    </H3>
-                    <H3 variant="body2" component="poppins" marginBottom={1}>
-                      {card.date}
-                    </H3>
-                  </CardContent>
-                  <CardActions
-                    sx={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <div>
-                      <IconButton
-                        aria-label="add to favorites"
-                        onClick={() => setChecked(!checked)}
+            
+              {data.map((card, index) => (
+                <Grid item key={index} xs={12} sm={6} md={6} lg={4}>
+                  <MachingCard>
+                    <motion.div
+                      className="item "
+                      variants={item}
+                      sx={{
+                        height: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <CardTime>{timeAgo(card.date)}</CardTime>
+                      <ImageSlot
+                        onClick={() => navigate(`/DetailPage?id=${card._id}`)}
+                        key={`media-${card._id}`}
+                        component="div"
+                        sx={{
+                          pt: "56.25%",
+                          cursor: "pointer",
+                        }}
+                        image={
+                          card.image && `http://localhost:5000/${card.image}`
+                        }
+                      />
+                      <CardContent
+                        onClick={() => navigate(`/DetailPage?id=${card._id}`)}
+                        sx={{
+                          flexGrow: 1,
+                          cursor: "pointer",
+                        }}
                       >
-                        {checked ? (
-                          <BookmarkIcon fontSize="small" />
-                        ) : (
-                          <BookmarkBorderIcon fontSize="small" />
-                        )}
-                      </IconButton>
-                    </div>
-                  </CardActions>
-                </MachingCard>
-              </Grid>
-            ))}
+                        <H1>{card.title}</H1>
+                        <H3 variant="body2" component="poppins">
+                          role : {card.roles}
+                        </H3>
+                        <H3 variant="body2" component="poppins">
+                          gender : {card.gender}{" "}
+                        </H3>
+                        <H3
+                          variant="body2"
+                          component="poppins"
+                          marginBottom={1}
+                        >
+                          {card.date}
+                        </H3>
+                      </CardContent>
+                      <CardActions
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <div>
+                          <IconButton
+                            aria-label="add to favorites"
+                            onClick={() => setChecked(!checked)}
+                          >
+                            {checked ? (
+                              <BookmarkIcon fontSize="small" />
+                            ) : (
+                              <BookmarkBorderIcon fontSize="small" />
+                            )}
+                          </IconButton>
+                        </div>
+                      </CardActions>
+                    </motion.div>
+                  </MachingCard>
+                </Grid>
+              ))}
+            
           </Grid>
         </Container>
+        </motion.div>
       </main>
     </ThemeProvider>
   );

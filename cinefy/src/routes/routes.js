@@ -15,6 +15,7 @@ import Error from "../pages/general/404";
 import AdminPrivateRoute from "./adminRoutes";
 import UserPrivateRoute from "./userRoute";
 import RecruiterPrivateRoute from "./recruiterRoutes";
+import CreatorDashboard from '../pages/recruiter/creatorDashboard'
 import ManageContent from "../pages/recruiter/manageContent";
 import ManageApplications from "../pages/recruiter/manageApplications";
 import ManageApplicants from "../pages/recruiter/manageApplicants";
@@ -42,6 +43,7 @@ function routes() {
       </Route>
       <Route element={<RecruiterPrivateRoute />}>
         <Route path="/chat" element={<Chat />} />
+        <Route path='/creatorDashboard' element={<CreatorDashboard/>} />
         <Route path="/manageContents" element={<ManageContent />} />
         <Route path="/manageApplications" element={<ManageApplications />} />
         <Route path="/manageApplicants" element={<ManageApplicants />} />

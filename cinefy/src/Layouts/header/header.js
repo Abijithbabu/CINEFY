@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
+import { ThemeProvider, createMuiTheme, useTheme } from "@mui/material/styles";
 import { Menu, Close } from "@mui/icons-material";
 import { Typography, Button, Avatar, Tab, Tabs } from "@mui/material";
 import { useNavigate } from "react-router";
@@ -13,6 +13,17 @@ import { useSelector } from "react-redux";
 import Navigation from "./navigation";
 import ChatIcon from '@mui/icons-material/Chat';
 import CreateJob from '../../Components/creator/createJob/createJob'
+import { styled } from "styled-components";
+
+const H2 = styled(Typography)`
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  padding-Top: px;
+  font-size: 30px;
+  padding-left: 0px;
+  color:"#F1F1F1";
+`;
+
 const Header = () => {
   const accountPopover = usePopover();
   const navigate = useNavigate();
@@ -22,11 +33,16 @@ const Header = () => {
   const matchMobileView = useMediaQuery(breakpoints.down("md"));
   const variant = "primary";
   const data = useSelector((store) => store?.data?.user);
-
+  const theme = createMuiTheme({
+    typography: {
+      fontFamily: ['Poppins', ''].join(','),
+    },
+  });
   return (
+    <ThemeProvider theme={theme}>
     <Box sx={{
       // backdropFilter: "blur(5px)",
-      background:"#1E1C27",
+      background:"",
       position: "fixed",
       top: 0,
       left: 0,
@@ -53,19 +69,20 @@ const Header = () => {
               width={260}
               height={60}
             /> */}
-
-            <Typography
+            <H2 variant="H">CINEFY</H2>
+            {/* <Typography
               variant="h5"
               component="h1"
               sx={{
                 fontWeight: 500,
+                fontFamily: '',
                 "& span": {
-                  color: '#fff',
+                  color: '#1E1E1E',
                 },
               }}
             >
               <span>CINEFY</span>
-            </Typography>
+            </Typography> */}
           </Box>
           <Box sx={{ ml: "auto", display: { xs: "inline-flex", md: "none" } }}>
             <IconButton onClick={() => setVisibleMenu(!visibleMenu)}>
@@ -93,7 +110,7 @@ const Header = () => {
             }}
           >
             <Box /> {/* Magic space */}
-            <Navigation data={data} />
+            <H2><Navigation data={data} /></H2>
             {/* <AuthNavigation /> */}
             {data ? (
               <>
@@ -153,6 +170,7 @@ const Header = () => {
         </Box>
       </Container>
     </Box>
+    </ThemeProvider>
   );
 };
 
