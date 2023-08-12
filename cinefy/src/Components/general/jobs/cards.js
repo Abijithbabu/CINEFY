@@ -89,20 +89,21 @@ const CardTime = styled(Typography)({
 
 const defaultTheme = createTheme();
 
-export default function Album() {
+export default function Album({filter, bookmark}) {
   const navigate = useNavigate();
   const [checked, setChecked] = React.useState(false);
   const [data, setData] = React.useState([""]);
   React.useEffect(() => {
     try {
       const fetchData = async () => {
-        await getPosts().then((res) => res && setData(res));
+        await getPosts(filter).then((res) => res && setData(res));
       };
       fetchData();
+      console.log(data);
     } catch (error) {
       console.log(error.message);
     }
-  }, []);
+  }, [filter]);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -115,7 +116,7 @@ export default function Album() {
               initial="hidden"
               animate="visible"
             >
-        <Container sx={{ py: { sm: 0, sx: 0, md: 0, lg: 8 } }} maxWidth="md">
+        <Container sx={{ py: { sm: 0, sx: 0, md: 0, lg: 0 } }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={2}>
             

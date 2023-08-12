@@ -37,13 +37,15 @@ const steps = [
 
 const defaultTheme = createTheme({
   palette: {
-    mode: "dark",
+    mode: "light",
   },
 });
 
 export default function Checkout() {
   const InitState = {
-    roles: ["Actress", "Actor", "Junior Artist"],
+    roles: ["Actress", "Actor"],
+    language:[],
+    Age:[15,25],
     title:'',
     shortdescription:''
   };

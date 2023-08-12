@@ -5,6 +5,7 @@ import Register from "../pages/general/register";
 import Home from "../pages/general/home";
 import ResetPassword from "../pages/general/resetPassword";
 import Jobs from "../pages/user/jobs";
+import Bookmarks from "../pages/user/bookmarked"; 
 import Blogs from "../pages/general/blogs";
 import EditProfile from "../pages/user/edit-profile";
 import DetailPage from "../pages/user/detailPage";
@@ -40,6 +41,7 @@ function routes() {
       <Route element={<UserPrivateRoute />}>
         <Route path="/profile" element={<EditProfile />} />
         <Route path="/chat" element={<Chat />} />
+        <Route path="/bookmarks" element={<Bookmarks />} />
       </Route>
       <Route element={<RecruiterPrivateRoute />}>
         <Route path="/chat" element={<Chat />} />

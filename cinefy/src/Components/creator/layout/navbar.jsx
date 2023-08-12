@@ -15,7 +15,8 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-
+import CreateJob from '../createJob/createJob'
+import { useNavigate } from 'react-router';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -59,7 +60,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function PrimarySearchAppBar({setOpen}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+  const navigate = useNavigate()
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -152,7 +153,7 @@ export default function PrimarySearchAppBar({setOpen}) {
         <p>Profile</p>
       </MenuItem>
     </Menu>
-  );
+  )
 
   return (
     <Box sx={{ flexGrow: 1}}>
@@ -189,7 +190,8 @@ export default function PrimarySearchAppBar({setOpen}) {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+          <CreateJob />
+            <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={()=>navigate('/chat')}>
               <Badge badgeContent={4} color="error">
                 <MailIcon />
               </Badge>

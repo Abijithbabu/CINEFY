@@ -13,7 +13,7 @@ router.patch('/resetPassword', resetPassword)
 router.post('/updateProfile',verifyToken,upload.single('image'),updateProfile)
  
 router.post('/createPost',verifyToken,upload.single('image'),createPost) 
-router.get('/getPosts',getPost)
+router.post('/getPosts',getPost)
 router.get('/getPostDetails',getPostDetails)
 router.patch('/applyJob',applyJob)
 router.get("/allusers/:id", getAllUsers);

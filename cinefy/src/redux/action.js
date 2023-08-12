@@ -168,9 +168,9 @@ export const createPost = async (data) => {
   }
 };
 
-export const getPosts = async () => {
+export const getPosts = async (data) => {
   try {
-    const res = await Axios.get(`/getPosts`);
+    const res = await Axios.post(`/getPosts`,data);
     if (res.data) {
       return res.data;
     }

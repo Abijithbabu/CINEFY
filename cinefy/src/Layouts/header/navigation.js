@@ -13,13 +13,17 @@ const Navigation = ({data}) => {
           path: data?.type === 'recruiter' ?'/manageContents': '/findJobs',
         },
         {
-          label: 'Blogs',
-          path: '/blogs', 
-        },
-        {
-          label: 'About',
-          path: '/about', 
-        },
+          label:'Favorites',
+          path:'/bookmarks'
+        }
+        // {
+        //   label: 'Blogs',
+        //   path: '/blogs', 
+        // },
+        // {
+        //   label: 'About',
+        //   path: '/about', 
+        // },
       ]
   return (
     <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' } }}>

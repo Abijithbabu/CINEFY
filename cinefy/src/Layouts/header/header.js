@@ -123,7 +123,7 @@ const Header = () => {
                     GO TO ADMIN CONSOLE
                   </Button>
                 ) : ( 
-                  <IconButton sx={{color:'#fff'}} onClick={() => navigate('/chat')}><ChatIcon/></IconButton>
+                  <IconButton onClick={() => navigate('/chat')}><ChatIcon/></IconButton>
                   // data?.type === "recruiter" && <CreateJob />
                 )}
                 <Avatar

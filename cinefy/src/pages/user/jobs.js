@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../Layouts/header/header";
 import Footer from "../../Layouts/footer/footer";
 import Album from "../../Components/general/jobs/cards";
@@ -23,7 +23,13 @@ const LeftSide = styled(Box)({
 });
 
 function Jobs() {
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState({'Project Type':[],Age:[15,35],Role:[],Gender:[],'Date of Posting':[],Languages:[]})
+
+  useEffect(() => {
+    console.log(filters);
+
+  }, [filters])
+  
   return (
     <>
       <Page>
@@ -41,7 +47,7 @@ function Jobs() {
             </Grid>
           </Grid>
           <Footer />
-        </FiliterContainer>
+        </FiliterContainer> 
       </Page>
     </>
   );

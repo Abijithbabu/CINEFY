@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Box,
@@ -18,11 +18,12 @@ import {
   Typography,
 } from "@mui/material";
 import SimpleSlider from "./mobFilter";
+import { useEffect } from "react";
 
 const Fili = [
   {
     id: 1,
-    title: "Project Type ",
+    title: "Project Type",
     elements: [
       "Ad Film",
       "Documentry",
@@ -57,7 +58,7 @@ const Fili = [
   },
   {
     id: 5,
-    title: "Date of posting",
+    title: "Date of Posting",
     elements: ["Last 24 hours", "Last 3 days", "last 24 days", "expering soon"],
   },
   {
@@ -147,35 +148,60 @@ function AirbnbThumbComponent(props) {
     </SliderThumb>
   );
 }
-function Filiter() {
+function Filiter({filters,apply}) {
+
+  const [selectedFilters, setSelectedFilters] = useState({'Project Type':[],Age:[15,35],Role:[],Gender:[],'Date of Posting':[],Languages:[]});
+   
+  const handleCheckboxChange = (event, element,item) => { 
+    if (event.target.checked) {
+      setSelectedFilters(prevSelected => ({...prevSelected,[item]:[...prevSelected[item],element]}))
+    } else {
+      setSelectedFilters(prevSelected =>({
+        ...prevSelected,[item]:prevSelected[item].filter(item => item !== element)
+      })
+      );
+    }
+  }
+  useEffect(() => {
+    apply(selectedFilters)
+  }, [selectedFilters])
+  
   return (
     <>
       <Hidden mdDown implementation="css">
         <Typography>Filiter</Typography>
         <FiliterCard>
-          {Fili.map((card) => (
-            <Box key={card.id} >
-              <H1>{card.title}</H1>
-              {card.flag === 1 ? (
+          {Fili.map((item) => (
+            <Box key={item.id} >
+              <H1>{item.title}</H1>
+              {item.flag === 1 ? (
                 <Box sx={{ m: 3, mt: 6 }} >
                   <AirbnbSlider
                     slots={{ thumb: AirbnbThumbComponent }}
                     getAriaLabel={(index) => (index === 0 ? 'Minimum price' : 'Maximum price')}
-                    defaultValue={[20, 40]}
                     valueLabelDisplay="on"
+                    value={selectedFilters.Age}
+                    onChange={(e)=>setSelectedFilters(prev=>({...prev,Age:e.target.value}))}
                   />
                 </Box>
               ):(
-              <List sx={{ width: "100%" ,mt:2,mb:3}} size="small" style={{ maxHeight: "calc(220px - 10px)", overflowY: "scroll" }}>
-                {card.elements.map((element, index) => (
-                  <Ul key={index}>
-                    <Lbtn size="small" >
-                      <ListItemIcon>
-                        <Checkbox size="small" />
-                        <H2 variant="body2">{element}</H2>
-                      </ListItemIcon>
-                    </Lbtn>
-                  </Ul>
+                <List sx={{ width: "100%" ,mt:2,mb:3}} size="small" style={{ maxHeight: "calc(220px - 10px)", overflowY: "scroll" }}>
+                {item.elements.map((element, index) => (
+                  <ListItem key={index} value={element} sx={{
+                    padding: "0px",
+                    height: "15px",
+                    paddingTop: "20px",
+                    paddingBottom: "10px",
+                  }}>
+                    <ListItemIcon>
+                      <Checkbox
+                        size="small"
+                        checked={selectedFilters[item.title].includes(element)}
+                        onChange={e => handleCheckboxChange(e, element,item.title)}
+                      />
+                        <H2 variant="body2">{element}</H2> 
+                    </ListItemIcon>
+                  </ListItem>
                 ))}
               </List>
               )}

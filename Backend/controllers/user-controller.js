@@ -236,7 +236,21 @@ const createPost = async (req, res) => {
 
 const getPost = async (req, res) => {
   try {
-    const post = await CastingCall.find()
+    const data = req.body
+    const type = data['Project Type']
+    const date = data['Date of Posting']
+    const {Role ,Age ,Gender,Languages } = data
+
+    console.log(type,date,Role,Age,Gender,Languages);
+    // const post = await CastingCall.find()
+    const post = await CastingCall.find({
+      roles: { $in: Role },
+      // type: { $in: ['movie', 'short-film'] },
+      // age: { $gte: 23, $lte: 45 }
+    });
+    
+    console.log(posts);
+    
     if (!post) {
       return res.status(404).json({ message: "Something Went Wrong !" })
     }
