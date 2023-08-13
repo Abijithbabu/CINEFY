@@ -1,0 +1,315 @@
+[{
+  "_id": {
+    "$oid": "64b612b0131c698eba3ae4eb"
+  },
+  "title": "KGF 3",
+  "subtitle": "KGF 3",
+  "shortdescription": "The KGF franchise's upcoming sequel, “KGF Chapter 3,” has now been officially announced by the makers. The film will begin production by 2025, according to sources, as director Prashanth Neel is committed to the Prabhas-led Salaar through September of this year.",
+  "image": "dp/image-1689653935956-220428912check-out-day-to-day-collection-of-kgf-chapter-2-hindi-001.jpg",
+  "director": " Prashanth Neel",
+  "roles": [
+    "Actress",
+    "Actor"
+  ],
+  "gender": "female",
+  "age": [
+    15,
+    45
+  ],
+  "location": "trivandrum",
+  "date": {
+    "$date": {
+      "$numberLong": "1690431453000"
+    }
+  },
+  "description": "The KGF franchise's upcoming sequel, “KGF Chapter 3,” has now been officially announced by the makers. The film will begin production by 2025, according to sources, as director Prashanth Neel is committed to the Prabhas-led Salaar through September of this year.",
+  "__v": 0,
+  "applicants": [
+    "64be519000ae57be46dfbf65",
+    "64be51aa00ae57be46dfbf68",
+    "64be76d400ae57be46dfbfa0"
+  ],
+  "projectType": "Movie"
+},{
+  "_id": {
+    "$oid": "64b61108131c698eba3ae4de"
+  },
+  "title": "Casting ",
+  "subtitle": "call",
+  "shortdescription": "In this week's post, I discussed my experience at brocamp in the past week, as well as my accomplishments, goals, and how my expectations and reality compared. I also discussed how each and every day had an impact on me. Now that I'm more adept at typing what comes to mind",
+  "image": "dp/image-1689653512411-745595569Screenshot (57).png",
+  "director": "Fibi",
+  "roles": [
+    "Action Choreographer",
+    "Art Director",
+    "Child Actor",
+    "Cinematographer"
+  ],
+  "gender": "female",
+  "age": [
+    20,
+    45
+  ],
+  "location": "trivandrum",
+  "date": {
+    "$date": {
+      "$numberLong": "1690344593000"
+    }
+  },
+  "description": "In this week's post, I discussed my experience at brocamp in the past week, as well as my accomplishments, goals, and how my expectations and reality compared. I also discussed how each and every day had an impact on me. Now that I'm more adept at typing what comes to mind, I didn't even notice the keys I was pressing when I was typing this.",
+  "__v": 0,
+  "applicants": [
+    "64be519000ae57be46dfbf65"
+  ],
+  "projectType": "Movie"
+},{
+  "_id": {
+    "$oid": "64b61634131c698eba3ae4f6"
+  },
+  "title": "Movie",
+  "subtitle": "movie",
+  "shortdescription": "K.G.F is an Indian period action film series set mostly in the Kolar Gold Fields, which gives the series its name, created by Prashanth Neel and produced by Hombale Films starring Yash in lead role with an ensemble supporting cast.",
+  "image": "dp/image-1689654836364-629209895check-out-day-to-day-collection-of-kgf-chapter-2-hindi-001.jpg",
+  "director": "Babu",
+  "roles": [
+    "Model",
+    "Lyricist",
+    "Photographer"
+  ],
+  "gender": "female",
+  "age": [
+    15,
+    35
+  ],
+  "location": "trivandrum",
+  "date": {
+    "$date": {
+      "$numberLong": "1690259597000"
+    }
+  },
+  "description": "K.G.F is an Indian period action film series set mostly in the Kolar Gold Fields, which gives the series its name, created by Prashanth Neel and produced by Hombale Films starring Yash in lead role with an ensemble supporting cast.",
+  "__v": 0,
+  "projectType": "Movie"
+},{
+  "_id": {
+    "$oid": "64b4d61582387c8592a7f962"
+  },
+  "title": "ganster",
+  "subtitle": "ragu",
+  "shortdescription": "A film synopsis is typically a one-page document that summarizes your film. It contains the film's title, genre, logline (a one-sentence summary), and a five-paragraph explanation of the film's storyline, major plot points, and key characters.",
+  "image": "dp/image-1689572885100-897341189digital-art-dark-wallpaper-preview.jpg",
+  "director": "bhasi",
+  "roles": [
+    "Stunt Director",
+    "Sound Engineer",
+    "Social Media Manager"
+  ],
+  "age": [
+    25,
+    30
+  ],
+  "date": {
+    "$date": {
+      "$numberLong": "1690523133000"
+    }
+  },
+  "description": "A film synopsis is typically a one-page document that summarizes your film. It contains the film's title, genre, logline (a one-sentence summary), and a five-paragraph explanation of the film's storyline, major plot points, and key characters.",
+  "__v": 0,
+  "projectType": "Movie"
+},{
+  "_id": {
+    "$oid": "64b4db0e82387c8592a7f978"
+  },
+  "title": "Drishyam 3",
+  "subtitle": "the real story",
+  "shortdescription": "This film can be explained in one sentence: it is an extraordinary rollercoaster of events in which you may fall down at one moment but will rise to the top in another. There is no room for any errors and mistakes",
+  "image": "dp/image-1689574158210-419968526Untitled-2.png",
+  "director": "Jeethu Joseph",
+  "roles": [
+    "Singer",
+    "Actress",
+    "Actor",
+    "Assistant Director",
+    "Cartoonist"
+  ],
+  "gender": "male",
+  "age": [
+    15,
+    25
+  ],
+  "date": {
+    "$date": {
+      "$numberLong": "1689833266000"
+    }
+  },
+  "description": "This film can be explained in one sentence: it is an extraordinary rollercoaster of events in which you may fall down at one moment but will rise to the top in another. There is no room for any errors and mistakes",
+  "__v": 0,
+  "applicants": [
+    "64be51aa00ae57be46dfbf68"
+  ],
+  "projectType": "Movie"
+},{
+  "_id": {
+    "$oid": "64b4b907086481171ab3b266"
+  },
+  "title": "casting call",
+  "subtitle": "malayalam",
+  "shortdescription": "looking for talents for an upcoming malayalam movie titled as Victoriya",
+  "image": "dp/action-comedy-movies-on-netflix-this-weekend.jpg",
+  "director": "KSFDC",
+  "roles": [
+    "Actress",
+    "Actor",
+    "Junior Artist"
+  ],
+  "gender": "female",
+  "age": [
+    0,
+    45
+  ],
+  "location": "angamaly",
+  "date": {
+    "$date": {
+      "$numberLong": "1690515755000"
+    }
+  },
+  "description": "looking for talents for an upcoming malayalam movie titled as Victoriya",
+  "__v": 0,
+  "applicants": [
+    "64be519000ae57be46dfbf65"
+  ],
+  "projectType": "Movie"
+},{
+  "_id": {
+    "$oid": "64bbc49da7314914d31fc6fa"
+  },
+  "title": "Avatar the way of water",
+  "subtitle": "Avatar the way of water",
+  "shortdescription": "Avatar is an American media franchise created by James Cameron, which consists of a planned series of epic science fiction films produced by Lightstorm Entertainment and distributed by 20th Century Studios, as well as associated merchandise, video games and theme park attractions. ",
+  "image": "dp/image-1690027165853-602495034bg-presentation.88963029.jpg",
+  "director": "Ferdinand von Schirach",
+  "roles": [
+    "Animator"
+  ],
+  "gender": "female",
+  "age": [
+    0,
+    45
+  ],
+  "location": "kattakada",
+  "date": {
+    "$date": {
+      "$numberLong": "1690459007000"
+    }
+  },
+  "description": "Avatar is an American media franchise created by James Cameron, which consists of a planned series of epic science fiction films produced by Lightstorm Entertainment and distributed by 20th Century Studios, as well as associated merchandise, video games and theme park attractions. ",
+  "__v": 0,
+  "applicants": [
+    "64be519000ae57be46dfbf65",
+    "64be51aa00ae57be46dfbf68",
+    "64be76d400ae57be46dfbfa0"
+  ],
+  "projectType": "Movie"
+},{
+  "_id": {
+    "$oid": "64b4d62482387c8592a7f968"
+  },
+  "title": "ganster",
+  "subtitle": "ragu",
+  "shortdescription": "A film synopsis is typically a one-page document that summarizes your film. It contains the film's title, genre, logline (a one-sentence summary), and a five-paragraph explanation of the film's storyline, major plot points, and key characters.",
+  "image": "dp/image-1689572900957-712194302digital-art-dark-wallpaper-preview.jpg",
+  "director": "bhasi",
+  "roles": [
+    "Actress,Actor,Junior Artist,assistant director"
+  ],
+  "age": [
+    0,
+    45
+  ],
+  "date": {
+    "$date": {
+      "$numberLong": "1690523133000"
+    }
+  },
+  "description": "A film synopsis is typically a one-page document that summarizes your film. It contains the film's title, genre, logline (a one-sentence summary), and a five-paragraph explanation of the film's storyline, major plot points, and key characters.",
+  "__v": 0,
+  "projectType": "Movie"
+},{
+  "_id": {
+    "$oid": "64b4b907086481171ab3b268"
+  },
+  "title": "casting call",
+  "subtitle": "malayalam",
+  "shortdescription": "looking for talents for an upcoming malayalam movie titled as Victoriya",
+  "image": "dp/image-1685427943645-548931069878c4d72-4c71-4a59-9c5c-f975b9be2bf2.jpeg",
+  "director": "KSFDC",
+  "roles": [
+    "Actress",
+    "Actor",
+    "Junior Artist"
+  ],
+  "gender": "female",
+  "age": [
+    0,
+    45
+  ],
+  "location": "angamaly",
+  "date": {
+    "$date": {
+      "$numberLong": "1690515755000"
+    }
+  },
+  "description": "looking for talents for an upcoming malayalam movie titled as Victoriya",
+  "__v": 0,
+  "projectType": "Movie"
+},{
+  "_id": {
+    "$oid": "64b4db5582387c8592a7f97a"
+  },
+  "title": "Drishyam 3",
+  "subtitle": "the real story",
+  "shortdescription": "This film can be explained in one sentence: it is an extraordinary rollercoaster of events in which you may fall down at one moment but will rise to the top in another. There is no room for any errors and mistakes",
+  "image": "dp/image-1689574229971-605923209Untitled-2.png",
+  "director": "Jeethu Joseph",
+  "roles": [
+    "Actress,Actor,Junior Artist,Stunt Master"
+  ],
+  "gender": "male",
+  "age": [
+    0,
+    45
+  ],
+  "date": {
+    "$date": {
+      "$numberLong": "1689833266000"
+    }
+  },
+  "description": "This film can be explained in one sentence: it is an extraordinary rollercoaster of events in which you may fall down at one moment but will rise to the top in another. There is no room for any errors and mistakes",
+  "__v": 0,
+  "projectType": "Movie"
+},{
+  "_id": {
+    "$oid": "64b4ec8ad431ed955b1f46be"
+  },
+  "title": "Avengers",
+  "subtitle": "recruiter",
+  "shortdescription": "recruiter",
+  "image": "dp/image-1689578634515-432280205action-comedy-movies-on-netflix-this-weekend.jpg",
+  "director": "bhasi",
+  "roles": [
+    "Actress,Actor,Junior Artist"
+  ],
+  "gender": "male",
+  "date": {
+    "$date": {
+      "$numberLong": "1689751406000"
+    }
+  },
+  "description": "recruiter",
+  "__v": 0,
+  "projectType": "Movie",
+  "age": [
+    0,
+    45
+  ]
+}]

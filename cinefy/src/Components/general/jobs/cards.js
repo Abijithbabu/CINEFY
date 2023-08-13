@@ -11,12 +11,11 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { getPosts } from "../../../redux/action";
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, Skeleton } from "@mui/material";
 import { useNavigate } from "react-router";
 import styled from "@emotion/styled";
 import { timeAgo } from "../../../utils/functions";
 import { motion } from "framer-motion";
-
 const container = {
   hidden: { opacity: 1, scale: 0 },
   visible: {
@@ -39,10 +38,9 @@ const item = {
 
 const MachingCard = styled(Box)({
   minHeight: "30px",
-  marginTop: "32px",
+  // marginTop: "32px",
   paddingTop: "0.5px",
   paddingBottom: "px",
-
   minWidth: "0px",
   maxWidth: "350px",
 });
@@ -52,9 +50,7 @@ const H1 = styled(Typography)({
   color: "#000",
   paddingLeft: "1px",
   paddingTop: "1px",
-
   fontSize: "14px",
-
   fontWeight: "600",
   lineHeight: "normal",
 });
@@ -62,6 +58,7 @@ const H1 = styled(Typography)({
 const H3 = styled(Typography)({
   variant: "body1",
   color: "#000",
+  fontSize: "12px",
   paddingLeft: "px",
   paddingRight: "px",
   paddingTop: "1px",
@@ -79,7 +76,6 @@ const ImageSlot = styled(CardMedia)({
 const CardTime = styled(Typography)({
   color: "#484848",
   textAlign: "right",
-
   fontSize: "11px",
   fontStyle: "normal",
   fontWeight: "400",
@@ -89,17 +85,20 @@ const CardTime = styled(Typography)({
 
 const defaultTheme = createTheme();
 
-export default function Album({filter, bookmark}) {
+export default function Album({filter}) {
   const navigate = useNavigate();
   const [checked, setChecked] = React.useState(false);
   const [data, setData] = React.useState([""]);
+  const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
     try {
+      setLoading(true)
       const fetchData = async () => {
-        await getPosts(filter).then((res) => res && setData(res));
-      };
+        await getPosts(filter)
+          .then((res) => res && setData(res))
+          .then(() => setLoading(false))
+      }
       fetchData();
-      console.log(data);
     } catch (error) {
       console.log(error.message);
     }
@@ -109,19 +108,17 @@ export default function Album({filter, bookmark}) {
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
       <main>
-        {/* Hero unit */}
         <motion.div
-              className="container"
-              variants={container}
-              initial="hidden"
-              animate="visible"
-            >
-        <Container sx={{ py: { sm: 0, sx: 0, md: 0, lg: 0 } }} maxWidth="md">
-          {/* End hero unit */}
-          <Grid container spacing={2}>
-            
+          className="container"
+          variants={container}
+          initial="hidden"
+          animate="visible"
+          sx={{ py: { sm: 0, xs: 0, md: 0, lg: 0 },paddingRight:{ sm: 0, xs: 0, md: 0, lg: 0 } ,marginRight:{ sm: 0, sx: 0, md: 0, lg: 0 } }}
+        >
+          <Container sx={{ py: { sm: 0, xs: 0, md: 0, lg: 0 },paddingRight:{ sm: 0, xs: 0, md: 0, lg: 0 } ,marginRight:{ sm: 0, sx: 0, md: 0, lg: 0 },paddingLeft:{ sm: 0, xs: 0, md: 3, lg: 2 }  }} maxWidth="md">
+            <Grid container spacing={2}>
               {data.map((card, index) => (
-                <Grid item key={index} xs={12} sm={6} md={6} lg={4}>
+                <Grid item key={index} xs={6} sm={4} md={4} lg={3}>
                   <MachingCard>
                     <motion.div
                       className="item "
@@ -132,67 +129,101 @@ export default function Album({filter, bookmark}) {
                         flexDirection: "column",
                       }}
                     >
-                      <CardTime>{timeAgo(card.date)}</CardTime>
-                      <ImageSlot
-                        onClick={() => navigate(`/DetailPage?id=${card._id}`)}
-                        key={`media-${card._id}`}
-                        component="div"
-                        sx={{
-                          pt: "56.25%",
-                          cursor: "pointer",
-                        }}
-                        image={
-                          card.image && `http://localhost:5000/${card.image}`
-                        }
-                      />
+                      {loading ? (
+                        <Skeleton
+                          variant="rectangular"
+                          width={210}
+                          height={118}
+                        />
+                      ) : (
+                        <>
+                          <CardTime>{timeAgo(card.date)}</CardTime>
+                          <ImageSlot
+                            onClick={() =>
+                              navigate(`/DetailPage?id=${card._id}`)
+                            }
+                            key={`media-${card._id}`}
+                            component="div"
+                            sx={{
+                              pt: "56.25%",
+                              cursor: "pointer",
+                            }}
+                            image={
+                              card.image &&
+                              `http://localhost:5000/${card.image}`
+                            }
+                          />
+                        </>
+                      )}
                       <CardContent
-                        onClick={() => navigate(`/DetailPage?id=${card._id}`)}
+
                         sx={{
                           flexGrow: 1,
                           cursor: "pointer",
+                          px:0
                         }}
                       >
-                        <H1>{card.title}</H1>
-                        <H3 variant="body2" component="poppins">
-                          role : {card.roles}
-                        </H3>
-                        <H3 variant="body2" component="poppins">
-                          gender : {card.gender}{" "}
-                        </H3>
-                        <H3
-                          variant="body2"
-                          component="poppins"
-                          marginBottom={1}
-                        >
-                          {card.date}
-                        </H3>
+                        {loading ? (
+                          <Box sx={{ pt: 0.5 }}>
+                            <Skeleton />
+                            <Skeleton width="60%" />
+                          </Box>
+                        ) : (
+                          <>
+                            <Grid container>
+                              <Grid item xs={10} md={10} sm={10} lg={10}>
+                            <H1>{card.title}</H1>
+
+                              </Grid>
+                              <Grid item xs={2} md={2} sm={2} lg={2}>
+                            <IconButton
+                            sx={{pt:0,paddingRight:0 }}
+                              aria-label="add to favorites"
+                              onClick={() => setChecked(!checked)}
+                            >
+                              {checked ? (
+                                <BookmarkIcon fontSize="small" />
+                              ) : (
+                                <BookmarkBorderIcon fontSize="small" />
+                              )}
+                            </IconButton>
+                              </Grid>
+                            </Grid>
+                            <H3 variant="body2" component="poppins">
+                            {card.roles}
+                            </H3>
+
+                          </>
+                        )}
                       </CardContent>
-                      <CardActions
+                      {/* <CardActions
                         sx={{
                           display: "flex",
                           justifyContent: "space-between",
                         }}
                       >
-                        <div>
-                          <IconButton
-                            aria-label="add to favorites"
-                            onClick={() => setChecked(!checked)}
-                          >
-                            {checked ? (
-                              <BookmarkIcon fontSize="small" />
-                            ) : (
-                              <BookmarkBorderIcon fontSize="small" />
-                            )}
-                          </IconButton>
-                        </div>
-                      </CardActions>
+                        {!loading && (
+                          <div>
+                            <IconButton
+                              aria-label="add to favorites"
+                              onClick={() => setChecked(!checked)}
+                            >
+                              {checked ? (
+                                <BookmarkIcon fontSize="small" />
+                              ) : (
+                                <BookmarkBorderIcon fontSize="small" />
+                              )}
+                            </IconButton>
+                          </div>
+                        )}
+                      </CardActions> */}
                     </motion.div>
                   </MachingCard>
                 </Grid>
               ))}
-            
-          </Grid>
-        </Container>
+
+            </Grid>
+          </Container>
         </motion.div>
       </main>
     </ThemeProvider>

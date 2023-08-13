@@ -23,7 +23,7 @@ const LeftSide = styled(Box)({
 });
 
 function Jobs() {
-    const [filters, setFilters] = useState({ 'Project Type': [], Age: [15, 35], Role: [], Gender: [], 'Date of Posting': [], Languages: [] })
+    const [filters, setFilters] = useState({ 'Project Type': [], Age: [0, 0], Role: [], Gender: [], 'Date of Posting': [], Languages: [] })
 
     useEffect(() => {
         console.log(filters);

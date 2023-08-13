@@ -33,7 +33,7 @@ const castingSchema = new Schema({
         type:String
     },
     age:{
-        type:String
+        type: [Number]
     },
     location:{
         type:String

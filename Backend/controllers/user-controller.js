@@ -240,16 +240,30 @@ const getPost = async (req, res) => {
     const type = data['Project Type']
     const date = data['Date of Posting']
     const {Role ,Age ,Gender,Languages } = data
+    const query = []
+    console.log(type,date,Role,Age,Gender,Languages)
+    let totalCount = 0;
+    for (const key in data) {
+      if (data.hasOwnProperty(key) && Array.isArray(data[key])) {
+        totalCount += data[key].length;
+      }
+    }
 
-    console.log(type,date,Role,Age,Gender,Languages);
-    // const post = await CastingCall.find()
-    const post = await CastingCall.find({
-      roles: { $in: Role },
-      // type: { $in: ['movie', 'short-film'] },
-      // age: { $gte: 23, $lte: 45 }
-    });
-    
-    console.log(posts);
+    if(totalCount)data?.Age?.[0]===0 && data?.Age?.[1]===0 ? totalCount-=2 : totalCount--   
+    if (totalCount) {
+      if(Age[1]!==0 || Age[0]!==0) {
+        query.push({age: { $elemMatch: { $gte: Age[0], $lte: Age[1] } }})
+      }
+      Role.length && query.push({ roles: { $in: Role } }) 
+      type.length && query.push({ projectType: { $in: type } })
+      console.log(query);
+      post = await CastingCall.find({
+        $and: query
+      });
+      
+    } else {
+      post = await CastingCall.find()
+    }
     
     if (!post) {
       return res.status(404).json({ message: "Something Went Wrong !" })

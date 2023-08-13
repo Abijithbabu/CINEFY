@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import React, { useState } from "react";
-
+import { Filters } from "../../../utils/constants/filter";
 import {
   Box,
   Button,
@@ -20,59 +20,7 @@ import {
 import SimpleSlider from "./mobFilter";
 import { useEffect } from "react";
 
-const Fili = [
-  {
-    id: 1,
-    title: "Project Type",
-    elements: [
-      "Ad Film",
-      "Documentry",
-      "Modeling",
-      "Movie",
-      "Music Video",
-      'Reality Show',
-      'Short Film',
-      'Tele Film',
-      'TV Serial',
-      'TV Show',
-      'Web Series',
-      'Hiring',
-      'Others'
-    ],
-  },
-  {
-    id: 2,
-    title: 'Age',
-    flag: 1,
-    elements: ['Male', 'Female', 'Others', 'Not Applicable'],
-  },
-  {
-    id: 3,
-    title: "Role",
-    elements: ['Action Choreographer', 'Actor', 'Actress', 'Animator', 'Art Director', 'Assistant Director', 'Associate Director', 'Cartoonist', 'Child Actor', 'Child Actress', 'Cinematographer', 'Content Creator', 'Costume Designer', 'Dancer', 'Dance Choreographer', 'Designers', 'DI Colorist', 'Digital Artist', 'Director', 'Disco Jockey', 'Dubbing Artist', 'Editor', 'Graphic Designer', 'Illustrator', 'Lead Actor', 'Lead Actress', 'Lyricist', 'Makeup Artist', 'Model', 'Music Director', 'Photographer', 'Poster Designer', 'Publicist', 'Radio Jockey', 'Recording Technician', 'Script Writer', 'Singer', 'Social Media Manager', 'Sound Engineer', 'Story Writer', 'Stunt Director'],
-  },
-  {
-    id: 4,
-    title: "Gender",
-    elements: ['Male', 'Female', 'Others', 'Not Applicable'],
-  },
-  {
-    id: 5,
-    title: "Date of Posting",
-    elements: ["Last 24 hours", "Last 3 days", "last 24 days", "expering soon"],
-  },
-  {
-    id: 6,
-    title: 'Languages',
-    elements: [
-      "Assamese", "Bengali", "Bodo", "Dogri", "English", "Gujarati",
-      "Hindi", "Kannada", "Kashmiri", "Konkani", "Maithili", "Malayalam",
-      "Marathi", "Meitei", "Nepali", "Odia", "Punjabi", "Sanskrit",
-      "Santali", "Sindhi", "Tamil", "Telugu", "Urdu"
-    ]
 
-  }
-];
 
 const FiliterCard = styled(Card)({
   display: "flex-row",
@@ -148,9 +96,9 @@ function AirbnbThumbComponent(props) {
     </SliderThumb>
   );
 }
-function Filiter({filters,apply}) {
-
-  const [selectedFilters, setSelectedFilters] = useState({'Project Type':[],Age:[15,35],Role:[],Gender:[],'Date of Posting':[],Languages:[]});
+function Filiter({filter,apply}) {
+  const initState = {'Project Type':[],Age:[0,0],Role:[],Gender:[],'Date of Posting':[],Languages:[]}
+  const [selectedFilters, setSelectedFilters] = useState(initState);
    
   const handleCheckboxChange = (event, element,item) => { 
     if (event.target.checked) {
@@ -163,15 +111,18 @@ function Filiter({filters,apply}) {
     }
   }
   useEffect(() => {
-    apply(selectedFilters)
+    console.log(filter);
+  filter==0 && setSelectedFilters(initState)
+  }, [filter])
+  useEffect(() => {
+   apply(selectedFilters)
   }, [selectedFilters])
   
   return (
     <>
       <Hidden mdDown implementation="css">
-        <Typography>Filiter</Typography>
         <FiliterCard>
-          {Fili.map((item) => (
+          {Filters.map((item) => (
             <Box key={item.id} >
               <H1>{item.title}</H1>
               {item.flag === 1 ? (
@@ -180,12 +131,13 @@ function Filiter({filters,apply}) {
                     slots={{ thumb: AirbnbThumbComponent }}
                     getAriaLabel={(index) => (index === 0 ? 'Minimum price' : 'Maximum price')}
                     valueLabelDisplay="on"
-                    value={selectedFilters.Age}
+                    // defaultValue={[0, 100]}
+                                        value={selectedFilters.Age}
                     onChange={(e)=>setSelectedFilters(prev=>({...prev,Age:e.target.value}))}
                   />
                 </Box>
               ):(
-                <List sx={{ width: "100%" ,mt:2,mb:3}} size="small" style={{ maxHeight: "calc(220px - 10px)", overflowY: "scroll" }}>
+                <List sx={{ width: "100%" ,mt:0,mb:2}} size="small" style={{ maxHeight: "calc(220px - 10px)", overflowY: item.id==4? "none":'scroll' }}>
                 {item.elements.map((element, index) => (
                   <ListItem key={index} value={element} sx={{
                     padding: "0px",
@@ -211,7 +163,7 @@ function Filiter({filters,apply}) {
         </FiliterCard>
       </Hidden>
       <Hidden mdUp implementation="css">
-        <SimpleSlider Fili={Fili} />
+        <SimpleSlider Fili={Filters} />
       </Hidden>
     </>
   );

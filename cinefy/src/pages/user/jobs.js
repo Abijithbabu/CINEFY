@@ -21,33 +21,44 @@ const LeftSide = styled(Box)({
   marginTop: { md: 2, lg: 2, xl: 2, sx: 0 },
   marginLeft: { md: 2, lg: 2, xl: 2 },
 });
-
+function totalElements(obj) {
+  let totalCount = 0;
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key) && Array.isArray(obj[key])) {
+      totalCount += obj[key].length;
+    }
+  }
+  if(totalCount)obj?.Age?.[0]===0 && obj?.Age?.[1]===0 ? totalCount-=2 : totalCount--
+  return totalCount
+}
 function Jobs() {
-  const [filters, setFilters] = useState({'Project Type':[],Age:[15,35],Role:[],Gender:[],'Date of Posting':[],Languages:[]})
-
+  const [filters, setFilters] = useState({})
+  const [filterCount, setCount] = useState(0)
   useEffect(() => {
-    console.log(filters);
-
+    const count = totalElements(filters)
+    setCount(count)
   }, [filters])
-  
+  useEffect(()=>{
+    !filterCount && setFilters({}) 
+  },[filterCount])  
   return (
     <>
       <Page>
-        <FiliterContainer>
           <Header />
-          <FreeSolo />
-          <Grid container spacing={0}>
-            <Grid item xs={12} md={3} lg={3} marginTop={1}>
-              <Filiter filter={filters} apply={setFilters} />
+        <FiliterContainer>
+          <FreeSolo filterCount={ filterCount } removeFilter={setCount} />
+          <Grid container >
+            <Grid item xs={12} md={3} lg={2.5} marginTop={1}>
+              <Filiter filter={filterCount} apply={setFilters} />
             </Grid>
-            <Grid item xs={12} md={7.5} sm={12}>
+            <Grid item xs={12} md={9} sm={12} lg={9.5}>
               <LeftSide>
-                <Album filter={filters} />
+                <Album filter={filters} count={filterCount} />
               </LeftSide>
             </Grid>
           </Grid>
-          <Footer />
         </FiliterContainer> 
+          <Footer />
       </Page>
     </>
   );
