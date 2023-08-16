@@ -62,15 +62,15 @@ export default function Checkout({state,activeStep,setActiveStep}) {
   };
 
   const handleSubmit = () => {
-    console.log(data);
     const formData = new FormData();
     for (const key in data) {
       if (data.hasOwnProperty(key) && key !== "image") {
         formData.append(key, data[key]);
       }
     }
-    formData.append("author", user._id)
+    !state && formData.append("author", user._id)
     typeof(data.image) == 'object' && formData.append("image", data.image, data?.image?.name);
+    console.log(formData);
     state ? editPost(formData) : createPost(formData) 
     handleNext()
   };

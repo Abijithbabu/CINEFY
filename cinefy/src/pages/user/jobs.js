@@ -34,6 +34,13 @@ function totalElements(obj) {
 function Jobs() {
   const [filters, setFilters] = useState({})
   const [filterCount, setCount] = useState(0)
+  const [search, setSearch] = React.useState('')
+  useEffect(() => {
+    console.log(search);
+    setFilters(prev=>({...prev,search}))
+    console.log(filters);
+  }, [search])
+  
   useEffect(() => {
     const count = totalElements(filters)
     setCount(count)
@@ -46,14 +53,14 @@ function Jobs() {
       <Page>
           <Header />
         <FiliterContainer>
-          <FreeSolo filterCount={ filterCount } removeFilter={setCount} />
+          <FreeSolo filterCount={ filterCount }  search={search} apply={setSearch} removeFilter={setCount}/>
           <Grid container >
             <Grid item xs={12} md={3} lg={2.5} marginTop={1}>
               <Filiter filter={filterCount} apply={setFilters} />
             </Grid>
             <Grid item xs={12} md={9} sm={12} lg={9.5}>
               <LeftSide>
-                <Album filter={filters} count={filterCount} />
+                <Album filter={filters} />
               </LeftSide>
             </Grid>
           </Grid>

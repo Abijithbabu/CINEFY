@@ -227,15 +227,17 @@ const logout = async (req, res) => {
 
 const createPost = async (req, res) => {
   const { ...details } = req.body;
-  console.log(details);
-
+  let data = details;
+  data.age = data.age.split(",").map((age) => parseInt(age.trim(), 10));
+  data.roles = data.roles.split(",").map((roles) => roles.trim());
+  data.language = data.language.split(",").map((language) => language.trim());
   try {
     if (!req.file) {
       return res.json({ error: "Image is required" });
     }
     const filepath = req.file.path.replace(/\\/g, "/").slice(7);
     const post = new CastingCall({
-      ...details,
+      ...data,
       image: filepath,
     });
     await post.save();
@@ -247,6 +249,7 @@ const createPost = async (req, res) => {
       .status(200)
       .json({ message: "Casting Call Saved Successfully !" });
   } catch (error) {
+    console.log(error.message);
     return new Error(error);
   }
 };
@@ -262,7 +265,7 @@ const editPost = async (req, res) => {
   try {
     if (req.file) {
       const filepath = req.file.path.replace(/\\/g, "/").slice(7);
-      data = { ...details, image: filepath };
+      data = { ...data, image: filepath };
     }
     console.log(data);
     const post = CastingCall.updateOne(
@@ -293,16 +296,16 @@ const getPost = async (req, res) => {
     const data = req.body;
     const type = data["Project Type"];
     const date = data["Date of Posting"];
-    const { Role, Age, Gender, Languages } = data;
+    const { Role, Age, Gender, Languages,search } = data;
     const query = [];
-    console.log(type, date, Role, Age, Gender, Languages);
+    console.log(type, date, Role, Age, Gender, Languages , search);
     let totalCount = 0;
     for (const key in data) {
       if (data.hasOwnProperty(key) && Array.isArray(data[key])) {
         totalCount += data[key].length;
       }
     }
-
+    search && totalCount++
     if (totalCount)
       data?.Age?.[0] === 0 && data?.Age?.[1] === 0
         ? (totalCount -= 2)
@@ -313,6 +316,10 @@ const getPost = async (req, res) => {
       }
       Role.length && query.push({ roles: { $in: Role } });
       type.length && query.push({ projectType: { $in: type } });
+      search && query.push({    $or: [
+        { title: { $regex: search, $options: 'i' } }, 
+        { director: { $regex: search, $options: 'i' } }
+      ]})
       console.log(query);
       post = await CastingCall.find({
         $and: query,
