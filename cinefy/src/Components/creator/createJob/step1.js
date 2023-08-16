@@ -13,6 +13,7 @@ export default function AddressForm({ data, dispatch }) {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
+    console.log(typeof(file));
     dispatch({ ...data, image: file });
   };
 
@@ -87,7 +88,7 @@ export default function AddressForm({ data, dispatch }) {
             {data?.image ? (
               <img
                 style={{ width: 240, height: 135, padding: 22 }}
-                src={URL.createObjectURL(data.image)}
+                src={typeof(data.image) == 'object'? URL.createObjectURL(data.image) : `http://localhost:5000/${data.image}`} 
               />
             ) : (
               <React.Fragment>

@@ -14,7 +14,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Step1 from "./step1";
 import Step2 from "./step2";
 import Step3 from "./step3";
-import { createPost } from "../../../redux/action";
+import { createPost, editPost } from "../../../redux/action";
+import { useSelector } from "react-redux";
 
 function Copyright() {
   return (
@@ -41,15 +42,16 @@ const defaultTheme = createTheme({
   },
 });
 
-export default function Checkout() {
-  const InitState = {
+export default function Checkout({state,activeStep,setActiveStep}) {
+  const user = useSelector((store) => store?.data?.user)
+  const InitState = state ?? {
     roles: ["Actress", "Actor"],
     language:[],
-    Age:[15,25],
+    age:[15,25],
     title:'',
     shortdescription:''
   };
-  const [activeStep, setActiveStep] = React.useState(0);
+
   const [data, setData] = React.useState(InitState);
   const handleNext = () => {
     setActiveStep(activeStep + 1); 
@@ -60,25 +62,27 @@ export default function Checkout() {
   };
 
   const handleSubmit = () => {
+    console.log(data);
     const formData = new FormData();
     for (const key in data) {
       if (data.hasOwnProperty(key) && key !== "image") {
         formData.append(key, data[key]);
       }
     }
-    formData.append("image", data.image, data?.image?.name);
-    createPost(formData);
+    formData.append("author", user._id)
+    typeof(data.image) == 'object' && formData.append("image", data.image, data?.image?.name);
+    state ? editPost(formData) : createPost(formData) 
     handleNext()
   };
 
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <Step1 data={data} dispatch={setData} />;
+        return <Step1 edit={state?true:false} data={data} dispatch={setData} />;
       case 1:
-        return <Step2 data={data} dispatch={setData} />;
+        return <Step2 edit={state?true:false} data={data} dispatch={setData} />;
       case 2:
-        return <Step3 data={data} />;
+        return <Step3 edit={state?true:false} data={data} />;
       case 3:
         return (
           <React.Fragment>

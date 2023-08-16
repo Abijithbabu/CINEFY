@@ -4,8 +4,13 @@ import { Box, Button, Container, Grid, Stack, SvgIcon, Typography } from '@mui/m
 import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIcon'
 import Table from '../../Components/creator/manageContent/table'
 import { getPosts } from '../../redux/action'
+import { useLocation } from 'react-router'
+import queryString from 'query-string'
 
-const ManageContent = () => {
+const ManageContent = ({select}) => {
+  const location = useLocation()
+  const queryParams = queryString.parse(location.search)
+  const id = queryParams.id
     const [data, setData] = useState([]);
     useEffect(() => {
       getPosts().then((res) => setData(res))
@@ -48,7 +53,7 @@ const ManageContent = () => {
               </Stack>
             </Stack>
           </Stack>
-            {data.length ? <Table data={data} /> : <div>Loading...</div>}
+            {data.length ? <Table data={data} select={id}/> : <div>Loading...</div>}
         </Stack>
       </Container>
     </Box>

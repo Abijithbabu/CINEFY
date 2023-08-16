@@ -55,8 +55,8 @@ const styles = {
   },
 }; 
 
-const ProfileHeader = () => {
-  const data = useSelector((store) => store.data.user);
+const ProfileHeader = ({data}) => {
+
   return (
     <>
       <Grid container spacing={0}>
@@ -65,12 +65,12 @@ const ProfileHeader = () => {
               sx={styles.avatar}
               aria-label="recipe"
               zIndex={0}
-              src={data.profilePic} 
+              src={data?.profilePic} 
             />
         </Grid>
         <Grid item xs={12} md={7.5} sm={12}>
           <LeftSide paddingLeft={20}>
-            <H2 paddingTop={13}>{data.name}</H2> 
+            <H2 paddingTop={13}>{data?.name}</H2> 
             <H3 >
               Hello,I am a full-stack web developer. I adhere to the MVC
               standard rule in my projects to facilitate modification and

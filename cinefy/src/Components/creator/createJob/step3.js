@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 
-export default function AddressForm({ data }) {
+export default function AddressForm({ data,edit }) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -32,7 +32,7 @@ export default function AddressForm({ data }) {
                   16: 9,
                   pt: "56.25%",
                 }}
-                image={URL.createObjectURL(data.image)}
+                image={typeof(data.image) == 'object'? URL.createObjectURL(data.image) : `http://localhost:5000/${data.image}`} 
               />
             )}
             <CardContent sx={{ flexGrow: 1 }}>

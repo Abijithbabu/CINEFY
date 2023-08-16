@@ -7,20 +7,27 @@ import Contacts from "./Contacts";
 import Welcome from "./Welcome";
 import { useSelector } from "react-redux";
 import { getContacts } from "../../../redux/action";
+import { useLocation } from "react-router";
+import queryString from "query-string";
 
 export default function Chat() {
 
+  const location = useLocation();
+  const queryParams = queryString.parse(location.search)
+  console.log(queryParams)
   const currentUser = useSelector((store) => store.data.user);
   const socket = useRef();
   const [contacts, setContacts] = useState([]);
-  const [currentChat, setCurrentChat] = useState(undefined);
+  const [currentChat, setCurrentChat] = useState(queryParams.id ?? undefined);
 
+  console.log(currentChat);
   useEffect(()=>{
     async function getUsers() {
     if (currentUser) {
       socket.current = io(host); 
       socket.current.emit("add-user", currentUser._id);
       const data = await getContacts(currentUser._id);
+      console.log(data);
       setContacts(data); 
     }
   }
@@ -34,7 +41,7 @@ export default function Chat() {
     <>
       <Container>
         <div className="container">
-          <Contacts contacts={contacts} changeChat={handleChatChange} />
+          <Contacts contacts={contacts} changeChat={handleChatChange} current={queryParams.id}/>
           {currentChat === undefined ? (
             <Welcome userName={currentUser.name} />
           ) : (

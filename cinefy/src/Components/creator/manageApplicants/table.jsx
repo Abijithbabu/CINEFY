@@ -28,13 +28,15 @@ const useCustomerIds = (customers) => {
     [customers]
   ); 
 };
+ 
+const Page = ({data,select,post}) => { 
 
-const Page = ({data}) => { 
   const [page, setPage] = useState(0); 
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const customers = useCustomers(data, page, rowsPerPage);
   const customersIds = useCustomerIds(customers);
   const customersSelection = useSelection(customersIds);
+  select && customersSelection.selected.push(select)
   const handlePageChange = useCallback( 
     (event, value) => {   
       setPage(value);  
@@ -64,6 +66,8 @@ const Page = ({data}) => {
               page={page}
               rowsPerPage={rowsPerPage} 
               selected={customersSelection.selected} 
+              select={select? select : false}
+              post={post}
             />
 
   );

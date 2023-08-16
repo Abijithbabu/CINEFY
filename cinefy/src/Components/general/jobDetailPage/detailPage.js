@@ -27,7 +27,7 @@ import { applyJob, getPostDetails } from "../../../redux/action";
 import { useSelector } from "react-redux";
 
 const DetailPage = () => {
-  const location = useLocation(); 
+  const location = useLocation();
   const queryParams = queryString.parse(location.search);
   const [details, setDetails] = useState();
   const data = useSelector((store) => store.data.user);
@@ -45,10 +45,9 @@ const DetailPage = () => {
   }, []);
 
   async function handleClick() {
-    await applyJob(details._id,data._id)
-    await getPostDetails(queryParams.id).then(
-      (res) => res && setDetails(res)
-    );  }
+    await applyJob(details._id, data._id);
+    await getPostDetails(queryParams.id).then((res) => res && setDetails(res));
+  }
 
   return (
     <Container sx={{ mt: 14 }}>
@@ -191,23 +190,19 @@ const DetailPage = () => {
                 </Table>
               </CardContent>
             </Card>
-
-             {details?.applicants.includes(data._id)?(
-                          <Button
-                          sx={{ mt: 3, mb: 3 }}
-                          variant="blur"
-                        > 
-                        Application Submitted
-                        </Button>
-             ):(
+            {details?.applicants.filter((x) => x.user === data._id).length ? (
+              <Button sx={{ mt: 3, mb: 3 }} variant="blur">
+                Application Submitted
+              </Button>
+            ) : (
               <Button
-              sx={{ mt: 3, mb: 3 }}
-              variant="outlined"
-              onClick={handleClick}
-            > 
-            APPLY NOW
-            </Button>
- )} 
+                sx={{ mt: 3, mb: 3 }}
+                variant="outlined"
+                onClick={handleClick}
+              >
+                APPLY NOW
+              </Button>
+            )}
           </Box>
         </Grid>
       </Grid>

@@ -27,15 +27,13 @@ const page = () => {
       <ThemeProvider theme={theme}>
         {/* <Profile /> */}
         <Tainer>
-          {/* <Header /> */}
+          <Header />
           <ProfileHeader />
           <Exp/>
           <Albums/>
-          <Footer />
         </Tainer>
         <Footer />
       </ThemeProvider>
-      <Header />
     </>
   );
 };

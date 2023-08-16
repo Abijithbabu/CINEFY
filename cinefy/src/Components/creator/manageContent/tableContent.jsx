@@ -1,6 +1,7 @@
 import {
     Avatar,
     Box,
+    Button,
     Card,
     Checkbox,
     Stack,
@@ -12,7 +13,7 @@ import {
     TableRow,
     Typography,
 } from "@mui/material"
-
+import CreateJob from '../createJob/createJob'
 function displayWords(paragraph) {
 
     const wordsArray = paragraph.trim().split(/\s+/);
@@ -59,17 +60,20 @@ export const TableContent = (props) => {
                                     }}
                                 />
                             </TableCell>
-                            <TableCell>Name</TableCell>
+                            <TableCell>Image</TableCell>
                             <TableCell>Title</TableCell>
                             <TableCell>Description</TableCell>
                             <TableCell>Views</TableCell>
                             <TableCell>Location</TableCell>
                             <TableCell>Validity</TableCell>
+                            <TableCell>Action</TableCell>
+
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {items.map((customer) => {
                             const isSelected = selected.includes(customer._id);
+                            
                             // const createdAt = format(customer.createdAt, 'dd/MM/yyyy');
 
                             return (
@@ -112,6 +116,9 @@ export const TableContent = (props) => {
                                     <TableCell>{customer?.applicants.length ?? "NA"}</TableCell>
                                     <TableCell>{customer.location}</TableCell>
                                     <TableCell>{`${new Date(customer.date).getDay()}-${new Date(customer.date).getMonth()}-${new Date(customer.date).getFullYear()}`}</TableCell>
+                                    <TableCell>
+                                        <CreateJob data={customer}/>
+                                    </TableCell>
                                 </TableRow>
                             );
                         })}

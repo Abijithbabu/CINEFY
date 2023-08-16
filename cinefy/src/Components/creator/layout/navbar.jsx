@@ -179,7 +179,7 @@ export default function PrimarySearchAppBar({setOpen}) {
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
 
-          <Search>
+          {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -187,14 +187,14 @@ export default function PrimarySearchAppBar({setOpen}) {
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />
-          </Search>
+          </Search> */}
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
           <CreateJob />
             <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={()=>navigate('/chat')}>
-              <Badge badgeContent={4} color="error">
+              {/* <Badge badgeContent={4} color="error"> */}
                 <MailIcon />
-              </Badge>
+              {/* </Badge> */}
             </IconButton>
             <IconButton
               size="large"

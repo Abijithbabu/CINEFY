@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { Avatar, Typography } from "@mui/material";
 
-export default function Contacts({ contacts, changeChat }) {
+export default function Contacts({ contacts, changeChat , current}) {
   const data = useSelector((store) => store.data.user);
-  const [currentSelected, setCurrentSelected] = useState(undefined);
-  const changeCurrentChat = (index, contact) => {
-    setCurrentSelected(index);
+  const [currentSelected, setCurrentSelected] = useState(current ?? undefined)
+  const changeCurrentChat = (contact) => {
+    setCurrentSelected(contact._id);
     changeChat(contact);
   };
   return (
@@ -20,13 +20,14 @@ export default function Contacts({ contacts, changeChat }) {
 
           <div className="contacts">
             {contacts && contacts.map((contact, index) => {
+              contact._id===currentSelected && changeChat(contact)
               return (
                 <div
                   key={contact._id}
                   className={`contact ${
-                    index === currentSelected ? "selected" : ""
+                    contact._id === currentSelected ? "selected" : ""
                   }`}
-                  onClick={() => changeCurrentChat(index, contact)}
+                  onClick={() => changeCurrentChat(contact)}
                 >
                   <div className="avatar">
                     <Avatar alt="Remy Sharp" src={contact?.profilePic} />

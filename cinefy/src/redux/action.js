@@ -168,6 +168,24 @@ export const createPost = async (data) => {
   }
 };
 
+export const editPost = async (data) => {
+  try {
+    const res = await Axios.post(`/editPost`, data);
+    if (res.data) {
+      Store.addNotification({
+        ...notification,
+        message: res.data.message,
+        title: "Success",
+        type: "success",
+      });
+      return res.data.message;
+    }
+    return false;
+  } catch (err) {
+    handleApiError(err);
+    return false;
+  }
+};
 export const getPosts = async (data) => {
   try {
     const res = await Axios.post(`/getPosts`,data);
@@ -179,7 +197,28 @@ export const getPosts = async (data) => {
     return false;
   }
 };
-
+export const getApplicants = async (data) => {
+  try {
+    const res = await Axios.post(`/getApplicants`,data);
+    if (res.data) {
+      return res.data;
+    }
+  } catch (err) {
+    handleApiError(err);
+    return false;
+  }
+}
+export const getAllApplicants = async (data) => {
+  try {
+    const res = await Axios.post(`/getAllApplicants`,{id:data});
+    if (res.data) {
+      return res.data;
+    }
+  } catch (err) {
+    handleApiError(err);
+    return false;
+  }
+};
 export const getPostDetails = async (id) => {
   try {
     const res = await Axios.get(`/getPostDetails?id=${id}`);
@@ -215,7 +254,24 @@ export const getUserDetails = async (id) => {
     return false;
   }
 };
-
+export const updateStatus = async (id,status,post) => {
+  try {
+    const res = await Axios.patch(`/updateStatus?id=${id}&status=${status}&postId=${post}`);
+    console.log(res);
+    if (res.data) {
+      Store.addNotification({
+        ...notification,
+        message: res.data.message,
+        title: "Success",
+        type: "success",
+      });
+      return res.data;
+    }
+  } catch (err) {
+    handleApiError(err);
+    return false;
+  }
+}
 export const blockUser = async (id) => {
   try {
     const res = await Axios.patch(`/admin/blockUser?id=${id}`);

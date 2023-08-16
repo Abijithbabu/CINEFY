@@ -22,6 +22,7 @@ import ManageApplications from "../pages/recruiter/manageApplications";
 import ManageApplicants from "../pages/recruiter/manageApplicants";
 import Profile from "../pages/user/public-profile";
 import Chat from "../pages/general/chat";
+import ViewProfile from "../Components/creator/userProfile/view-profile";
 function routes() {
   return (
     <Routes>
@@ -49,6 +50,7 @@ function routes() {
         <Route path="/manageContents" element={<ManageContent />} />
         <Route path="/manageApplications" element={<ManageApplications />} />
         <Route path="/manageApplicants" element={<ManageApplicants />} />
+        <Route path="/view-profile" element={<ViewProfile />} /> 
       </Route>
       <Route path="/detailPage" element={<DetailPage />} />
       <Route path="/*" element={<Error />} />

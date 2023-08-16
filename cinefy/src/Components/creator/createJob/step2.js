@@ -56,12 +56,14 @@ function AirbnbThumbComponent(props) {
     </SliderThumb>
   );
 }
-export default function AddressForm({ data, dispatch }) {
+export default function AddressForm({ data, dispatch ,edit}) {
 
   const classes = useStyles();
   const [role, setRole] = React.useState([])
   const handleChange = (e) => {
-    dispatch({ ...data, [e.target.name]: e.target.value })
+    console.log(data)
+    dispatch({ ...data, [e.target.name]: e.target.value }) 
+    console.log([e.target.name], e.target.value)
   }
   return (
     <React.Fragment>
@@ -76,7 +78,7 @@ export default function AddressForm({ data, dispatch }) {
             freeSolo
             variant="standard"
             value={data.projectType || ''}
-            onChange={handleChange}
+            onChange={(e, value) => dispatch({ ...data, projectType: value })}
             options={[
               "Ad Film",
               "Documentry",
@@ -150,8 +152,8 @@ export default function AddressForm({ data, dispatch }) {
               slots={{ thumb: AirbnbThumbComponent }}
               getAriaLabel={(index) => (index === 0 ? 'Minimum price' : 'Maximum price')}
               valueLabelDisplay="on"
-              value={data.Age}
-              onChange={(e) => dispatch(prev => ({ ...prev, Age: e.target.value }))}
+              value={data.age}
+              onChange={(e) => dispatch(prev => ({ ...prev, age: e.target.value }))}
             />
           </Box>
         </Grid> 
@@ -191,7 +193,8 @@ export default function AddressForm({ data, dispatch }) {
             helperText="Location Preference (not mandatory only if any)"
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+{!edit && (
+          <Grid item xs={12} sm={6}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={['DatePicker']}>
               <DatePicker
@@ -209,6 +212,7 @@ export default function AddressForm({ data, dispatch }) {
             </DemoContainer>
           </LocalizationProvider>
         </Grid>
+)}
         <Grid item xs={12}>
           <TextField
             id="description"
