@@ -343,13 +343,14 @@ const getPostDetails = async (req, res) => {
     const post = await CastingCall.findOne({ _id: req.query.id }).populate(
       "applicants.user",
       ["email", "name", "profilePic"]
-    );
+    ).populate('author')
     if (!post) {
       return res.status(404).json({ message: "Something Went Wrong !" });
     }
 
     return res.status(200).json(post);
   } catch (error) {
+    console.log(error.message);
     return new Error(error);
   }
 };
@@ -460,6 +461,25 @@ const updateStatus = async (req, res, next) => {
     return res.status(400).json({ message: "Something Went Wrong !" });
   }
 };
+const updateSubscription = async (req, res, next) => {
+  const { id, type, validity } = req.query;
+  try {
+    const updated = await User.updateOne(
+      { _id: id },
+      { $set: { "subscription": {type,validity} } }
+    );
+    if (updated) {
+      console.log("Subscription added successfully.");
+      const user = await User.findOne({ _id: id });
+      return res
+        .status(200)
+        .json({user, message: "Subscription added successfully." });
+    }
+  } catch (error) {
+    console.log(error.message);
+    return res.status(400).json({ message: "Something Went Wrong !" });
+  }
+};
 module.exports = {
   sendOtp,
   signup,
@@ -479,4 +499,5 @@ module.exports = {
   getAllApplicants,
   getUserDetails,
   updateStatus,
+  updateSubscription
 };

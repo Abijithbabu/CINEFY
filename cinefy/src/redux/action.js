@@ -272,6 +272,29 @@ export const updateStatus = async (id,status,post) => {
     return false;
   }
 }
+export const updateSubscription = async (id,type,validity,dispatch) => {
+  try {
+    const res = await Axios.patch(`/updateSubscription?id=${id}&type=${type}&validity=${validity}`);
+    console.log(res);
+    if (res.data) {
+      Store.addNotification({
+        ...notification,
+        message: res.data.message,
+        title: "Success",
+        type: "success",
+      });
+      dispatch({
+        type: "user_login",
+        payload: res.data,
+      });
+      return res.data;
+    }
+  } catch (err) {
+    handleApiError(err);
+    return false;
+  }
+}
+
 export const blockUser = async (id) => {
   try {
     const res = await Axios.patch(`/admin/blockUser?id=${id}`);

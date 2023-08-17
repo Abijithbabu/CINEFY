@@ -47,7 +47,9 @@ const castingSchema = new Schema({
     type: Array,
   },
   author: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
   },
   applicants: [
     {

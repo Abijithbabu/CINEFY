@@ -23,6 +23,7 @@ import ManageApplicants from "../pages/recruiter/manageApplicants";
 import Profile from "../pages/user/public-profile";
 import Chat from "../pages/general/chat";
 import ViewProfile from "../Components/creator/userProfile/view-profile";
+import Premium from "../pages/user/premium";
 function routes() {
   return (
     <Routes>
@@ -33,6 +34,7 @@ function routes() {
       <Route path="/findJobs" element={<Jobs />} />
       <Route path="/blogs" element={<Blogs />} />
       <Route path="/public-profile" element={<Profile />} />
+      <Route path="/premium" element={<Premium/>} />
       <Route element={<AdminPrivateRoute />}>
         <Route path="/admin/account" element={<Account />} />
         <Route path="/admin/customers" element={<UserManage />} />

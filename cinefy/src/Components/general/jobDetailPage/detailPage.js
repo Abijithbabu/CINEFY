@@ -21,14 +21,16 @@ import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import { red } from "@mui/material/colors";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import AddIcon from "@mui/icons-material/Add";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import queryString from "query-string";
 import { applyJob, getPostDetails } from "../../../redux/action";
 import { useSelector } from "react-redux";
+import { Chat, ChatBubble } from "@mui/icons-material";
 
 const DetailPage = () => {
   const location = useLocation();
   const queryParams = queryString.parse(location.search);
+  const navigate = useNavigate();
   const [details, setDetails] = useState();
   const data = useSelector((store) => store.data.user);
   useEffect(() => {
@@ -90,30 +92,33 @@ const DetailPage = () => {
             <Card sx={{ mt: 1, mb: 1 }}>
               <CardHeader
                 avatar={
-                  <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                  <Avatar
+                    sx={{ bgcolor: red[500] }}
+                    aria-label="recipe"
+                    src={details?.author?.profilePic}
+                  >
                     R
                   </Avatar>
                 }
                 action={
-                  <IconButton aria-label="settings">
-                    <OpenInNewIcon />
-                  </IconButton>
+                  new Date() <= new Date(data?.subscription?.validity) && (
+                    <IconButton
+                      onClick={() =>
+                        navigate(`/chat?id=${details?.author?._id}`)
+                      }
+                    >
+                      <Chat />
+                    </IconButton>
+                  )
                 }
-                title="Chorizo Paella"
-                subheader="Producer"
+                title={details?.author?.name}
+                subheader="casting director"
               />
               <CardContent>
                 <Typography variant="body2" color="text.secondary">
-                  This impressive paella is a perfect party dish and a fun meal
-                  to cook together with your guests. .
+                  {details?.shortdescription}
                 </Typography>
               </CardContent>
-              <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                  <Typography>Follow</Typography>
-                  <AddIcon />
-                </IconButton>
-              </CardActions>
             </Card>
           </Box>
         </Grid>
@@ -165,9 +170,11 @@ const DetailPage = () => {
                       <TableCell align="left">: {details?.roles}</TableCell>
                     </TableRow>
                     <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-                      <TableCell> Movie</TableCell>
+                      <TableCell> Project type</TableCell>
                       <TableCell component="th" scope="row"></TableCell>
-                      <TableCell align="left">: {details?.movie}</TableCell>
+                      <TableCell align="left">
+                        : {details?.projectType}
+                      </TableCell>
                     </TableRow>
                     <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
                       <TableCell>Preference</TableCell>
@@ -190,7 +197,7 @@ const DetailPage = () => {
                 </Table>
               </CardContent>
             </Card>
-            {details?.applicants.filter((x) => x.user === data._id).length ? (
+            {details?.applicants.filter((x) => x.user === data?._id).length ? (
               <Button sx={{ mt: 3, mb: 3 }} variant="blur">
                 Application Submitted
               </Button>
