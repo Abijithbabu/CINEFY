@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import ChatInput from "./ChatInput";
-// import { v4 as uuidv4 } from "uuid";
+import DoneAllIcon from '@mui/icons-material/DoneAll';
 import axios from "axios";
 import {
   sendMessageRoute,
@@ -10,7 +10,7 @@ import {
 import { useSelector } from "react-redux";
 import { Avatar, Typography } from "@mui/material";
 
-export default function ChatContainer({ currentChat, socket }) {
+export default function ChatContainer({ currentChat, socket ,handleListRecent}) {
   const [messages, setMessages] = useState([]);
   const scrollRef = useRef();
   const currentChatRef = useRef(currentChat);
@@ -23,11 +23,13 @@ export default function ChatContainer({ currentChat, socket }) {
         from: data?._id,
         to: currentChat._id,
       });
-      setMessages(response.data);
+      setMessages(response?.data?.messages ?? []);
     }
     getData();
   }, [currentChat]);
-
+useEffect(()=>{
+  console.log(messages);
+},[messages])
   const handleSendMsg = async (msg) => {
     socket.current.emit("send-msg", {
       to: currentChat?._id,
@@ -37,8 +39,9 @@ export default function ChatContainer({ currentChat, socket }) {
     });
 
     const msgs = [...messages];
-    msgs.push({ fromSelf: true, message: msg, time: Date.now() });
-    setMessages(msgs);
+    msgs.push({ sender: data?._id, text: msg, time: Date.now() });
+    setMessages(msgs)
+    handleListRecent(currentChat?._id,msg,data?._id)
     await axios.post(sendMessageRoute, {
       from: data?._id,
       to: currentChat?._id,
@@ -49,12 +52,14 @@ export default function ChatContainer({ currentChat, socket }) {
   useEffect(() => {
     if (socket.current) {
       socket.current.on("msg-recieve", (msg) => {
+        handleListRecent(msg.from,msg.message,msg.to)
         if (msg.from === currentChatRef.current?._id) {
           setArrivalMessage({
-            fromSelf: false,
-            message: msg.message,
+            sender: currentChat?._id,
+            text: msg.message,
             time: msg.time,
-          });
+          })
+          console.log('yes')
         }
       });
     }
@@ -83,15 +88,15 @@ export default function ChatContainer({ currentChat, socket }) {
         {/* <Logout /> */}
       </div>
       <div className="chat-messages">
-        {messages.map((message) => {
+        {messages?.map((message) => {
           return (
             <div ref={scrollRef} >
               <div
-                className={`message ${message.fromSelf ? "sended" : "recieved"
+                className={`message ${message?.sender === data?._id ? "sended" : "recieved"
                   }`}
               >
                 <div className="content ">
-                  <H2>{message.message}</H2>
+                  <H2>{message.text}</H2>
                   <H3
                     variant="body2"
                     fontSize={10.675}
@@ -99,7 +104,9 @@ export default function ChatContainer({ currentChat, socket }) {
                     style={{ display: "", margin: "0px" }}
                   >{`${new Date(message.time).getHours()}:${new Date(
                     message.time
-                  ).getMinutes()}`} </H3>
+                  ).getMinutes()}`} 
+                  {message?.sender === data?._id && <DoneAllIcon sx={{fontSize:'15px'}} color="info"/>}
+                  </H3>
                 </div>
               </div>
             </div>

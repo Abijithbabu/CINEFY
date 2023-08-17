@@ -144,7 +144,7 @@ const Header = () => {
                 <>
                   {data.type == "admin" ? (
                     <Button
-                      onClick={() => navigate("/admin/customers")}
+                      onClick={() => navigate("/admin")}
                       variant="contained"
                       size="small"
                     >

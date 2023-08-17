@@ -5,10 +5,11 @@ import Register from "../pages/general/register";
 import Home from "../pages/general/home";
 import ResetPassword from "../pages/general/resetPassword";
 import Jobs from "../pages/user/jobs";
-import Bookmarks from "../pages/user/bookmarked"; 
+import Bookmarks from "../pages/user/bookmarked";
 import Blogs from "../pages/general/blogs";
 import EditProfile from "../pages/user/edit-profile";
 import DetailPage from "../pages/user/detailPage";
+import Dashboard from '../pages/admin/dashboard' 
 import UserManage from "../pages/admin/userManage";
 import RecruterManage from "../pages/admin/recruterManage";
 import ManagePosts from "../pages/admin/managePosts";
@@ -16,7 +17,7 @@ import Error from "../pages/general/404";
 import AdminPrivateRoute from "./adminRoutes";
 import UserPrivateRoute from "./userRoute";
 import RecruiterPrivateRoute from "./recruiterRoutes";
-import CreatorDashboard from '../pages/recruiter/creatorDashboard'
+import CreatorDashboard from "../pages/recruiter/creatorDashboard";
 import ManageContent from "../pages/recruiter/manageContent";
 import ManageApplications from "../pages/recruiter/manageApplications";
 import ManageApplicants from "../pages/recruiter/manageApplicants";
@@ -34,8 +35,9 @@ function routes() {
       <Route path="/findJobs" element={<Jobs />} />
       <Route path="/blogs" element={<Blogs />} />
       <Route path="/public-profile" element={<Profile />} />
-      <Route path="/premium" element={<Premium/>} />
+      <Route path="/premium" element={<Premium />} />
       <Route element={<AdminPrivateRoute />}>
+        <Route path="/admin" element={<Dashboard/>} />
         <Route path="/admin/account" element={<Account />} />
         <Route path="/admin/customers" element={<UserManage />} />
         <Route path="/admin/recruiters" element={<RecruterManage />} />
@@ -48,11 +50,11 @@ function routes() {
       </Route>
       <Route element={<RecruiterPrivateRoute />}>
         <Route path="/chat" element={<Chat />} />
-        <Route path='/creatorDashboard' element={<CreatorDashboard/>} />
+        <Route path="/creatorDashboard" element={<CreatorDashboard />} />
         <Route path="/manageContents" element={<ManageContent />} />
         <Route path="/manageApplications" element={<ManageApplications />} />
         <Route path="/manageApplicants" element={<ManageApplicants />} />
-        <Route path="/view-profile" element={<ViewProfile />} /> 
+        <Route path="/view-profile" element={<ViewProfile />} />
       </Route>
       <Route path="/detailPage" element={<DetailPage />} />
       <Route path="/*" element={<Error />} />

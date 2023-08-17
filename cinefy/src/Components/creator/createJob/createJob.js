@@ -39,7 +39,7 @@ export default function DraggableDialog({ data }) {
 
   return (
     <div>
-      <Button variant="outlined" size="small" onClick={handleClickOpen}>
+      <Button variant="outlined"  onClick={handleClickOpen}>
         {data ? "Edit" : "Create"}
       </Button>
       <Dialog

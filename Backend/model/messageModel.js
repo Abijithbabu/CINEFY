@@ -2,15 +2,39 @@ const mongoose = require("mongoose");
 
 const MessageSchema = mongoose.Schema(
   {
-    message: {
-      text: { type: String, required: true },
-    },
-    users: Array,
-    sender: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
+    users: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+      },
+    ],
+    messages: [
+      {
+        text: { type: String, required: true },
+        sender: {
+          type: String,
+          required: true,
+        },
+        time: {
+          type: Date,
+          default: Date.now,
+        },
+        read:{
+          type:Boolean,
+          default:false
+        }
+      },
+    ],
+    lastMsg: { type: String },
+    unRead: {
+      id:{
+        type:String
+      },
+      count:{
+        type:Number
+      }
+    } 
   },
   {
     timestamps: true,

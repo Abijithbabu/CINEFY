@@ -9,43 +9,57 @@ import { useSelector } from "react-redux";
 import { getContacts } from "../../../redux/action";
 import { useLocation } from "react-router";
 import queryString from "query-string";
-
+import { moveToTop } from "../../../utils/functions";
 export default function Chat() {
 
   const location = useLocation();
   const queryParams = queryString.parse(location.search)
-  console.log(queryParams)
   const currentUser = useSelector((store) => store.data.user);
   const socket = useRef();
   const [contacts, setContacts] = useState([]);
-  const [currentChat, setCurrentChat] = useState(queryParams.id ?? undefined);
-
-  console.log(currentChat);
+  const [currentChat, setCurrentChat] = useState(queryParams.id ?{_id:queryParams.id,profilePic:queryParams.dp,name:queryParams.name}: undefined);
+  const [ users , setUsers ] = useState([])
   useEffect(()=>{
     async function getUsers() {
     if (currentUser) {
       socket.current = io(host); 
       socket.current.emit("add-user", currentUser._id);
       const data = await getContacts(currentUser._id);
-      console.log(data);
       setContacts(data); 
     }
   }
   getUsers()
-  }, [currentUser]); 
-
-  const handleChatChange = (chat) => {
+  }, [currentUser]) 
+  useEffect(()=>{ 
+    const updatedUsers = contacts.flatMap(x => {
+      const usersForContact = x.users.filter(user => user._id !== currentUser?._id)
+      console.log(usersForContact[0])
+      return ({...usersForContact[0], unRead:x.unRead , lastMsg:x.lastMsg,updatedAt:x.updatedAt })
+    });
+    queryParams.id && !updatedUsers.filter(x=>x._id===queryParams.id).length && updatedUsers.push({_id:queryParams.id,profilePic:queryParams.dp,name:queryParams.name})
+    setUsers(updatedUsers)
+    console.log(updatedUsers)
+  },[contacts]) 
+  const handleChatChange = (chat,index) => {
     setCurrentChat(chat); 
+    const newUser = users
+    newUser[index].unRead.count = 0
+    setUsers(newUser)
   };
+ const handleListRecent = (id,msg,rec)=>{
+  console.log('calling')
+  console.log(moveToTop(users,id,msg,rec,currentChat?._id)) 
+  setUsers(moveToTop(users,id,msg,rec,currentChat?._id))
+  }
   return (
     <>
       <Container>
         <div className="container">
-          <Contacts contacts={contacts} changeChat={handleChatChange} current={queryParams.id}/>
+          <Contacts contacts={users} changeChat={handleChatChange} current={queryParams.id}/>
           {currentChat === undefined ? (
             <Welcome userName={currentUser.name} />
           ) : (
-            <ChatContainer currentChat={currentChat} socket={socket} />
+            <ChatContainer currentChat={currentChat} socket={socket} handleListRecent={handleListRecent}/>
           )}
         </div> 
       </Container>

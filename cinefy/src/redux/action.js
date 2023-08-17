@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Store } from "react-notifications-component";
-import { allUsersRoute } from "../utils/APIRoutes";
+import { allUsersRoute, getChatsRoute } from "../utils/APIRoutes";
 
 const baseURL = "http://localhost:5000/api";
 export const Axios = axios.create({
@@ -345,7 +345,7 @@ export const updateProfile = async (data) => {
 
 export const getContacts = async (id) => {
   try {
-    const res = await Axios.get(`${allUsersRoute}/${id}`)
+    const res = await Axios.get(`${getChatsRoute}?id=${id}`)
     if (res.data) {
 
       return res.data;

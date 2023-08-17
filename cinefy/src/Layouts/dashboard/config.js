@@ -1,11 +1,8 @@
 import ChartBarIcon from '@heroicons/react/24/solid/ChartBarIcon';
-import CogIcon from '@heroicons/react/24/solid/CogIcon';
 import LockClosedIcon from '@heroicons/react/24/solid/LockClosedIcon';
-import ShoppingBagIcon from '@heroicons/react/24/solid/ShoppingBagIcon';
 import UserIcon from '@heroicons/react/24/solid/UserIcon';
-import UserPlusIcon from '@heroicons/react/24/solid/UserPlusIcon';
 import UsersIcon from '@heroicons/react/24/solid/UsersIcon';
-import XCircleIcon from '@heroicons/react/24/solid/XCircleIcon';
+import ExitToAppRoundedIcon from "@mui/icons-material/ExitToAppRounded";
 import { SvgIcon } from '@mui/material';
 import FeaturedPlayListSharpIcon from '@mui/icons-material/FeaturedPlayListSharp';
 export const items = [
@@ -46,15 +43,6 @@ export const items = [
     )
   },
   {
-    title: 'Settings',
-    path: '/admin/settings',
-    icon: (
-      <SvgIcon fontSize="small">
-        <CogIcon />
-      </SvgIcon>
-    )
-  },
-  {
     title: 'Account',
     path: '/admin/account',
     icon: (
@@ -64,11 +52,11 @@ export const items = [
     )
   },
   {
-    title: 'Error',
-    path: '/404',
+    title: 'Logout',
+    path: '/admin',
     icon: (
-      <SvgIcon fontSize="small">
-        <XCircleIcon />
+      <SvgIcon fontSize="small" >
+        <ExitToAppRoundedIcon />
       </SvgIcon>
     )
   }

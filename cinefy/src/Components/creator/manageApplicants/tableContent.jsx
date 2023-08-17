@@ -141,7 +141,7 @@ export const TableContent = (props) => {
                           size="small"
                           aria-label="show 4 new mails"
                           color="inherit"
-                          onClick={() => navigate(`/chat?id=${customer._id}`)}
+                          onClick={() => navigate(`/chat?id=${customer._id}&dp=${customer.profilePic}&name=${customer.name}`)}
                         >
                           Message
                           {/* <Badge badgeContent={4} color="error"> */}

@@ -63,7 +63,10 @@ const castingSchema = new Schema({
         default: "unreviewed",
       },
     },
-  ],
+  ]
+},
+{
+  timestamps: true,
 });
 
 module.exports = mongoose.model("castingCall", castingSchema);

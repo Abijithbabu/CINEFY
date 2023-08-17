@@ -104,7 +104,7 @@ const DetailPage = () => {
                   new Date() <= new Date(data?.subscription?.validity) && (
                     <IconButton
                       onClick={() =>
-                        navigate(`/chat?id=${details?.author?._id}`)
+                        navigate(`/chat?id=${details?.author?._id}&dp=${details?.author?.profilePic}`)
                       }
                     >
                       <Chat />
