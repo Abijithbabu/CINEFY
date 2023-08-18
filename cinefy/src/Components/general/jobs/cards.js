@@ -137,7 +137,7 @@ export default function Album({filter}) {
                         />
                       ) : (
                         <>
-                          <CardTime>{timeAgo(card.date)}</CardTime>
+                          <CardTime>{timeAgo(card.createdAt)}</CardTime>
                           <ImageSlot
                             onClick={() =>
                               navigate(`/DetailPage?id=${card._id}`)

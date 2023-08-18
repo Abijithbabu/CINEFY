@@ -297,7 +297,7 @@ const getPost = async (req, res) => {
     const type = data["Project Type"];
     const date = data["Date of Posting"];
     const { Role, Age, Gender, Languages,search } = data;
-    const query = [];
+    const query = [{valid:true}];
     console.log(type, date, Role, Age, Gender, Languages , search);
     let totalCount = 0;
     for (const key in data) {
@@ -325,7 +325,7 @@ const getPost = async (req, res) => {
         $and: query,
       });
     } else {
-      post = await CastingCall.find();
+      post = await CastingCall.find()
     }
 
     if (!post) {
@@ -460,7 +460,26 @@ const updateStatus = async (req, res, next) => {
     console.log(error.message);
     return res.status(400).json({ message: "Something Went Wrong !" });
   }
+}
+
+const blockPost = async (req, res, next) => {
+  const { id } = req.query;
+  try {
+    const updatedPost = await CastingCall.findById({ _id: id })
+    if (updatedPost) {
+      updatedPost.valid = !updatedPost.valid
+      await updatedPost.save()
+      console.log("User status updated successfully.");
+      return res
+        .status(200)
+        .json({ message: "User status updated successfully." });
+    }
+  } catch (error) {
+    console.log(error.message);
+    return res.status(400).json({ message: "Something Went Wrong !" });
+  }
 };
+
 const updateSubscription = async (req, res, next) => {
   const { id, type, validity } = req.query;
   try {
@@ -499,5 +518,6 @@ module.exports = {
   getAllApplicants,
   getUserDetails,
   updateStatus,
-  updateSubscription
+  updateSubscription,
+  blockPost
 };

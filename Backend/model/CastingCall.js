@@ -63,7 +63,11 @@ const castingSchema = new Schema({
         default: "unreviewed",
       },
     },
-  ]
+  ],
+  valid:{
+    type:Boolean,
+    default:true
+  }
 },
 {
   timestamps: true,

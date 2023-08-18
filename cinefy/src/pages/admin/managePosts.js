@@ -11,8 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import ArrowDownOnSquareIcon from "@heroicons/react/24/solid/ArrowDownOnSquareIcon";
-import {Search} from '../../Components/admin/castingCall/search'
-import { JobCards } from '../../Components/admin/castingCall/card'
+import Table from '../../Components/admin/castingCall/table'
 
 const ManagePosts = () => {
   const [data, setData] = useState([]);
@@ -22,11 +21,11 @@ const ManagePosts = () => {
 
   return (
     <DashboardLayout>
-    <Box
+      <Box
       component="main"
       sx={{
         flexGrow: 1,
-        py: 8
+        // py: 8
       }}
     >
       <Container maxWidth="xl">
@@ -38,7 +37,7 @@ const ManagePosts = () => {
           >
             <Stack spacing={1}>
               <Typography variant="h4">
-                Companies
+                Manage CastingCall
               </Typography>
               <Stack
                 alignItems="center"
@@ -58,35 +57,7 @@ const ManagePosts = () => {
               </Stack>
             </Stack>
           </Stack>
-          <Search />
-          <Grid
-            container
-            spacing={1}
-          >
-            {data.map((post) => (
-              <Grid
-                item
-                xs={12}
-                md={6}
-                lg={4}      
-                key={post.id}
-
-              >
-                <JobCards data={post} />
-              </Grid>
-            ))}
-          </Grid>
-          {/* <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center'
-            }}
-          > */}
-            {/* <Pagination
-              count={3}
-              size="small"
-            /> */}
-          {/* </Box> */}
+            {data.length ? <Table data={data} /> : <div>Loading...</div>}
         </Stack>
       </Container>
     </Box>

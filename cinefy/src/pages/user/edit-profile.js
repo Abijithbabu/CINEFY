@@ -10,7 +10,7 @@ const profile = () => {
       <Box
         sx={{
           background:
-            "linear-gradient(81deg, #211F2E 0%, #33303F 13.67%, #6A615D 70.28%, #C5AE8D 100%)",
+            "",
         }}
       >
         <Header/>

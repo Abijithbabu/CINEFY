@@ -64,4 +64,4 @@ const Page = ({data,select}) => {
   );
 };
 
-export default Page;
+export default Page

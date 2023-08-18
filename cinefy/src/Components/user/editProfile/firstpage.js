@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Autocomplete,
   Avatar,
@@ -15,6 +15,8 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
+  MenuItem,
+  Select,
   TextField,
   Typography,
 } from "@mui/material";
@@ -52,10 +54,25 @@ const styles = {
 };
 
 const skills = [
-  { title: "long jump" },
-  { title: "metad acting" },
-  { title: "JavaScript" },
-  // Add more skills as needed
+  'Film Production',
+  'Cinematography',
+  'Video Editing',
+  'Screenwriting',
+  'Directing',
+  'Acting',
+  'Production Design',
+  'Sound Design',
+  'Costume Design',
+  'Makeup and Hair Styling',
+  'Visual Effects',
+  'Stunt Coordination',
+  'Set Construction',
+  'Grip and Electric',
+  'Location Scouting',
+  'Film Marketing and Distribution',
+  'Film Theory and Criticism',
+  'Film History',
+  'Film Budgeting and Finance'
 ];
 
 const Profile = () => {
@@ -65,6 +82,8 @@ const Profile = () => {
     roles: ["Actor"],
     photo: data.profilePic,
     cover: "",
+    age: 21,
+    gender: 'male',
     bio: `This impressive paella is a perfect party dish and a fun meal
     to cook together with your guests. Add 1 cup of frozen peas
     along with the mussels, if you like.`,
@@ -75,23 +94,16 @@ const Profile = () => {
       "Certification 2 - form unnikuttan awards",
     ],
     languages: ["English", "French"],
-    workExp: ["Film A - Roll A - Duration", "Film B - Roll B - Duration"],
+    workExp: [{role:"Film A ", organization:'film A'}],
     education: ["College Name - Degree", "University Name - Degree"],
     ...data.profile,
   };
-
+ useEffect(()=>{
+  console.log(data);
+ },[data])
   const [user, setuser] = useState(intialState);
-  const [edit, setedit] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [hideElements, setHideElements] = useState(false);
+  const [edit, setedit] = useState(true);
 
-  const handleOutlineButtonClick = () => {
-    setHideElements(!hideElements);
-  };
-
-  const handleEdit = () => {
-    setIsEditing(true);
-  };
   const UpdateUser = ({ value, name }) => {
     const newName = name.substring(1);
     const key = parseInt(name[0]);
@@ -104,9 +116,7 @@ const Profile = () => {
       ></input>
     );
   };
-  const handleSave = () => {
-    setIsEditing(false);
-  };
+
   const handleSubmit = async () => {
     await updateProfile(user).then((res) => setedit(false));
   };
@@ -133,12 +143,11 @@ const Profile = () => {
         maxWidth={9999}
         borderRadius={1}
         sx={{
-          height: {xs:200, sm:200, md:250 , xl:250},
+          height: { xs: 200, sm: 200, md: 250, xl: 250 },
           marginTop: "100px",
-          boxShadow: "-8px 15px 15px #211E2D",
           background:
             "url('sky.jpg'), linear-gradient(237deg, #5D5658 0%, #463851 52.85%, #2C2639 95.60%)",
-          borderRadius: "18px",
+          borderRadius: "8px",
           backgroundSize: "100%, 20px",
           backgroundRepeat: "no-repeat, no-repeat",
           backgroundPosition: "bottom",
@@ -182,199 +191,42 @@ const Profile = () => {
               zIndex={0}
               src={user.photo}
             />
-            <Box
-              Width={100}
-              sx={{
-                background:
-                  "linear-gradient(68deg, #2F2D3D 0%, #302638 96.40%)",
-                height: "380px",
-                marginTop: "-70px",
-                transition: "box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
-                borderRadius: "14px",
-                boxShadow: "-8px 15px 15px #211E2D",
-              }}
-            >
-              <Typography
-                gutterBottom
-                variant="h6"
-                component="div"
-                align="center"
-                sx={{ mt: "35px", color: "#C5AE8D 100%" }}
-              >
-                {user.roles[0]}
-              </Typography>
-              <Typography
-                variant="body1"
-                align="center"
-                color="#FFE3B7"
-                sx={{ display: hideElements ? "none" : "block" }}
-              >
-                Profile Completed: 80%
-              </Typography>
-              <Typography
-                variant="body2"
-                align="center"
-                color="#9A8A76"
-                fontWeight=" 4"
-                marginBottom="6px"
-              >
-                trivandrum kerala india
-              </Typography>
-              <Divider/>
-              <Typography
-                variant="body1"
-                paddingTop={2}
-                paddingLeft={2}
-                color="#FFE3B7"
-                sx={{ display: hideElements ? "none" : "block" }}
-              >
-                Video Introduction
-              </Typography>
-              <Typography
-                variant="body2"
-                paddingLeft={2}
-                color="#9A8A76"
-                fontWeight=" 4"
-              >
-                create a 5 min attractive indroduction for get impertion
-              </Typography>
-              <Box align="center" paddingTop={2}>
-                <video src="/path/to/video-introduction.mp4" controls />
-              </Box>
-            </Box>
+            <Card sx={{ marginTop: " -53px" }}>
+              <CardHeader />
+              <CardContent>
+                <Grid container>
+                  <Grid item xs={6} md={6} sm={6} lg={6}>
+                    <Typography>Name</Typography>
+                    <Typography>Age</Typography>
+                    <Typography>Gender</Typography>
+                  </Grid>
+                  {edit ? <Grid item xs={6} md={6} sm={6} lg={6}>
+                    <Input>ANJITH B</Input>
+                    <Select
+                      value={user.gender}
+                      label="Gender"
+                      onChange={handleUpdate}
+                    >
+                      <MenuItem value={'male'}>Male</MenuItem>
+                      <MenuItem value={'Female'}>Female</MenuItem>
+                      <MenuItem value={'others'}>Others</MenuItem>
+                    </Select>
+                  </Grid>
+                    : <Grid item xs={6} md={6} sm={6} lg={6}>
+                      <Typography>ANJITH B</Typography>
+                      <Typography>23</Typography>
+                      <Typography>Male</Typography>
+                    </Grid>
+                  }
+                </Grid>
+              </CardContent>
+            </Card>
 
-            
-            {/* languages 1 */}
-            <Box
-              Width={100}
-              sx={{
-                background:
-                  "linear-gradient(68deg, #2F2D3D 0%, #302638 96.40%)",
-                height: "auto",
-                marginTop: "25px",
-                borderRadius: "14px",
-                boxShadow: "-8px 15px 15px #211E2D",
-              }}
-            >
-              <Typography
-                variant="body1"
-                paddingTop={2}
-                paddingLeft={2}
-                color="#FFE3B7"
-                sx={{ display: hideElements ? "none" : "block" }}
-              >
-                Languages
-              </Typography>
-              <Typography
-                variant="body2"
-                paddingLeft={2}
-                color="#9A8A76"
-                fontWeight=" 4"
-              >
-                create a 5 min attractive indroduction for get impertion
-              </Typography>
-              <Box paddingTop={2}>
-                {user.languages.map((lang, index) => (
-                  <>
-                    <Divider
-                      sx={{
-                        paddingLeft: "10px",
-                        display: hideElements ? "none" : "block",
-                      }}
-                    />
-                    {edit ? (
-                      <Input
-                        value={lang}
-                        name="languages"
-                        onChange={(e) => handleUpdate(e, index)}
-                      />
-                    ) : (
-                      <Typography
-                        sx={{
-                          margin: "10px",
-                          minHeight: "15px",
-                          paddingLeft: "5px",
-                        }}
-                        variant="body1"
-                        color="#9A8A76"
-                      >
-                        {lang}
-                      </Typography>
-                    )}
-                  </>
-                ))}
-              </Box>
-            </Box>
-            {/* languages 2 */}
-
-            <Box
-              Width={100}
-              sx={{
-                background:
-                  "linear-gradient(68deg, #2F2D3D 0%, #302638 96.40%)",
-                height: "auto",
-                marginTop: "25px",
-                borderRadius: "14px",
-                boxShadow: "-8px 15px 15px #211E2D",
-              }}
-            >
-              <Typography
-                variant="body1"
-                paddingTop={2}
-                paddingLeft={2}
-                color="#FFE3B7"
-                sx={{ display: hideElements ? "none" : "block" }}
-              >
-                Certifications
-              </Typography>
-              <Typography
-                variant="body2"
-                paddingLeft={2}
-                color="#9A8A76"
-                fontWeight=" 4"
-              >
-                create a 5 min attractive indroduction for get impertion
-              </Typography>
-              <Box paddingTop={2}>
-                {user.certifications.map((cert, index) => (
-                  <>
-                    <Divider
-                      sx={{
-                        paddingLeft: "10px",
-                        display: hideElements ? "none" : "block",
-                      }}
-                    />
-                    {edit ? (
-                      <Input
-                        value={cert}
-                        name="certifications"
-                        onChange={(e) => handleUpdate(e, index)}
-                      />
-                    ) : (
-                      <Typography
-                        sx={{
-                          margin: "10px",
-                          minHeight: "15px",
-                          paddingLeft: "5px",
-                        }}
-                        variant="body1"
-                        color="#9A8A76"
-                      >
-                        {cert}
-                      </Typography>
-                    )}
-                  </>
-                ))}
-              </Box>
-            </Box>
-            {/* languages */}
-
-            {/* Video Introduction */}
-            <Card sx={{ marginTop: "140px" }}>
+            {/* <Card  sx={{ marginTop: "-93px" }}>
               <CardHeader
                 action={
-                  <IconButton aria-label="settings" size="small">
-                    <AttachFileIcon
+                  <IconButton aria-label="settings" >
+                    <AttachFileIcon size="small"
                       sx={{ display: hideElements ? "none" : "block" }}
                     />
                     <CreateIcon
@@ -395,135 +247,22 @@ const Profile = () => {
                   controls
                 />
               </CardContent>
-            </Card>
+            </Card> */}
 
             <Cards
               user={user}
               handleAdd={handleAdd}
-              hideElements={hideElements}
               edit={edit}
-              handleUpdate={handleUpdate}
+              handleUpdate={setuser}
             />
-            {/* Languages */}
-
             <Card sx={{ maxWidth: 999, marginTop: "10px" }}>
               <CardHeader
                 action={
-                  <IconButton
-                    aria-label="settings"
-                    gap="3"
-                    sx={{
-                      paddingLeft: "10px",
-                      display: hideElements ? "none" : "block",
-                    }}
-                  >
-                    <ControlPointIcon
-                      size="small"
-                      onClick={() => handleAdd("languages")}
-                    />
-                    <CreateIcon sx={{ paddingLeft: "10px" }} size="small" />
-                  </IconButton>
-                }
-                title="Languages"
-              />
-              <CardContent>
-                {user.languages.map((lang, index) => (
-                  <>
-                    <Divider
-                      sx={{
-                        paddingLeft: "10px",
-                        display: hideElements ? "none" : "block",
-                      }}
-                    />
-                    {edit ? (
-                      <Input
-                        value={lang}
-                        name="languages"
-                        onChange={(e) => handleUpdate(e, index)}
-                      />
-                    ) : (
-                      <Typography
-                        sx={{ margin: "10px", minHeight: "15px" }}
-                        variant="body1"
-                        color="text.secondary"
-                      >
-                        {lang}
-                      </Typography>
-                    )}
-                  </>
-                ))}
-              </CardContent>
-            </Card>
-            <Card sx={{ maxWidth: 999, marginTop: "10px" }}>
-              <CardHeader
-                action={
-                  <IconButton
-                    aria-label="settings"
-                    gap="3"
-                    sx={{
-                      paddingLeft: "10px",
-                      display: hideElements ? "none" : "block",
-                    }}
-                  >
-                    <ControlPointIcon
-                      size="small"
-                      onClick={() => handleAdd("certifications")}
-                    />
-                    <CreateIcon sx={{ paddingLeft: "10px" }} size="small" />
-                  </IconButton>
-                }
-                title="Certifications"
-              />
-              <CardContent>
-                {user.certifications.map((cert, index) => (
-                  <>
-                    <Divider
-                      sx={{
-                        paddingLeft: "10px",
-                        display: hideElements ? "none" : "block",
-                      }}
-                    />
-                    {edit ? (
-                      <Input
-                        value={cert}
-                        name="certifications"
-                        onChange={(e) => handleUpdate(e, index)}
-                      />
-                    ) : (
-                      <Typography
-                        sx={{ margin: "10px", minHeight: "15px" }}
-                        variant="body1"
-                        color="text.secondary"
-                      >
-                        {cert}
-                      </Typography>
-                    )}
-                  </>
-                ))}
-              </CardContent>
-            </Card>
-            <Card sx={{ maxWidth: 999, marginTop: "10px" }}>
-              <CardHeader />
-              <CardHeader
-                action={
-                  <IconButton
-                    aria-label="settings"
-                    gap="3"
-                    sx={{
-                      paddingLeft: "10px",
-                      display: hideElements ? "none" : "block",
-                    }}
-                  >
-                    <ControlPointIcon
-                      size="small"
-                      onClick={() => handleAdd("education")}
-                    />
-                    <CreateIcon
-                      sx={{ paddingLeft: "10px" }}
-                      size="small"
-                      onClick={() => setedit(true)}
-                    />
-                  </IconButton>
+                  edit && <IconButton onClick={()=>setuser(prev=>{
+                    const education = user?.education ?? []
+                    education.push({})
+                    return ({...prev,education})
+                  })}><ControlPointIcon /></IconButton>
                 }
                 title="Education"
               />
@@ -531,35 +270,23 @@ const Profile = () => {
                 {user.education &&
                   user.education.map((edu, index) => (
                     <>
-                      <Divider
-                        sx={{
-                          paddingLeft: "10px",
-                          display: hideElements ? "none" : "block",
-                        }}
+                      <TextField
+                        required
+                        id="standard-required"
+                        label="Qualification"
+                        variant="standard"
                       />
-                      {edit ? (
-                        <Input
-                          value={edu}
-                          name="education"
-                          onChange={(e) => handleUpdate(e, index)}
-                        />
-                      ) : (
-                        <Typography
-                          sx={{ margin: "10px", minHeight: "15px" }}
-                          variant="body1"
-                          color="text.secondary"
-                        >
-                          {edu}
-                        </Typography>
-                      )}
+                      <TextField
+                        id="standard-disabled"
+                        label="institution / college"
+                        variant="standard"
+                      />
                     </>
                   ))}
               </CardContent>
             </Card>
           </Box>
         </Grid>
-
-        {/* Second Box */}
         <Grid item xs={12} md={8}>
           <Box
             sx={{
@@ -570,199 +297,25 @@ const Profile = () => {
               marginLeft: { md: 2, lg: 2, xl: 2 },
             }}
           >
-            {/* About Description */}
-            <Box
-              Width={100}
-              sx={{
-                background:
-                  "linear-gradient(68deg, #2F2D3D 0%, #302638 96.40%)",
-                height: "auto",
-                marginTop: "22px",
-                paddingBottom: "5px",
-                borderRadius: "14px",
-                boxShadow: "-8px 15px 15px #211E2D",
-              }}
-            >
-              <Typography
-                variant="body1"
-                paddingTop={2}
-                paddingLeft={2}
-                color="#FFE3B7"
-                sx={{ display: hideElements ? "none" : "block" }}
-              >
-                {data.name}
-              </Typography>
-              <Typography
-                variant="body2"
-                paddingLeft={2}
-                color="#9A8A76"
-                fontWeight=" 4"
-              >
-                create a description
-              </Typography>
-              <Divider />
-              <Box padding={2}>
-                {edit ? (
-                  <Input
-                    value={user.bio}
-                    name="bio"
-                    onChange={(e) => handleUpdate(e)}
-                  />
-                ) : (
-                  <Typography variant="body2" color="#b3b3b3">
-                    {user.bio}
-                  </Typography>
-                )}
-              </Box>
-            </Box>
-
-            {/* next */}
-            <Box
-              Width={100}
-              sx={{
-                background:
-                  "linear-gradient(68deg, #2F2D3D 0%, #302638 96.40%)",
-                height: "auto",
-                marginTop: "25px",
-                paddingBottom: "0px",
-                marginBottom: "350px",
-                borderRadius: "14px",
-                boxShadow: "-8px 15px 15px #211E2D",
-              }}
-            >
-              <Typography
-                variant="body1"
-                paddingTop={2}
-                paddingLeft={2}
-                color="#FFE3B7"
-                sx={{ display: hideElements ? "none" : "block" }}
-              >
-                Work Experience
-              </Typography>
-              <Typography
-                variant="body2"
-                paddingLeft={2}
-                color="#9A8A76"
-                fontWeight=" 4"
-              >
-                create a 5 min attractive indroduction for get impertion
-              </Typography>
-              <Box align="center" paddingTop={2} color="#b3b3b3">
-                {user.workExp.map((item, index) => (
-                  <React.Fragment key={index}>
-                    <ListItem disablePadding>
-                      {edit ? (
-                        <Input
-                          value={item}
-                          name="workExp"
-                          onChange={(e) => handleUpdate(e, index)}
-                        />
-                      ) : (
-                        <ListItemButton>
-                          {item}
-                          <ListItemText primary="" />
-                        </ListItemButton>
-                      )}
-                    </ListItem>
-                    <Divider
-                      key={`divider-${index}`}
-                      sx={{
-                        paddingLeft: "10px",
-                        display: hideElements ? "none" : "block",
-                      }}
-                    />
-                  </React.Fragment>
-                ))}
-              </Box>
-              <Box>
-                <Typography
-                  variant="body1"
-                  paddingTop={4}
-                  paddingLeft={2}
-                  color="#FFE3B7"
-                  sx={{ display: hideElements ? "none" : "block" }}
-                >
-                  Education
-                </Typography>
-                <Typography
-                  variant="body2"
-                  paddingLeft={2}
-                  color="#9A8A76"
-                  fontWeight=" 4"
-                >
-                  Adding a attractive indroduction for get chance
-                </Typography>
-                {user.education &&
-                  user.education.map((edu, index) => (
-                    <>
-                      {edit ? (
-                        <Input
-                          value={edu}
-                          name="education"
-                          onChange={(e) => handleUpdate(e, index)}
-                        />
-                      ) : (
-                        <Typography
-                          sx={{
-                            paddingLeft: "7px",
-                            margin: "10px",
-                            minHeight: "15px",
-                          }}
-                          variant="body1"
-                          color="#b3b3b3"
-                        >
-                          {edu}
-                        </Typography>
-                      )}
-                      <Divider
-                        sx={{
-                          paddingLeft: "10px",
-                          display: hideElements ? "none" : "block",
-                        }}
-                      />
-                    </>
-                  ))}
-              </Box>
-              <Autocomplete
-                sx={{ marginTop: "20px" }}
-                multiple
-                id="multiple-limit-tags"
-                options={skills}
-                getOptionLabel={(option) => option.title}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Skills"
-                    placeholder="Add skills"
-                  />
-                )}
-              />
-            </Box>
 
             <Card marginTop={1}>
               <CardHeader
-                action={
-                  <IconButton
-                    aria-label="settings"
-                    gap="3"
-                    sx={{
-                      paddingLeft: "10px",
-                      display: hideElements ? "none" : "block",
-                    }}
-                  >
-                    <ControlPointIcon size="small" />
-                    <CreateIcon sx={{ paddingLeft: "10px" }} size="small" />
-                  </IconButton>
-                }
                 title={data.name}
                 subheader="description"
               />
               <CardContent>
                 {edit ? (
-                  <Input
-                    value={user.bio}
+                  <TextField
+                    id="description"
                     name="bio"
-                    onChange={(e) => handleUpdate(e)}
+                    label="Brief Description *"
+                    value={user.bio || ''}
+                    onChange={handleUpdate}
+                    fullWidth
+                    autoComplete="Description"
+                    multiline
+                    rows={3}
+                    helperText="Brief Description (about 100-200 words)"
                   />
                 ) : (
                   <Typography variant="body2" color="text.secondary">
@@ -776,80 +329,67 @@ const Profile = () => {
             <Card sx={{ marginTop: "10px" }}>
               <CardHeader
                 action={
-                  <IconButton aria-label="settings">
-                    {isEditing ? (
-                      <CheckIcon
-                        onClick={handleSave}
-                        size="small"
-                        sx={{ display: hideElements ? "none" : "block" }}
-                      /> // Show the CheckIcon in edit mode
-                    ) : (
-                      <CreateIcon
-                        onClick={() => setedit(true)}
-                        size="small"
-                        sx={{ display: hideElements ? "none" : "block" }}
-                      /> // Show the CreateIcon in non-edit mode
-                    )}
-                    <ControlPointIcon
-                      size="small"
-                      onClick={() => handleAdd("workExp")}
-                      sx={{
-                        paddingLeft: "10px",
-                        display: hideElements ? "none" : "block",
-                      }}
-                    />
-                  </IconButton>
+                  edit && <IconButton onClick={()=>setuser(prev=>{
+                    const workExp = user?.workExp ?? []
+                    workExp.push({})
+                    return ({...prev,workExp})
+                  })}><ControlPointIcon /></IconButton>
                 }
                 title="Work History"
                 subheader="Adding work experience will increase your chance"
               />
               <CardContent>
-                <List>
-                  {user.workExp.map((item, index) => (
-                    <React.Fragment key={index}>
-                      <ListItem disablePadding>
-                        {edit ? (
-                          <Input
-                            value={item}
-                            name="workExp"
-                            onChange={(e) => handleUpdate(e, index)}
-                          />
-                        ) : (
-                          <ListItemButton>
-                            {item}
-                            <ListItemText primary="" />
-                          </ListItemButton>
-                        )}
-                      </ListItem>
-                      <Divider
-                        key={`divider-${index}`}
-                        sx={{
-                          paddingLeft: "10px",
-                          display: hideElements ? "none" : "block",
-                        }}
-                      />
-                    </React.Fragment>
-                  ))}
-                </List>
+                {user?.workExp?.map((item,index) => (
+                  <div>
+                    <TextField
+                      id="standard-search"
+                      label="Role"
+                      type="search"
+                      value={item?.role}
+                      variant="standard"
+                    />
+                    <TextField
+                      id="standard-helperText"
+                      label="Organisation / Institution"
+                      type="search"
+                      value={item?.organization}
+                      helperText="Place / Area of service"
+                      variant="standard"
+                      onChange={(e)=>setuser(prev=>{
+                        prev.workExp[index].organization = e.target.value
+                        return ({...prev})
+                      })}
+                    />
+                  </div>
+                ))}
               </CardContent>
             </Card>
 
             {/* Skills */}
 
-            <Card sx={{ marginTop: "10px" }}>
-              <Autocomplete
-                multiple
-                id="multiple-limit-tags"
-                options={skills}
-                getOptionLabel={(option) => option.title}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Skills"
-                    placeholder="Add skills"
-                  />
-                )}
+            <Card sx={{ marginTop: "10px", marginBottom: '40px' }}>
+              <CardHeader
+                title='Skills'
               />
+              <CardContent>
+                <Autocomplete
+                  multiple
+                  value={data.skills}
+                  name='skills'
+                  onChange={(e, value) => setuser({ ...data, skills: value })}
+                  options={['Action Choreographer', 'Actor', 'Actress', 'Animator', 'Art Director', 'Assistant Director', 'Associate Director', 'Cartoonist', 'Child Actor', 'Child Actress', 'Cinematographer', 'Content Creator', 'Costume Designer', 'Dancer', 'Dance Choreographer', 'Designers', 'DI Colorist', 'Digital Artist', 'Director', 'Disco Jockey', 'Dubbing Artist', 'Editor', 'Graphic Designer', 'Illustrator', 'Lead Actor', 'Lead Actress', 'Lyricist', 'Makeup Artist', 'Model', 'Music Director', 'Photographer', 'Poster Designer', 'Publicist', 'Radio Jockey', 'Recording Technician', 'Script Writer', 'Singer', 'Social Media Manager', 'Sound Engineer', 'Story Writer', 'Stunt Director']
+                  }
+                  getOptionLabel={(option) => option}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="standard"
+                      label="select your expertise *"
+                      placeholder="select skills"
+                    />
+                  )}
+                />
+              </CardContent>
             </Card>
           </Box>
         </Grid>

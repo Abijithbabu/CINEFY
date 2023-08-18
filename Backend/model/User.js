@@ -40,6 +40,8 @@ const userSchema = new Schema({
     name: {
       type: String,
     },
+    age:{type:Number},
+    gender:{type:String},
     roles: {
       type: Array,
     },
