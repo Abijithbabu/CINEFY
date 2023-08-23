@@ -42,7 +42,7 @@ export default function Contacts({ contacts, changeChat, current }) {
                             <H2 sx={{ fontSize: "13px" }}>{contact.lastMsg}</H2>
                           </Grid>
                           <Grid item xs={0.5} sm={0.5} md={0.5} lg={0.5}>
-                            {contact?.unRead?.id===data._id && <Badge badgeContent={contact?.unRead?.count} color="success" />}
+                            {/* {contact?.unRead?.id===data._id && <Badge badgeContent={contact?.unRead?.count} color="success" />} */}
                           </Grid>
                         </Grid>
                       </Grid>

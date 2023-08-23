@@ -4,7 +4,7 @@ import { Box, Button, Container, Grid, Paper, Stack, SvgIcon, Typography } from 
 import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIcon'
 import Table from '../../Components/creator/manageContent/table'
 import { getPosts } from '../../redux/action'
-import { ApexChart } from '../../Components/admin/dashboard/components/apexChart'
+import { ApexChart } from '../../Components/admin/dashboard/apexChart'
 
 const ManageContent = () => {
   const [data, setData] = useState([]);

@@ -12,10 +12,10 @@ const Navigation = ({data}) => {
           label: data?.type === 'recruiter' ?'Posts': 'Find Jobs',
           path: data?.type === 'recruiter' ?'/creatorDashboard': '/findJobs',
         },
-        {
-          label:'Favorites',
-          path:'/bookmarks'
-        }
+        // {
+        //   label:'Favorites',
+        //   path:'/bookmarks'
+        // }
         // {
         //   label: 'Blogs',
         //   path: '/blogs', 

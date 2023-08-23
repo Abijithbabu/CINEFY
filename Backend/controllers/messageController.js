@@ -79,3 +79,19 @@ module.exports.addMessage = async (req, res, next) => {
     next(ex);
   }
 };
+
+module.exports.setMessageStatus = async (req, res, next) => {
+  try {
+    const { id, user} = req.query
+    const messages = await Messages.updateOne({
+      users: {
+        $all: [id , user],
+      },
+    },
+    { $set: { "messages.$[].read": true }})
+
+    res.json(messages);
+  } catch (ex) {
+    next(ex);
+  }
+};

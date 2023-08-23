@@ -17,7 +17,7 @@ import { Reducer } from "./reducer";
       if (serializedStore === null) return undefined;
       return JSON.parse(serializedStore);
     } catch (e) {
-      console.log(e);
+      console.log(e)
       return undefined;
     }
   }

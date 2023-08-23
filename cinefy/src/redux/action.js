@@ -2,7 +2,7 @@ import axios from "axios";
 import { Store } from "react-notifications-component";
 import { allUsersRoute, getChatsRoute } from "../utils/APIRoutes";
 
-const baseURL = "http://localhost:5000/api";
+const baseURL = "https://app.nex-gen.shop/api";
 export const Axios = axios.create({
   baseURL: baseURL,
   withCredentials: true,
@@ -346,6 +346,19 @@ export const updateProfile = async (data) => {
 export const getContacts = async (id) => {
   try {
     const res = await Axios.get(`${getChatsRoute}?id=${id}`)
+    if (res.data) {
+
+      return res.data;
+    }
+  } catch (err) {
+    handleApiError(err);
+    return false;
+  }
+}
+
+export const setMessageStatus = async (id,user) => {
+  try {
+    const res = await Axios.patch(`${setMessageStatus}?id=${id}&user?${user}`)
     if (res.data) {
 
       return res.data;

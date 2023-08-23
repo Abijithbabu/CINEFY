@@ -6,7 +6,7 @@ import { createTheme, styled } from "@mui/material/styles";
 import { useLocation } from "react-router";
 import queryString from "query-string";
 import { getPosts, getUserDetails } from "../../../redux/action";
-import {ApexChart} from './components/apexChart'
+import {ApexChart} from './apexChart'
 const Tainer = styled(Container)({});
 const theme = createTheme({
   typography: {

@@ -82,7 +82,6 @@ useEffect(()=>{
           </div>
           <div className="username">
             <H3>{currentChat?.name}</H3>
-            <H3>{currentChat?._id}</H3>
           </div>
         </div>
         {/* <Logout /> */}
@@ -105,7 +104,8 @@ useEffect(()=>{
                   >{`${new Date(message.time).getHours()}:${new Date(
                     message.time
                   ).getMinutes()}`} 
-                  {message?.sender === data?._id && <DoneAllIcon sx={{fontSize:'15px'}} color="info"/>}
+                  {message?.sender === data?._id && 
+                  <DoneAllIcon sx={{fontSize:'15px'}} color="info"/>}
                   </H3>
                 </div>
               </div>

@@ -6,7 +6,7 @@ import ChatContainer from "./ChatContainer";
 import Contacts from "./Contacts";
 import Welcome from "./Welcome";
 import { useSelector } from "react-redux";
-import { getContacts } from "../../../redux/action";
+import { getContacts, setMessageStatus } from "../../../redux/action";
 import { useLocation } from "react-router";
 import queryString from "query-string";
 import { moveToTop } from "../../../utils/functions";
@@ -42,6 +42,7 @@ export default function Chat() {
   },[contacts]) 
   const handleChatChange = (chat,index) => {
     setCurrentChat(chat); 
+    // setMessageStatus(chat._id,currentUser._id)
     const newUser = users
     newUser[index].unRead.count = 0
     setUsers(newUser)

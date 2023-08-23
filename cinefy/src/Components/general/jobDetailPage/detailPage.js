@@ -47,7 +47,7 @@ const DetailPage = () => {
   }, []);
 
   async function handleClick() {
-    await applyJob(details._id, data._id);
+    data?._id ? await applyJob(details._id, data?._id) : navigate('/login')
     await getPostDetails(queryParams.id).then((res) => res && setDetails(res));
   }
 
