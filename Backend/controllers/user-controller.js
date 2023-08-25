@@ -205,25 +205,9 @@ const updateProfile = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  const token = req.cookies.token;
-  if (!token) {
-    return res.status(404).json({ message: "No token found" });
-  }
-
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) {
-      console.log(err.name);
-      if (err.name === "TokenExpiredError") {
-        return res
-          .status(401)
-          .json({ message: "Token expired. Please log in again" });
-      }
-      return res.status(400).json({ message: "Invalid Token" });
-    }
     res.clearCookie(`token`);
     return res.status(200).json({ message: "Succefully Logged out" });
-  });
-};
+}
 
 const createPost = async (req, res) => {
   const { ...details } = req.body;
