@@ -13,7 +13,7 @@ import Typography from "@mui/material/Typography";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import Container from "@mui/material/Container";
 import { Copyright, tiers } from "./config";
-import { updateSubscription } from "../../../redux/action";
+import { updateSubscription } from "../../../utils/api";
 import { useDispatch, useSelector } from "react-redux";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';

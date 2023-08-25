@@ -5,6 +5,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { createGlobalStyle } from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "./Components/general/home/style.css";
+ 
 const GlobalStyle = createGlobalStyle`
   body {
     fontFamily: 'Poppins';

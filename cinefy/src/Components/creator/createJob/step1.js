@@ -88,7 +88,7 @@ export default function AddressForm({ data, dispatch }) {
             {data?.image ? (
               <img
                 style={{ width: 240, height: 135, padding: 22 }}
-                src={typeof(data.image) == 'object'? URL.createObjectURL(data.image) : `http://localhost:5000/${data.image}`} 
+                src={typeof(data.image) == 'object'? URL.createObjectURL(data.image) : `${process.env.REACT_APP_BaseURL}/${data.image}`} 
               />
             ) : (
               <React.Fragment>

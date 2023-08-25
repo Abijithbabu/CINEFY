@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import { useTheme, styled } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
 import FeaturedCard from "./featuredCard";
-import { getPosts } from "../../../redux/action";
+import { getPosts } from "../../../utils/api";
 
 const StyledDots = styled("ul")(({ theme }) => ({
   "&.slick-dots": {

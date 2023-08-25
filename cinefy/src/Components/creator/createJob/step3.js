@@ -32,7 +32,7 @@ export default function AddressForm({ data,edit }) {
                   16: 9,
                   pt: "56.25%",
                 }}
-                image={typeof(data.image) == 'object'? URL.createObjectURL(data.image) : `http://localhost:5000/${data.image}`} 
+                image={typeof(data.image) == 'object'? URL.createObjectURL(data.image) : `${process.env.REACT_APP_BaseURL}/${data.image}`} 
               />
             )}
             <CardContent sx={{ flexGrow: 1 }}>

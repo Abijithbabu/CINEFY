@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../../Layouts/recruiterLayout'
-import { Box, Button, Container, Grid, Paper, Stack, SvgIcon, Typography } from '@mui/material'
-import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIcon'
+import { Box, Container, Stack, Typography } from '@mui/material'
 import Table from '../../Components/creator/manageContent/table'
-import { getPosts } from '../../redux/action'
+import { getPosts } from '../../utils/api'
 import { ApexChart } from '../../Components/admin/dashboard/apexChart'
 
 const ManageContent = () => {

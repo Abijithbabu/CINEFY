@@ -1,6 +1,4 @@
 import * as React from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
@@ -10,7 +8,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { getPosts } from "../../../redux/action";
+import { getPosts } from "../../../utils/api";
 import { Box, IconButton, Skeleton } from "@mui/material";
 import { useNavigate } from "react-router";
 import styled from "@emotion/styled";
@@ -150,7 +148,7 @@ export default function Album({filter}) {
                             }}
                             image={
                               card.image &&
-                              `http://localhost:5000/${card.image}`
+                              `${process.env.REACT_APP_BaseURL}/${card.image}`
                             }
                           />
                         </>

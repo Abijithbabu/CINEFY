@@ -92,7 +92,7 @@ export const TableContent = (props) => {
                                     </TableCell>
                                     <TableCell>
                                         <Stack alignItems="center" direction="row" >
-                                            <img src={`http://localhost:5000/${customer.image}`} width={150} height={80} />
+                                            <img src={`${process.env.REACT_APP_BaseURL}/${customer.image}`} width={150} height={80} />
                                         </Stack>
                                     </TableCell>
                                     <TableCell>

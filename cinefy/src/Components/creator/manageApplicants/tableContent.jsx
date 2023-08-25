@@ -20,7 +20,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { getStatus } from "../manageSubmissions/applicants";
 import { useState } from "react";
-import { updateStatus } from "../../../redux/action";
+import { updateStatus } from "../../../utils/api";
 export const TableContent = (props) => {
   const [status, setStatus] = useState([]);
   const handleClick = (data, id) => {

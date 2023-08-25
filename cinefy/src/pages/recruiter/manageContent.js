@@ -3,11 +3,11 @@ import Layout from '../../Layouts/recruiterLayout'
 import { Box, Button, Container, Grid, Stack, SvgIcon, Typography } from '@mui/material'
 import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIcon'
 import Table from '../../Components/creator/manageContent/table'
-import { getPosts } from '../../redux/action'
+import { getPosts } from '../../utils/api'
 import { useLocation } from 'react-router'
 import queryString from 'query-string'
 
-const ManageContent = ({select}) => {
+const ManageContent = () => {
   const location = useLocation()
   const queryParams = queryString.parse(location.search)
   const id = queryParams.id

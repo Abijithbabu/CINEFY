@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Layout as DashboardLayout } from "../../Layouts/dashboard/layout";
-import { getPosts } from "../../redux/action";
+import { getPosts } from "../../utils/api";
 import {
   Box,
   Button,

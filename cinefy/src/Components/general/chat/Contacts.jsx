@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { Avatar, Badge, Grid, Typography } from "@mui/material";
+import { Avatar, Grid, Typography } from "@mui/material";
 
 export default function Contacts({ contacts, changeChat, current }) {
   const data = useSelector((store) => store.data.user);

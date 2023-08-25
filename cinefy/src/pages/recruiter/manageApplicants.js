@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import ArrowDownOnSquareIcon from "@heroicons/react/24/solid/ArrowDownOnSquareIcon";
 import Table from "../../Components/creator/manageApplicants/table";
-import { getAllApplicants, getPostDetails, getUsers } from "../../redux/action";
+import { getAllApplicants, getPostDetails, getUsers } from "../../utils/api";
 import { useLocation } from "react-router";
 import queryString from "query-string";
 import { useSelector } from "react-redux";

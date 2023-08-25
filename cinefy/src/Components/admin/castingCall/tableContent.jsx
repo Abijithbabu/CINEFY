@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { Axios } from "../../../redux/action";
+import axios from "../../../utils/axios";
 function displayWords(paragraph) {
   const wordsArray = paragraph.trim().split(/\s+/);
   const displayedWords = wordsArray.slice(0, 12);
@@ -93,7 +93,7 @@ export const TableContent = (props) => {
                   <TableCell>
                     <Stack alignItems="center" direction="row">
                       <img
-                        src={`http://localhost:5000/${customer.image}`}
+                        src={`${process.env.REACT_APP_BaseURL}/${customer.image}`}
                         width={150}
                         height={80}
                       />
@@ -128,7 +128,7 @@ export const TableContent = (props) => {
                   <TableCell>
                     <Button
                       onClick={async() =>
-                        Axios.patch(`/blockpost?id=${customer._id}`)
+                        axios.patch(`/blockpost?id=${customer._id}`)
                         .then(()=>{
                             setData((prev) => {
                               prev[index].valid = !customer.valid

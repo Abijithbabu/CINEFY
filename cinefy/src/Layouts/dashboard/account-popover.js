@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Divider, MenuItem, MenuList, Popover, Typography } from '@mui/material';
-import { signOut } from '../../redux/action';
+import { signOut } from '../../utils/api';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 

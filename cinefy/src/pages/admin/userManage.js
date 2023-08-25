@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Layout as DashboardLayout } from "../../Layouts/dashboard/layout";
 import Customers from "../../Components/admin/customer/customers-page";
-import { getUsers } from "../../redux/action";
+import { getUsers } from "../../utils/api";
 import {
   Box,
   Button,

@@ -14,7 +14,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Step1 from "./step1";
 import Step2 from "./step2";
 import Step3 from "./step3";
-import { createPost, editPost } from "../../../redux/action";
+import { createPost, editPost } from "../../../utils/api";
 import { useSelector } from "react-redux";
 
 function Copyright() {

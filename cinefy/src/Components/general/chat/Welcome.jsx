@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Robot from "../../../assets/robot.gif";
 import { Typography } from "@mui/material";
+
 export default function Welcome({userName}) {
 
   return (

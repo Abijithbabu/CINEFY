@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { Alert, Box, Button, FormHelperText, Stack, Tab, Tabs, TextField, Typography } from '@mui/material';
 import { Layout as AuthLayout } from '../../Layouts/auth/layout';
 import { Link, useNavigate } from 'react-router-dom';
-import { findUser, resetPassword, sendOtp } from '../../redux/action';
+import { findUser, resetPassword, sendOtp } from '../../utils/api';
 import { useDispatch } from 'react-redux'
 import { Store } from 'react-notifications-component';
 

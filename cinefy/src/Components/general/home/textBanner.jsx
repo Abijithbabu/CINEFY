@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Container, Grid, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { styled } from "@mui/material/node/styles";
 import Box from "@mui/material/node/Box";
 
@@ -13,14 +13,6 @@ const container = {
       delayChildren: 0.5,
       staggerChildren: 0.3,
     },
-  },
-};
-
-const item = {
-  hidden: { y: 30, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
   },
 };
 

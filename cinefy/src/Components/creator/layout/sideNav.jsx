@@ -12,9 +12,8 @@ import ListItemText from "@mui/material/ListItemText";
 import ExitToAppRoundedIcon from "@mui/icons-material/ExitToAppRounded";
 import { items } from "./config";
 import { useLocation, useNavigate } from "react-router";
-import { signOut } from "../../../redux/action";
+import { signOut } from "../../../utils/api";
 import { useDispatch } from "react-redux";
-import { red } from "@mui/material/colors";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({

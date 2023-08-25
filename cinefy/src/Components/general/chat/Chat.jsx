@@ -1,12 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import { io } from "socket.io-client";
 import styled from "styled-components";
-import { host } from "../../../utils/APIRoutes";
 import ChatContainer from "./ChatContainer";
 import Contacts from "./Contacts";
 import Welcome from "./Welcome";
 import { useSelector } from "react-redux";
-import { getContacts, setMessageStatus } from "../../../redux/action";
+import { getContacts } from "../../../utils/api";
 import { useLocation } from "react-router";
 import queryString from "query-string";
 import { moveToTop } from "../../../utils/functions";
@@ -22,7 +21,7 @@ export default function Chat() {
   useEffect(()=>{
     async function getUsers() {
     if (currentUser) {
-      socket.current = io(host); 
+      socket.current = io(process.env.Base_URL); 
       socket.current.emit("add-user", currentUser._id);
       const data = await getContacts(currentUser._id);
       setContacts(data); 

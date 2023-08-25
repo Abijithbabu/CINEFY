@@ -2,11 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import ChatInput from "./ChatInput";
 import DoneAllIcon from '@mui/icons-material/DoneAll';
-import axios from "axios";
-import {
-  sendMessageRoute,
-  recieveMessageRoute,
-} from "../../../utils/APIRoutes";
+import axios from "../../../utils/axios";
 import { useSelector } from "react-redux";
 import { Avatar, Typography } from "@mui/material";
 
@@ -19,7 +15,7 @@ export default function ChatContainer({ currentChat, socket ,handleListRecent}) 
   useEffect(() => {
     currentChatRef.current = currentChat;
     async function getData() {
-      const response = await axios.post(recieveMessageRoute, {
+      const response = await axios.post(`/messages/getmsg`, {
         from: data?._id,
         to: currentChat._id,
       });
@@ -42,7 +38,7 @@ useEffect(()=>{
     msgs.push({ sender: data?._id, text: msg, time: Date.now() });
     setMessages(msgs)
     handleListRecent(currentChat?._id,msg,data?._id)
-    await axios.post(sendMessageRoute, {
+    await axios.post(`/messages/addmsg`, {
       from: data?._id,
       to: currentChat?._id,
       message: msg,

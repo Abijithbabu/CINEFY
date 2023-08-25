@@ -15,7 +15,7 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { useNavigate } from "react-router";
 import { timeAgo } from "../../../utils/functions";
-import { getPosts } from "../../../redux/action";
+import { getPosts } from "../../../utils/api";
 
 const container = {
   hidden: { opacity: 1, scale: 0 },
@@ -170,7 +170,7 @@ function Recommed() {
                       pt: "56.25%",
                       cursor: "pointer",
                     }}
-                    image={card.image && `http://localhost:5000/${card.image}`}
+                    image={card.image && `${process.env.REACT_APP_BaseURL}/${card.image}`}
                   />
                   <CardContent
                     onClick={() => navigate(`/DetailPage?id=${card._id}`)}

@@ -4,11 +4,10 @@ import Exp from "../../user/public-profile/Expreince";
 import Albums from "../../user/public-profile/Albums";
 import { Container, ThemeProvider } from "@mui/material";
 import Layout from "../../../Layouts/recruiterLayout";
-// import { styled } from "styled-components";
 import { createTheme, styled } from "@mui/material/styles";
 import { useLocation } from "react-router";
 import queryString from "query-string";
-import { getUserDetails } from "../../../redux/action";
+import { getUserDetails } from "../../../utils/api";
 
 const ViewProfile = () => {
     const [data, setData] = useState()

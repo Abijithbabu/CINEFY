@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Exp from "./cards";
-import Albums from "../../user/public-profile/Albums";
 import { Container, ThemeProvider } from "@mui/material";
-import { createTheme, styled } from "@mui/material/styles";
-import { useLocation } from "react-router";
-import queryString from "query-string";
-import { getPosts, getUserDetails } from "../../../redux/action";
+import { createTheme, styled } from "@mui/material/styles"
+import { getPosts } from "../../../utils/api";
 import {ApexChart} from './apexChart'
 const Tainer = styled(Container)({});
 const theme = createTheme({
@@ -15,8 +12,8 @@ const theme = createTheme({
 });
 
 const Hero = () => {
-  const [ data, setData] = React.useState([]);
-  React.useEffect(() => {
+  const [ data, setData] = useState([])
+  useEffect(() => {
     try {
       const fetchData = async () => {
         await getPosts().then((res) => res && setData(res));

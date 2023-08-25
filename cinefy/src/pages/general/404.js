@@ -30,7 +30,7 @@ const Page = () => (
           >
             <img
               alt="Under development"
-              src="http://localhost:5000/assets/error-404.png"
+              src={`${process.env.REACT_APP_BaseURL}/assets/error-404.png`}
               style={{
                 display: "inline-block",
                 maxWidth: "100%",
@@ -85,7 +85,7 @@ const ErrorComponent = () => {
   return (
     <CenteredDiv>
       <Div>
-       <Page/>
+        <Page />
       </Div>
     </CenteredDiv>
   );

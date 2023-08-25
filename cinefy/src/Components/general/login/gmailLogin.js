@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import MobileLogin from "../login/mobileLogin";
 import { Link, useNavigate } from "react-router-dom";
-import { Login, gLogin } from "../../../redux/action";
+import { Login, gLogin } from "../../../utils/api";
 import { useDispatch } from "react-redux";
 import { GoogleLogin } from "react-google-login";
 import { gapi } from "gapi-script";

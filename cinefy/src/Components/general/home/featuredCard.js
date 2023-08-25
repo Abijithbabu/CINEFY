@@ -92,7 +92,7 @@ const CourseCardItem = ({ card }) => {
               pt: "56.25%",
               cursor: "pointer",
             }}
-            image={card.image && `http://localhost:5000/${card.image}`}
+            image={card.image && `${process.env.REACT_APP_BaseURL}/${card.image}`}
           />
           <CardContent
             onClick={() => navigate(`/DetailPage?id=${card._id}`)}

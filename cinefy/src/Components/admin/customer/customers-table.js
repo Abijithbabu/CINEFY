@@ -13,10 +13,8 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { blockUser } from "../../../redux/action";
+import { blockUser } from "../../../utils/api";
 import { useState } from "react";
-// import { Scrollbar } from 'src/components/scrollbar';
-// import { getInitials } from 'src/utils/get-initials';
 
 export const CustomersTable = (props) => {
   const {

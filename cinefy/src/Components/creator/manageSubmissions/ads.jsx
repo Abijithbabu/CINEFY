@@ -5,7 +5,7 @@ import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
-import { getApplicants, getPosts } from "../../../redux/action";
+import { getApplicants, getPosts } from "../../../utils/api";
 import { Badge, Divider, Grid, Stack } from "@mui/material";
 import Applicants from "./applicants";
 import { Link } from "react-router-dom"
@@ -96,7 +96,7 @@ export default function CustomizedAccordions() {
             <Grid container>
               <Grid item xs={2.5} sm={2.5} md={2.5} lg={2.5}>
                 <img
-                  src={`http://localhost:5000/${item.image}`}
+                  src={`${process.env.REACT_APP_BaseURL}/${item.image}`}
                   width={120}
                   height={60}
                 />

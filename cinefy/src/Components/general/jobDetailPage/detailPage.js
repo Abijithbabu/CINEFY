@@ -19,13 +19,11 @@ import {
 } from "@mui/material";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import { red } from "@mui/material/colors";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import AddIcon from "@mui/icons-material/Add";
 import { useLocation, useNavigate } from "react-router-dom";
 import queryString from "query-string";
-import { applyJob, getPostDetails } from "../../../redux/action";
+import { applyJob, getPostDetails } from "../../../utils/api";
 import { useSelector } from "react-redux";
-import { Chat, ChatBubble } from "@mui/icons-material";
+import { Chat } from "@mui/icons-material";
 
 const DetailPage = () => {
   const location = useLocation();
@@ -57,7 +55,7 @@ const DetailPage = () => {
         maxWidth={9999}
         height={150}
         sx={{
-          background: `url(http://localhost:5000/${details?.image} ), lightgray 50% / cover no-repeat`,
+          background: `url(${process.env.REACT_APP_BaseURL}/${details?.image} ), lightgray 50% / cover no-repeat`,
           borderRadius: "4px",
         }}
       >
@@ -74,7 +72,7 @@ const DetailPage = () => {
             <Card sx={{}}>
               <CardMedia
                 sx={{ height: 140 }}
-                image={`http://localhost:5000/${details?.image}`}
+                image={`${process.env.REACT_APP_BaseURL}/${details?.image}`}
                 title="green iguana"
               />
               <CardContent>

@@ -1,7 +1,7 @@
 import { GoogleLogin } from 'react-google-login';
 import { gapi } from 'gapi-script'
 import { useEffect } from 'react'
-import { gLogin } from '../../redux/action';
+import { gLogin } from '../../../utils/api';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 const GOOGLE_CLIENT_ID = "57619033321-n0pnjp17n9up4tj5bil84lvlddtuarcn.apps.googleusercontent.com"

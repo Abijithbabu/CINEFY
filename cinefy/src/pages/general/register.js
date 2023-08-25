@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Alert, Box, Button, Stack, Tab, Tabs, TextField, Typography, styled } from '@mui/material';
-import { sendOtp, signUp } from '../../redux/action';
+import { sendOtp, signUp } from '../../utils/api';
 import { Layout as AuthLayout } from '../../Layouts/auth/layout';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';

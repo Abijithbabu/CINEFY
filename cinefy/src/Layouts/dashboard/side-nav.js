@@ -10,9 +10,7 @@ import {
   SvgIcon,
   Typography,
   useMediaQuery,
-} from "@mui/material";
-// import { Logo } from '../../Components/dashboard/components/logo';
-// import { Scrollbar } from '../../Components/dashboard/components/scrollbar';
+} from "@mui/material"
 import { items } from "./config";
 import { SideNavItem } from "./side-nav-item";
 import { useLocation } from "react-router";

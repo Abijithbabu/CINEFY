@@ -1,21 +1,13 @@
 import {
   Box,
   Card,
-  CardActions,
-  CardContent,
   CardMedia,
-  IconButton,
   Typography,
 } from "@mui/material";
 import React from "react";
 import Slider from "react-slick";
 import { styled } from "styled-components";
 import { motion } from "framer-motion";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
-import { useNavigate } from "react-router";
-import { timeAgo } from "../../../utils/functions";
-import { getPosts } from "../../../redux/action";
 
 const container = {
   hidden: { opacity: 1, scale: 0 },
@@ -75,26 +67,6 @@ const H1 = styled(Typography)({
 
   fontWeight: "800px",
   lineHeight: "normal",
-});
-
-const ImageSlot = styled(CardMedia)({
-  minHeight: "1px",
-  margin: "0px",
-  marginTop: "0px",
-  borderRadius: "2px",
-  backgroundRepeat: "no-repeat, no-repeat",
-  boxShadow: "0px 0px 1px 0px #07191D inset",
-});
-
-const CardTime = styled(Typography)({
-  color: "#484848",
-  textAlign: "right",
-
-  fontSize: "11px",
-  fontStyle: "normal",
-  fontWeight: "400",
-  lineHeight: "normal",
-  padding: "3px 6px 0px 0px",
 });
 
 const Inner = styled(Box)({

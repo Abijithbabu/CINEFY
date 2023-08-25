@@ -29,7 +29,7 @@ import { useSelector } from "react-redux";
 import Input from "@mui/material/Input";
 import CheckIcon from "@mui/icons-material/Check";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { updateProfile } from "../../../redux/action";
+import { updateProfile } from "../../../utils/api";
 import Cards from "./card";
 const styles = {
   card: {
