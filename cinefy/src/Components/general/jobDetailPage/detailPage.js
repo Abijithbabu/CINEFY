@@ -195,7 +195,7 @@ const DetailPage = () => {
                 </Table>
               </CardContent>
             </Card>
-            {details?.applicants.filter((x) => x.user === data?._id).length ? (
+            {details?.applicants?.filter((x) => x.user._id === data?._id).length ? (
               <Button sx={{ mt: 3, mb: 3 }} variant="blur">
                 Application Submitted
               </Button>
