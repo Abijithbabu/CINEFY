@@ -14,6 +14,8 @@ import { useNavigate } from "react-router";
 import styled from "@emotion/styled";
 import { timeAgo } from "../../../utils/functions";
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
+import axios from "axios";
 const container = {
   hidden: { opacity: 1, scale: 0 },
   visible: {
@@ -85,6 +87,7 @@ const defaultTheme = createTheme();
 
 export default function Album({filter}) {
   const navigate = useNavigate();
+  const user = useSelector(store=>store.data.user)
   const [checked, setChecked] = React.useState(false);
   const [data, setData] = React.useState([""]);
   const [loading, setLoading] = React.useState(true);
@@ -101,6 +104,10 @@ export default function Album({filter}) {
       console.log(error.message);
     }
   }, [filter]);
+  
+  const bookmark = async(id) =>{
+      await axios.patch(`http://localhost:5000/api/bookmark?id=${id}&user=${user._id}`).then(()=>setChecked(false))
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -177,7 +184,7 @@ export default function Album({filter}) {
                             <IconButton
                             sx={{pt:0,paddingRight:0 }}
                               aria-label="add to favorites"
-                              onClick={() => setChecked(!checked)}
+                              onClick={() => bookmark(card._id)}
                             >
                               {checked ? (
                                 <BookmarkIcon fontSize="small" />

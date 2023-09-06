@@ -9,7 +9,7 @@ require("dotenv").config();
 let otp;
 const sendOtp = async (req, res) => {
   otp = OTP.sendMessage(parseInt(req.body.phone), res);
-  return res.status(200).json({ message: otp });
+  return res.status(200).json({ code: otp });
 };
 
 const signup = async (req, res, next) => {
@@ -182,15 +182,11 @@ const resetPassword = async (req, res) => {
 
 const updateProfile = async (req, res) => {
   try {
-    // if (!req.file) {
-    //   return res.json({ error: 'Image is required' });
-    // }
-    // const filepath = req.file.path.replace(/\\/g, '/').slice(7);
-    const data = req.body;
-    console.log(data);
+    const photo = req.body.photo ?? req?.file?.filename
+    const {_id,...data} = req.body
     await User.updateOne(data._id, {
       $set: {
-        profile: data,
+        profile:{...data,photo},
       },
     });
 
@@ -307,9 +303,9 @@ const getPost = async (req, res) => {
       console.log(query);
       post = await CastingCall.find({
         $and: query,
-      });
+      }).populate('author')
     } else {
-      post = await CastingCall.find()
+      post = await CastingCall.find().populate('author')
     }
 
     if (!post) {
@@ -355,6 +351,21 @@ const applyJob = async (req, res) => {
   }
 };
 
+const bookmark = async (req, res) => {
+  try {
+    const update = await User.updateOne(
+      { _id: req.query.id },
+      { $push: { bookmarks: req.query.user } }
+    );
+    if (!update) {
+      return res.status(404).json({ message: "Something Went Wrong !" });
+    }
+
+    return res.status(200).json({ message: "Bookmarked Successfully" });
+  } catch (error) {
+    return new Error(error);
+  }
+};
 const getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find({ _id: { $ne: req.params.id } }).select([
@@ -503,5 +514,6 @@ module.exports = {
   getUserDetails,
   updateStatus,
   updateSubscription,
-  blockPost
+  blockPost,
+  bookmark
 };

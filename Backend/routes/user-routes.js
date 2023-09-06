@@ -1,5 +1,5 @@
 const express = require('express')
-const { signup, login, getUser, logout, resetPassword, updateProfile , sendOtp, createPost, getPost, getPostDetails, gLogin, applyJob, getAllUsers, editPost, getApplicants, getAllApplicants, getUserDetails, updateStatus, updateSubscription, blockPost } = require('../controllers/user-controller')
+const { signup, login, getUser, logout, resetPassword, updateProfile , sendOtp, createPost, getPost, getPostDetails, gLogin, applyJob, getAllUsers, editPost, getApplicants, getAllApplicants, getUserDetails, updateStatus, updateSubscription, blockPost, bookmark } = require('../controllers/user-controller')
 const router = express.Router()
 const {upload} = require('../middleware/multer')
 router.post('/signup',signup)
@@ -23,4 +23,5 @@ router.get('/getUserDetails',getUserDetails)
 router.get('/getPostDetails',getPostDetails)
 router.patch('/applyJob',applyJob)
 router.get("/allusers/:id", getAllUsers);
+router.patch('/bookmark',bookmark)
 module.exports = router   

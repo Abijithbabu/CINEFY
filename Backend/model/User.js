@@ -100,6 +100,9 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  bookmark:{
+    type:Array
+  }
 });
 // Encrypt password using bcrypt
 userSchema.pre("save", async function (next) {

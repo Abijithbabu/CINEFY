@@ -1,7 +1,6 @@
 import { Mail } from "@mui/icons-material";
 import {
   Avatar,
-  Badge,
   Box,
   Button,
   ButtonGroup,

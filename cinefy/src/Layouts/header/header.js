@@ -1,18 +1,15 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { ThemeProvider, createMuiTheme, useTheme } from "@mui/material/styles";
+import { ThemeProvider, useTheme } from "@mui/material/styles";
 import { Menu, Close } from "@mui/icons-material";
 import {
   Typography,
   Button,
   Avatar,
-  Tab,
-  Tabs,
   ButtonGroup,
-  Grid,
 } from "@mui/material";
 import { useNavigate } from "react-router";
 import { usePopover } from "../../hooks/use-popover";
@@ -20,9 +17,9 @@ import { AccountPopover } from "../dashboard/account-popover";
 import { useSelector } from "react-redux";
 import Navigation from "./navigation";
 import ChatIcon from "@mui/icons-material/Chat";
-import CreateJob from "../../Components/creator/createJob/createJob";
 import CardMembershipIcon from "@mui/icons-material/CardMembership";
 import { keyframes, styled } from "styled-components";
+import { createMuiTheme } from "@mui/material/node/styles/createTheme";
 
 const H2 = styled(Typography)`
   font-family: "Poppins", sans-serif;
@@ -50,11 +47,9 @@ const GlossyIconButton = styled(IconButton)`
 const Header = () => {
   const accountPopover = usePopover();
   const navigate = useNavigate();
-  const [method, setMethod] = useState(window.location.pathname);
   const [visibleMenu, setVisibleMenu] = useState(false);
   const { breakpoints } = useTheme();
   const matchMobileView = useMediaQuery(breakpoints.down("md"));
-  const variant = "primary";
   const data = useSelector((store) => store?.data?.user);
   const theme = createMuiTheme({
     typography: {
@@ -142,7 +137,7 @@ const Header = () => {
               {/* <AuthNavigation /> */}
               {data ? (
                 <>
-                  {data.type == "admin" ? (
+                  {data.type === "admin" ? (
                     <Button
                       onClick={() => navigate("/admin")}
                       variant="contained"
@@ -161,7 +156,7 @@ const Header = () => {
                           </Typography>
                         </IconButton>
                         <Button></Button>
-                        {new Date() >= new Date(data?.subscription?.validity) && (
+                        {data.type === "user" && (!data?.subscription || new Date() >= new Date(data?.subscription?.validity)) && (
                           <GlossyIconButton
                             onClick={() => navigate("/premium")}
                           >

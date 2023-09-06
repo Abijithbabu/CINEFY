@@ -26,10 +26,6 @@ export default function Pricing() {
     const user = useSelector((store) => store?.data?.user)
     const [open, setOpen] = React.useState(false);
     const dispatch = useDispatch()
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-  
     const handleClose = () => {
       setOpen(false);
     };
@@ -63,7 +59,7 @@ export default function Pricing() {
     };
 
     const rzp = new window.Razorpay(options);
-    new Date() >= new Date(user?.subscription?.validity) ? rzp.open() : setOpen(true)
+    !user?.subscription || new Date() >= new Date(user?.subscription?.validity) ? rzp.open() : setOpen(true)
   };
 
   const handlePaymentSuccess = (amt) => {
