@@ -56,11 +56,10 @@ const styles = {
 }; 
 
 const ProfileHeader = ({data}) => {
-
   return (
     <>
       <Grid container spacing={0}>
-        <Grid item xs={12} md={3} lg={3} marginTop={1}>
+        <Grid item xs={12} md={3} lg={3} marginTop={1} paddingTop={13}>
         <Avatar
               sx={styles.avatar}
               aria-label="recipe"
@@ -69,12 +68,10 @@ const ProfileHeader = ({data}) => {
             />
         </Grid>
         <Grid item xs={12} md={7.5} sm={12}>
-          <LeftSide paddingLeft={20}>
+          <LeftSide >
             <H2 paddingTop={13}>{data?.name}</H2> 
             <H3 >
-              Hello,I am a full-stack web developer. I adhere to the MVC
-              standard rule in my projects to facilitate modification and
-              understanding for all developers involved. 
+              {data?.profile?.bio}
             </H3>
           </LeftSide>
         </Grid>

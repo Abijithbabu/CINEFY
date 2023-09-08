@@ -4,12 +4,15 @@ import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ThemeProvider, useTheme } from "@mui/material/styles";
-import { Menu, Close } from "@mui/icons-material";
+import { Menu, Close, Home, Search, Chat, AccountCircle } from "@mui/icons-material";
 import {
   Typography,
   Button,
   Avatar,
   ButtonGroup,
+  AppBar,
+  Toolbar,
+  Grid,
 } from "@mui/material";
 import { useNavigate } from "react-router";
 import { usePopover } from "../../hooks/use-popover";
@@ -20,7 +23,6 @@ import ChatIcon from "@mui/icons-material/Chat";
 import CardMembershipIcon from "@mui/icons-material/CardMembership";
 import { keyframes, styled } from "styled-components";
 import { createMuiTheme } from "@mui/material/node/styles/createTheme";
-
 const H2 = styled(Typography)`
   font-family: "Poppins", sans-serif;
   font-weight: 600;
@@ -47,7 +49,6 @@ const GlossyIconButton = styled(IconButton)`
 const Header = () => {
   const accountPopover = usePopover();
   const navigate = useNavigate();
-  const [visibleMenu, setVisibleMenu] = useState(false);
   const { breakpoints } = useTheme();
   const matchMobileView = useMediaQuery(breakpoints.down("md"));
   const data = useSelector((store) => store?.data?.user);
@@ -55,7 +56,7 @@ const Header = () => {
     typography: {
       fontFamily: ["Poppins", ""].join(","),
     },
-});
+  });
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -106,9 +107,23 @@ const Header = () => {
             <Box
               sx={{ ml: "auto", display: { xs: "inline-flex", md: "none" } }}
             >
-              <IconButton onClick={() => setVisibleMenu(!visibleMenu)}>
-                <Menu />
-              </IconButton>
+                  <Avatar
+                    onClick={accountPopover.handleOpen}
+                    ref={accountPopover.anchorRef}
+                    sx={{
+                      cursor: "pointer",
+                      height: 40,
+                      width: 40,
+                      borderWidth: "15px",
+                      borderColor: "#000",
+                    }}
+                    src={data?.profilePic}
+                  />
+                  <AccountPopover
+                    anchorEl={accountPopover.anchorRef.current}
+                    open={accountPopover.open}
+                    onClose={accountPopover.handleClose}
+                  />
             </Box>
             <Box
               sx={{
@@ -125,7 +140,7 @@ const Header = () => {
                   zIndex: "appBar",
                   position: "fixed",
                   height: { xs: "100vh", md: "50vh" },
-                  top: visibleMenu ? 0 : "-120vh",
+                  top: "-120vh",
                   left: 0,
                 }),
               }}
@@ -195,17 +210,33 @@ const Header = () => {
                   <Button onClick={() => navigate("/register")}>Sign Up</Button>
                 </div>
               )}
-              {visibleMenu && matchMobileView && (
-                <IconButton
-                  sx={{
-                    position: "fixed",
-                    top: 10,
-                    right: 10,
-                  }}
-                  onClick={() => setVisibleMenu(!visibleMenu)}
-                >
-                  <Close />
-                </IconButton>
+              {matchMobileView && (
+                // <IconButton
+                //   sx={{
+                //     position: "fixed",
+                //     top: 10,
+                //     right: 10,
+                //   }}
+                //   onClick={() => setVisibleMenu(!visibleMenu)}
+                // >
+                //   <Close />
+                // </IconButton>
+                <AppBar position="fixed" sx={{ top: 'auto', bottom: 0, backgroundColor: '#000' }}>
+                  <Toolbar sx={{ display: 'flex', width: '100%', justifyContent: "space-around", padding: 0 }}>
+                    <IconButton color="inherit" onClick={() => navigate("/")}>
+                      <Home />
+                    </IconButton>
+                    <IconButton color="inherit" onClick={() => navigate("/findJobs")}>
+                      <Search />
+                    </IconButton>
+                    <IconButton color="inherit" onClick={() => navigate("/chat")}>
+                      <Chat />
+                    </IconButton>
+                    <IconButton color="inherit" onClick={() => navigate("/public-profile")}>
+                      <AccountCircle />
+                    </IconButton>
+                  </Toolbar>
+                </AppBar>
               )}
             </Box>
           </Box>

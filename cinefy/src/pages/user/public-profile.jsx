@@ -13,10 +13,12 @@ import ProfileHeader from "../../Components/user/public-profile/profileHeader";
 import Exp from "../../Components/user/public-profile/Expreince";
 import Album from "../../Components/general/jobs/cards";
 import Albums from "../../Components/user/public-profile/Albums";
+import { useSelector } from "react-redux";
 
 const Tainer = styled(Container)({});
 
-const page = () => {
+const Page = () => {
+  const user = useSelector((state) => state?.data?.user)
   const theme = createMuiTheme({
     typography: {
       fontFamily: ["Poppins", ""].join(","),
@@ -26,9 +28,9 @@ const page = () => {
     <>
       <ThemeProvider theme={theme}>
         {/* <Profile /> */}
-        <Tainer>
           <Header />
-          <ProfileHeader />
+        <Tainer>
+          <ProfileHeader data={user}/>
           <Exp/>
           <Albums/>
         </Tainer>
@@ -38,4 +40,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

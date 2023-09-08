@@ -49,8 +49,8 @@ const home = () => {
         <Recommed  marginBottom={10}></Recommed>
 
         
-        {/* <Features/>
-      <HomeTestimonial/> */}
+        <Features/>
+      <HomeTestimonial/>
         
         </ThemeProvider>
       </Container>

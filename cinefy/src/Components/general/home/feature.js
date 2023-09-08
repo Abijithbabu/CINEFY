@@ -75,7 +75,7 @@ const HomeFeature = () => {
     <Box id="feature" sx={{ py: { xs: 10, md: 14 }, backgroundColor: 'background.paper' }}>
       <Container>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={5}>
+          {/* <Grid item xs={0} md={5}>
             <Box sx={{ position: 'relative' }}>
             <ImageSlot delay={1.2} sx={{ borderRadius: '100px 0 100px 0' }} width="400px" height="566px" background="url('artisto.jpg'), lightgray 50% / cover no-repeat" />
               <Box
@@ -173,7 +173,7 @@ const HomeFeature = () => {
                 </Box>
               </Box>
             </Box>
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} md={7}>
             <Typography
               component="h2"
@@ -198,7 +198,7 @@ const HomeFeature = () => {
                   backgroundColor: 'unset',
                 }}
               >
-                Learning <br />
+                Job Searching <br />
                 <Box
                   sx={{
                     position: 'absolute',
@@ -215,8 +215,8 @@ const HomeFeature = () => {
             </Typography>
 
             <Typography sx={{ color: 'text.secondary', mb: 2, ml: { xs: 0, md: 4 } }}>
-              Set the way of learning according to your wishes with some of the benefits that you get us, so you on
-              enjoy the lessons that we provide.
+              Set the way of Job searching according to your wishes with some of the benefits that you get from us, so you on
+              enjoy the process of job searching.
             </Typography>
 
             <Grid container spacing={2} sx={{ ml: { xs: 0, md: 2 } }}>

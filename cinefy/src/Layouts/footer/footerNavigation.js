@@ -59,7 +59,7 @@ const NavigationItem = ({ label, path }) => {
       sx={{
         display: 'block',
         mb: 1,
-        color: 'primary.contrastText',
+        color: '#918D8C',
       }}
     >
       {label}
@@ -69,7 +69,7 @@ const NavigationItem = ({ label, path }) => {
 
 const FooterNavigation = () => {
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} >
       <Grid item xs={12} md={4}>
         <FooterSectionTitle title="Course" />
         {courseMenu.map(({ label, path }, index) => (

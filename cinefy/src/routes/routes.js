@@ -9,7 +9,7 @@ import Bookmarks from "../pages/user/bookmarked";
 import Blogs from "../pages/general/blogs";
 import EditProfile from "../pages/user/edit-profile";
 import DetailPage from "../pages/user/detailPage";
-import Dashboard from '../pages/admin/dashboard' 
+import Dashboard from '../pages/admin/dashboard'
 import UserManage from "../pages/admin/userManage";
 import RecruterManage from "../pages/admin/recruterManage";
 import ManagePosts from "../pages/admin/managePosts";
@@ -34,16 +34,16 @@ function routes() {
       <Route path="/resetPassword" element={<ResetPassword />} />
       <Route path="/findJobs" element={<Jobs />} />
       <Route path="/blogs" element={<Blogs />} />
-      <Route path="/public-profile" element={<Profile />} />
-      <Route path="/premium" element={<Premium />} />
       <Route element={<AdminPrivateRoute />}>
-        <Route path="/admin" element={<Dashboard/>} />
+        <Route path="/admin" element={<Dashboard />} />
         <Route path="/admin/account" element={<Account />} />
         <Route path="/admin/customers" element={<UserManage />} />
         <Route path="/admin/recruiters" element={<RecruterManage />} />
         <Route path="/admin/manage-posts" element={<ManagePosts />} />
       </Route>
       <Route element={<UserPrivateRoute />}>
+        <Route path="/public-profile" element={<Profile />} />
+        <Route path="/premium" element={<Premium />} />
         <Route path="/profile" element={<EditProfile />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/bookmarks" element={<Bookmarks />} />

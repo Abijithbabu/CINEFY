@@ -156,7 +156,7 @@ const HomeTestimonial = () => {
                   backgroundColor: 'unset',
                 }}
               >
-                Students{' '}
+                Clients{' '}
                 <Box
                   sx={{
                     position: 'absolute',

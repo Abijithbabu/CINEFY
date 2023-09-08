@@ -6,6 +6,7 @@ import {
   CardMedia,
   IconButton,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import React from "react";
 import Slider from "react-slick";
@@ -16,6 +17,7 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { useNavigate } from "react-router";
 import { timeAgo } from "../../../utils/functions";
 import { getPosts } from "../../../utils/api";
+import { useTheme } from "@emotion/react";
 
 const container = {
   hidden: { opacity: 1, scale: 0 },
@@ -104,6 +106,9 @@ const Inner =styled(Box)({
 
 function Recommed() {
   const navigate = useNavigate();
+  const { breakpoints } = useTheme();
+  const md = useMediaQuery(breakpoints.down("md"));
+  const sm = useMediaQuery(breakpoints.down("sm"));
   const [checked, setChecked] = React.useState(false);
   const [data, setData] = React.useState([""]);
   React.useEffect(() => {
@@ -119,9 +124,9 @@ function Recommed() {
 
   var settings = {
     dots: false,
-    infinite: false,
+    infinite: true,
     speed: 200,
-    slidesToShow: 4,
+    slidesToShow: md ?  sm ? 1 : 2 : 4,
     slidesToScroll: 1,
     autoplay: true, 
     autoplaySpeed: 3000,
