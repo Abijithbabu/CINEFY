@@ -25,15 +25,18 @@ import Profile from "../pages/user/public-profile";
 import Chat from "../pages/general/chat";
 import ViewProfile from "../Components/creator/userProfile/view-profile";
 import Premium from "../pages/user/premium";
+import AuthRoutes from "./authRoutes";
 function routes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/resetPassword" element={<ResetPassword />} />
       <Route path="/findJobs" element={<Jobs />} />
       <Route path="/blogs" element={<Blogs />} />
+      <Route element={<AuthRoutes />} >
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/resetPassword" element={<ResetPassword />} />
+      </Route>
       <Route element={<AdminPrivateRoute />}>
         <Route path="/admin" element={<Dashboard />} />
         <Route path="/admin/account" element={<Account />} />
