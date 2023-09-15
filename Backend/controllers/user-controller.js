@@ -51,7 +51,7 @@ const login = async (req, res) => {
   console.log(email, password, process.env.JWT_SECRET);
   let existingUser;
   try {
-    existingUser = await User.findOne({ email: email });
+    existingUser = await User.findOne({ email: email }).populate('bookmarks')
   } catch (error) {
     return new Error(error);
   }
@@ -95,7 +95,7 @@ const gLogin = async (req, res) => {
   console.log(email, googleId);
   let existingUser;
   try {
-    existingUser = await User.findOne({ email: email });
+    existingUser = await User.findOne({ email: email }).populate('bookmarks')
 
     if (existingUser) {
       const isPassword = await existingUser.matchPasswords(googleId);

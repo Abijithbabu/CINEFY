@@ -100,9 +100,13 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  bookmarks:{
-    type:Array
-  }
+  bookmarks:[
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "castingCall",
+        required: true,
+      }
+  ]
 });
 // Encrypt password using bcrypt
 userSchema.pre("save", async function (next) {
