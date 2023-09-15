@@ -100,7 +100,7 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  bookmark:{
+  bookmarks:{
     type:Array
   }
 });
