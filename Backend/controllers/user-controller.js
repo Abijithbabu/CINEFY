@@ -183,17 +183,16 @@ const resetPassword = async (req, res) => {
 const updateProfile = async (req, res) => {
   try {
     const photo = req.body.photo ?? req?.file?.filename
-    const {_id,...data} = req.body
-    await User.updateOne(data._id, {
+    const { _id, ...data } = req.body
+    const status = await User.updateOne({ _id: data._id }, {
       $set: {
-        profile:{...data,photo},
+        profile: { ...data, photo },
       },
     });
-
-    const user = await User.findById(data._id);
-    console.log("profile----", user);
-
-    res.json({ success: true, message: "profile updated successfully" });
+    if (!status) {
+      res.status(400).json({ success: false, message: "something went wrong !" });
+    }
+    res.status(200).json({ success: true, message: "profile updated successfully" });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: "Internal server error" });
@@ -201,8 +200,8 @@ const updateProfile = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-    res.clearCookie(`token`);
-    return res.status(200).json({ message: "Succefully Logged out" });
+  res.clearCookie(`token`);
+  return res.status(200).json({ message: "Succefully Logged out" });
 }
 
 const createPost = async (req, res) => {
@@ -276,9 +275,9 @@ const getPost = async (req, res) => {
     const data = req.body;
     const type = data["Project Type"];
     const date = data["Date of Posting"];
-    const { Role, Age, Gender, Languages,search } = data;
-    const query = [{valid:true}];
-    console.log(type, date, Role, Age, Gender, Languages , search);
+    const { Role, Age, Gender, Languages, search } = data;
+    const query = [{ valid: true }];
+    console.log(type, date, Role, Age, Gender, Languages, search);
     let totalCount = 0;
     for (const key in data) {
       if (data.hasOwnProperty(key) && Array.isArray(data[key])) {
@@ -296,10 +295,12 @@ const getPost = async (req, res) => {
       }
       Role.length && query.push({ roles: { $in: Role } });
       type.length && query.push({ projectType: { $in: type } });
-      search && query.push({    $or: [
-        { title: { $regex: search, $options: 'i' } }, 
-        { director: { $regex: search, $options: 'i' } }
-      ]})
+      search && query.push({
+        $or: [
+          { title: { $regex: search, $options: 'i' } },
+          { director: { $regex: search, $options: 'i' } }
+        ]
+      })
       console.log(query);
       post = await CastingCall.find({
         $and: query,
@@ -480,14 +481,14 @@ const updateSubscription = async (req, res, next) => {
   try {
     const updated = await User.updateOne(
       { _id: id },
-      { $set: { "subscription": {type,validity} } }
+      { $set: { "subscription": { type, validity } } }
     );
     if (updated) {
       console.log("Subscription added successfully.");
       const user = await User.findOne({ _id: id });
       return res
         .status(200)
-        .json({user, message: "Subscription added successfully." });
+        .json({ user, message: "Subscription added successfully." });
     }
   } catch (error) {
     console.log(error.message);
