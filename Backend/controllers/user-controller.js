@@ -184,15 +184,15 @@ const updateProfile = async (req, res) => {
   try {
     const photo = req.body.photo ?? req?.file?.filename
     const { _id, ...data } = req.body
-    const status = await User.updateOne({ _id: data._id }, {
+    const status = await User.updateOne({ _id}, {
       $set: {
         profile: { ...data, photo },
       },
     });
     if (!status) {
-      res.status(400).json({ success: false, message: "something went wrong !" });
+      return res.status(400).json({ success: false, message: "something went wrong !" });
     }
-    res.status(200).json({ success: true, message: "profile updated successfully" });
+    return res.status(200).json({ success: true, message: "profile updated successfully" });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: "Internal server error" });
