@@ -184,7 +184,7 @@ const updateProfile = async (req, res) => {
   try {
     const photo = req.body.photo ?? req?.file?.filename
     const { _id, ...data } = req.body
-    const status = await User.updateOne({ _id}, {
+    const status = await User.updateOne({ _id }, {
       $set: {
         profile: { ...data, photo },
       },
@@ -354,15 +354,21 @@ const applyJob = async (req, res) => {
 
 const bookmark = async (req, res) => {
   try {
-    const update = await User.updateOne(
-      { _id: req.query.id },
-      { $push: { bookmarks: req.query.user } }
-    );
-    if (!update) {
-      return res.status(404).json({ message: "Something Went Wrong !" });
-    }
+    const document = await User.findOne({ _id: req.query.user });
 
-    return res.status(200).json({ message: "Bookmarked Successfully" });
+    if (document?.bookmarks?.includes(req.query.id)) {
+      await User.updateOne(
+        { _id: req.query.user },
+        { $pull: { bookmarks: req.query.id } }
+      )
+      return res.status(200).json({ message: "Bookmark removed" });
+    } else {
+      await User.updateOne(
+        { _id: req.query.user },
+        { $addToSet: { bookmarks: req.query.id } }
+      )
+      return res.status(200).json({ message: "Bookmarked Successfully" });
+    }    
   } catch (error) {
     return new Error(error);
   }
