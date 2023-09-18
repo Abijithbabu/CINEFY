@@ -278,23 +278,14 @@ const getPost = async (req, res) => {
     const { Role, Age, Gender, Languages, search } = data;
     const query = [{ valid: true }];
     console.log(type, date, Role, Age, Gender, Languages, search);
-    let totalCount = 0;
-    for (const key in data) {
-      if (data.hasOwnProperty(key) && Array.isArray(data[key])) {
-        totalCount += data[key].length;
-      }
-    }
-    search && totalCount++
-    if (totalCount)
-      data?.Age?.[0] === 0 && data?.Age?.[1] === 0
-        ? (totalCount -= 2)
-        : totalCount--;
-    if (totalCount) {
-      if (Age[1] !== 0 || Age[0] !== 0) {
+
+      if(Age && Age.length && (Age[1] !== 0 || Age[0] !== 0)) {
         query.push({ age: { $elemMatch: { $gte: Age[0], $lte: Age[1] } } });
       }
-      Role.length && query.push({ roles: { $in: Role } });
-      type.length && query.push({ projectType: { $in: type } });
+      Role && Role.length && query.push({ roles: { $in: Role } });
+      type && type.length && query.push({ projectType: { $in: type } });
+      Gender && Gender.length && query.push({gender:{$in:Gender}})
+      Languages && Languages.length && query.push({language:{$in : Languages}})
       search && query.push({
         $or: [
           { title: { $regex: search, $options: 'i' } },
@@ -305,9 +296,6 @@ const getPost = async (req, res) => {
       post = await CastingCall.find({
         $and: query,
       }).populate('author')
-    } else {
-      post = await CastingCall.find().populate('author')
-    }
 
     if (!post) {
       return res.status(404).json({ message: "Something Went Wrong !" });

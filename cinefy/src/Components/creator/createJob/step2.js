@@ -140,9 +140,10 @@ export default function AddressForm({ data, dispatch ,edit}) {
             value={data.gender || ''}
             onChange={handleChange}
           >
-            <FormControlLabel value="female" control={<Radio />} label="Female" />
-            <FormControlLabel value="male" control={<Radio />} label="Male" />
-            <FormControlLabel value="other" default control={<Radio />} label="No prefered gender" />
+            <FormControlLabel value="Female" control={<Radio />} label="Female" />
+            <FormControlLabel value="Male" control={<Radio />} label="Male" />
+            <FormControlLabel value="Others" default control={<Radio />} label="Others" />
+            <FormControlLabel value="Not Applicable" default control={<Radio />} label="No prefered gender" />
           </RadioGroup>
         </Grid>
         <Grid item xs={12} sm={6}>
