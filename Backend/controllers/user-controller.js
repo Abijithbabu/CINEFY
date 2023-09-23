@@ -195,7 +195,7 @@ const updateProfile = async (req, res) => {
     return res.status(200).json({ success: true, message: "profile updated successfully" });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -205,14 +205,10 @@ const logout = async (req, res) => {
 }
 
 const createPost = async (req, res) => {
-  const { ...details } = req.body;
-  let data = details;
-  data.age = data.age.split(",").map((age) => parseInt(age.trim(), 10));
-  data.roles = data.roles.split(",").map((roles) => roles.trim());
-  data.language = data.language.split(",").map((language) => language.trim());
-  try {
+  const { ...data } = req.body;
+  try { 
     if (!req.file) {
-      return res.json({ error: "Image is required" });
+      return res.status(499).json({ message: "Image is required" });
     }
     const filepath = req.file.path.replace(/\\/g, "/").slice(7);
     const post = new CastingCall({
@@ -221,7 +217,7 @@ const createPost = async (req, res) => {
     });
     await post.save();
     if (!post) {
-      return res.status(404).json({ message: "Something Went Wrong !" });
+      return res.status(400).json({ message: "Something Went Wrong !" });
     }
 
     return res
