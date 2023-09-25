@@ -6,14 +6,16 @@ import Table from '../../Components/creator/manageContent/table'
 import { getCastingCalls } from '../../utils/api'
 import { useLocation } from 'react-router'
 import queryString from 'query-string'
+import { useSelector } from 'react-redux'
 
 const ManageContent = () => {
   const location = useLocation()
   const queryParams = queryString.parse(location.search)
   const id = queryParams.id
+  const _id = useSelector(state=>state.data.user._id)
     const [data, setData] = useState([]);
     useEffect(() => {
-      getCastingCalls().then((res) => setData(res))
+      getCastingCalls(_id).then((res) => setData(res))
     }, []);  return (
     <>
       <Layout>
