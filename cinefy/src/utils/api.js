@@ -47,6 +47,7 @@ export const createPost = errorHandler((data) => axios.post(`/createPost`, data)
 export const editPost = errorHandler((data) => axios.post(`/editPost`, data))
 
 export const getPosts = errorHandler((data) => axios.post(`/getPosts`, data))
+export const getCastingCalls = errorHandler((id) => axios.get(`/getPosts?id=${id}`))
 
 export const getApplicants = errorHandler((data) => axios.post(`/getApplicants`, data))
 

@@ -303,6 +303,22 @@ const getPost = async (req, res) => {
   }
 };
 
+const getCastingCalls = async (req, res) => {
+  try {
+    const post = await CastingCall.find({ _id: req.query.id }).populate(
+      "applicants.user",
+      ["email", "name", "profilePic"]
+    )
+    if (!post) {
+      return res.status(404).json({ message: "Something Went Wrong !" });
+    }
+    return res.status(200).json(post);
+  } catch (error) {
+    console.log(error.message);
+    return new Error(error);
+  }
+};
+
 const getPostDetails = async (req, res) => {
   try {
     const post = await CastingCall.findOne({ _id: req.query.id }).populate(
@@ -497,6 +513,7 @@ module.exports = {
   createPost,
   editPost,
   getPost,
+  getCastingCalls,
   getPostDetails,
   applyJob,
   getAllUsers,

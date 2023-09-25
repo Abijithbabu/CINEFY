@@ -3,7 +3,7 @@ import Layout from '../../Layouts/recruiterLayout'
 import { Box, Button, Container, Grid, Stack, SvgIcon, Typography } from '@mui/material'
 import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIcon'
 import Table from '../../Components/creator/manageContent/table'
-import { getPosts } from '../../utils/api'
+import { getCastingCalls } from '../../utils/api'
 import { useLocation } from 'react-router'
 import queryString from 'query-string'
 
@@ -13,7 +13,7 @@ const ManageContent = () => {
   const id = queryParams.id
     const [data, setData] = useState([]);
     useEffect(() => {
-      getPosts().then((res) => setData(res))
+      getCastingCalls().then((res) => setData(res))
     }, []);  return (
     <>
       <Layout>
