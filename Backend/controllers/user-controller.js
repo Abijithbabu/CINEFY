@@ -305,7 +305,7 @@ const getPost = async (req, res) => {
 
 const getCastingCalls = async (req, res) => {
   try {
-    const post = await CastingCall.find({ _id: req.query.id }).populate(
+    const post = await CastingCall.find({ author: req.query.id }).populate(
       "applicants.user",
       ["email", "name", "profilePic"]
     )
