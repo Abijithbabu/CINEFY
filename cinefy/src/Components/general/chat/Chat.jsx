@@ -21,7 +21,7 @@ export default function Chat() {
   useEffect(()=>{
     async function getUsers() {
     if (currentUser) {
-      socket.current = io(process.env.Base_URL); 
+      socket.current = io(process.env.REACT_APP_BaseURL); 
       socket.current.emit("add-user", currentUser._id);
       const data = await getContacts(currentUser._id);
       setContacts(data); 
