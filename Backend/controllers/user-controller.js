@@ -51,7 +51,7 @@ const login = async (req, res) => {
   console.log(email, password, process.env.JWT_SECRET);
   let existingUser;
   try {
-    existingUser = await User.findOne({ email: email }).populate('bookmarks')
+    existingUser = await User.findOne({ email: email })
   } catch (error) {
     return new Error(error);
   }
@@ -95,7 +95,7 @@ const gLogin = async (req, res) => {
   console.log(email, googleId);
   let existingUser;
   try {
-    existingUser = await User.findOne({ email: email }).populate('bookmarks')
+    existingUser = await User.findOne({ email: email })
 
     if (existingUser) {
       const isPassword = await existingUser.matchPasswords(googleId);
@@ -373,6 +373,14 @@ const bookmark = async (req, res) => {
     return new Error(error);
   }
 };
+const getBookmarks = async (req, res) => {
+  try {
+    const document = await User.findOne({ _id: req.query.id }).populate('bookmarks')
+      return res.status(200).json({ message: "Bookmarks fetched Successfully",data:document?.bookmarks });
+  } catch (error) {
+    return new Error(error);
+  }
+};
 const getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find({ _id: { $ne: req.params.id } }).select([
@@ -438,7 +446,7 @@ const getAllApplicants = async (req, res, next) => {
 const getUserDetails = async (req, res, next) => {
   try {
     console.log(req.query.id);
-    const user = await User.findOne({ _id: req.query.id }).populate('bookmarks')
+    const user = await User.findOne({ _id: req.query.id })
     console.log(user);
     return res.json(user);
   } catch (error) {
@@ -523,5 +531,6 @@ module.exports = {
   updateStatus,
   updateSubscription,
   blockPost,
-  bookmark
+  bookmark,
+  getBookmarks
 };
