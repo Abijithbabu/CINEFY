@@ -438,7 +438,7 @@ const getAllApplicants = async (req, res, next) => {
 const getUserDetails = async (req, res, next) => {
   try {
     console.log(req.query.id);
-    const user = await User.findOne({ _id: req.query.id });
+    const user = await User.findOne({ _id: req.query.id }).populate('bookmarks')
     console.log(user);
     return res.json(user);
   } catch (error) {
